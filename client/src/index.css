@@ -1,37 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer&display=swap');
 
-
-
-
-
-
-
+* {
+      margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
 
 body {
-  margin: 0;
 font-family: 'IM Fell Great Primer', serif;
-font-size: large;
+font-size: 130%;
 background: rgb(255, 243, 184);
   background: radial-gradient(circle, rgba(255, 243, 184, 1) 0%, rgba(196, 231, 183, 1) 100%);
 }
 
-#bird-logo {
-  width: 50%;
-  min-width: 13rem;
-  max-width: 20rem;
-}
-
-.logo-and-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-top: 7rem;
-  text-align: justify;
-}
-
-.logo-and-text p {
-  margin-left: 10% ;
-  margin-right: 10%;
-}

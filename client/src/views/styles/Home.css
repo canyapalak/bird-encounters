@@ -1,0 +1,80 @@
+#bird-logo {
+  width: 50%;
+  min-width: 13rem;
+  max-width: 20rem;
+}
+
+.logo-and-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 8rem;
+  text-align: justify;
+}
+
+.logo-and-text p {
+    margin-top: 8%;
+    margin-bottom: 5%;
+  margin-left: 10% ;
+  margin-right: 10%;
+}
+
+.logo-and-text {
+  animation: fadeIn 6s;
+  -webkit-animation: fadeIn 6s;
+  -moz-animation: fadeIn 6s;
+  -o-animation: fadeIn 6s;
+  -ms-animation: fadeIn 6s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
