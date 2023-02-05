@@ -1,13 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer&display=swap');
+
+
+
+
+
+
+
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+font-family: 'IM Fell Great Primer', serif;
+font-size: large;
+background: rgb(255, 243, 184);
+  background: radial-gradient(circle, rgba(255, 243, 184, 1) 0%, rgba(196, 231, 183, 1) 100%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#bird-logo {
+  width: 50%;
+  min-width: 13rem;
+  max-width: 20rem;
+}
+
+.logo-and-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 7rem;
+  text-align: justify;
+}
+
+.logo-and-text p {
+  margin-left: 10% ;
+  margin-right: 10%;
 }

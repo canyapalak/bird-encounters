@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import BirdLogo from "./components/assets/bird-logo.png";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <div className="logo-and-text">
+        <img src={BirdLogo} alt="Logo" id="bird-logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Welcome to Bird Encounters, a social platform where bird enthusiasts
+          share their encounters with rare endemic European birds and provide
+          information about these marvellous experiences. Become a part of this
+          community and contribute to our unique archive of bird encounters.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </div>
     </div>
   );
 }
