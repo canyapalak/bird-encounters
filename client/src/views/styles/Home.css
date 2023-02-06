@@ -1,5 +1,6 @@
 .landing-img img {
-
+width: 27rem;
+height: 40rem;
 }
 
 .landing-img {
@@ -62,5 +63,24 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-height: 785px) {
+.landing-img {
+
+}
+
+.landing-img img {
+  width: 20rem;
+  height: 29rem;
+}
+}
+
+@media (max-height: 555px) {
+
+  .landing-img img {
+    width: 14rem !important;
+    height: 20rem !important;
   }
 }

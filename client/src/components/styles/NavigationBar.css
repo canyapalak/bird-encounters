@@ -1,10 +1,8 @@
-a {
-    color: white;
-}
+
 
 
 .header {
-    background-color: rgb(41, 40, 28);
+    background-color: rgb(42, 48, 41);
     position: fixed;
     width: 100%;
     z-index: 3;
@@ -15,7 +13,7 @@ a {
     padding: 0;
     list-style: none;
     overflow: hidden;
-    background-color: rgb(39, 37, 37);
+    background-color: rgb(42, 48, 41);
 }
 
 .header li a {
@@ -24,6 +22,7 @@ a {
     padding-bottom: 10px;
     padding-left: 20px;
     padding-top: 20px;
+    color: white;
 }
 
 .header li a:hover,
@@ -35,9 +34,11 @@ a {
 .header .logo {
     display: block;
     float: left;
-    font-size: 2em;
-    padding: 10px 20px;
+    font-size: 1.7em;
+    padding-left: 1rem;
+    padding-top: 1rem;
     text-decoration: none;
+    color: white;
 }
 
 /* menu */
@@ -46,6 +47,7 @@ a {
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
+    color: rgb(204, 241, 141)
 }
 
 /* menu icon */
@@ -114,9 +116,9 @@ a {
     top: 0;
 }
 
-/* 48em = 768px */
 
-@media (min-width: 48em) {
+
+@media (min-width: 778px) {
     .header li {
         float: left;
     }

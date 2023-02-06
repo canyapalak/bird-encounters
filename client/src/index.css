@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alegreya&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 html {
       margin: 0 !important;
@@ -8,9 +8,9 @@ html {
 }
 
 body {
-font-family: "Alegre";
+font-family: 'Josefin Sans';
 font-size: 130%;
 height: 100%;
-margin: 0.1px;
+margin: 0.2px;
 }
 
