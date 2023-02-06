@@ -5,7 +5,7 @@ function NavigationBar() {
     <>
       <header className="header">
         <a href="https://www.google.com" className="logo">
-          Home
+          bird encounters
         </a>
         <input className="menu-btn" type="checkbox" id="menu-btn" />
         <label className="menu-icon" for="menu-btn">
@@ -14,9 +14,6 @@ function NavigationBar() {
         <ul className="menu">
           <li>
             <a href="https://www.google.com">Encounters</a>
-          </li>
-          <li>
-            <a href="https://www.google.com">Profile</a>
           </li>
           <li>
             <a href="https://www.google.com">Log In</a>

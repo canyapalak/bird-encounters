@@ -1,27 +1,13 @@
-#bird-logo {
-  width: 50%;
-  min-width: 13rem;
-  max-width: 20rem;
+.landing-img img {
+
 }
 
-.logo-and-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding-top: 8rem;
-  text-align: justify;
-}
+.landing-img {
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      position: fixed;
 
-.logo-and-text p {
-    margin-top: 8%;
-    margin-bottom: 5%;
-  margin-left: 10% ;
-  margin-right: 10%;
-}
-
-.logo-and-text {
   animation: fadeIn 6s;
   -webkit-animation: fadeIn 6s;
   -moz-animation: fadeIn 6s;
