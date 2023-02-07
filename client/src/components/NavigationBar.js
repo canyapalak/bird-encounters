@@ -3,8 +3,8 @@ import "../components/styles/NavigationBar.css";
 function NavigationBar() {
   return (
     <>
-      <header className="header">
-        <a href="https://www.google.com" className="logo">
+      <header className="nav-bar">
+        <a href="/" className="logo">
           bird encounters
         </a>
         <input className="menu-btn" type="checkbox" id="menu-btn" />
@@ -13,7 +13,7 @@ function NavigationBar() {
         </label>
         <ul className="menu">
           <li>
-            <a href="https://www.google.com">Encounters</a>
+            <a href="/encounters">Encounters</a>
           </li>
           <li>
             <a href="https://www.google.com">Log In</a>

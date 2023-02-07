@@ -1,0 +1,28 @@
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.one-card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.card-img img {
+    width: 20rem;
+}
+
+#small-logo {
+    width: 15vh;
+    margin-top: 8rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
