@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const postSchema = new Schema({
+const encounterSchema = new Schema({
   username: { type: String },
   coordinates: [
     {
@@ -25,6 +25,6 @@ const postSchema = new Schema({
   favs: { type: Number },
 });
 
-const postModel = mongoose.model("post", postSchema);
+const encounterModel = mongoose.model("encounter", encounterSchema);
 
-export default postModel;
+export default encounterModel;

@@ -4,7 +4,7 @@ import router from "./routes/test.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
-import postRoutes from "./routes/postRoutes.js";
+import encounterRoutes from "./routes/encounterRoutes.js";
 
 const app = express();
 
@@ -22,7 +22,7 @@ const mongoDBConnection = async () => {
 
 const loadRoutes = () => {
   app.use("/api", router);
-  app.use("/api/posts", postRoutes);
+  app.use("/api/encounters", encounterRoutes);
 };
 
 const startServer = () => {

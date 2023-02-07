@@ -3,6 +3,9 @@
     position: fixed;
     width: 100%;
     z-index: 3;
+    overflow: hidden;
+    top: 0;
+
 }
 
 .nav-bar ul {

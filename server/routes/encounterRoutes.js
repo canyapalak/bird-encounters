@@ -1,13 +1,13 @@
 import express from "express";
-import postModel from "../models/postModel.js";
+import encounterModel from "../models/encounterModel.js";
 const router = express.Router();
 
 router.get("/all", async (req, res) => {
   try {
-    const allPosts = await postModel.find({});
-    console.log("allPosts", allPosts);
+    const allEncounters = await encounterModel.find({});
+    console.log("allEncounters", allEncounters);
     res.status(200).json({
-      allPosts,
+      allEncounters,
     });
   } catch (error) {
     res.status(500).json({

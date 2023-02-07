@@ -10,13 +10,15 @@ function Home() {
       </>
 
       <div className="home-container">
-        <img src={BirdLogo} alt="Logo" />
-        <p>
-          Welcome to Bird Encounters, a social platform where bird enthusiasts
-          share their encounters with rare endemic European birds and provide
-          information about these marvellous experiences. Become a part of this
-          community and contribute to our unique archive of bird encounters.
-        </p>
+        <span>
+          <p>
+            Welcome to Bird Encounters, a social platform where bird enthusiasts
+            share their encounters with rare endemic European birds and provide
+            information about these marvellous experiences...
+          </p>
+        </span>
+        <span></span>
+        <span></span>
       </div>
     </>
   );
