@@ -3,7 +3,6 @@
   margin-top: 10rem;
   margin-left: 10%;
   margin-right: 10%;
-  color:rgb(25, 21, 17);
 }
 
 @media (max-width: 606px) {
@@ -11,7 +10,6 @@
     margin-top: 6rem;
     margin-left: 5%;
     margin-right: 5%;
-    color: rgb(25, 21, 17);
     font-size: 100%;
   }
 }
@@ -23,8 +21,7 @@
 .home-container {
   position:absolute;
   min-height: 100%;
-  /* background-color: rgb(218, 241, 194); */
-  background-image: url("./assets/landing.png");
+  background-image: url("../../components/assets/landing.png");
   background-repeat: no-repeat;
   background-position: center bottom;
   background-attachment: fixed;

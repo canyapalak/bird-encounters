@@ -1,0 +1,20 @@
+.title-and-logo p {
+    margin-top: -3rem;
+    margin-bottom: -0.5rem;
+    font-size: 160%;
+}
+
+.title-and-logo {
+    margin-top: -1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#line {
+    margin-left: 10%;
+    margin-right: 10%;
+    border-top: 4px dotted rgb(46, 43, 41);
+    opacity: 0.5;
+}

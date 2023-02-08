@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Home from "./views/Home";
-import Encounters from "./views/Encounters";
+import Home from "./views/Home/Home";
+import Encounters from "./views/Encounters/Encounters";
 
 function App() {
   return (

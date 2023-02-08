@@ -1,6 +1,5 @@
-import "./styles/Home.css";
-import BirdLogo from "../components/assets/bird-logo.png";
-import NavigationBar from "../components/NavigationBar";
+import "./Home.css";
+import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
 function Home() {
   return (
@@ -13,7 +12,7 @@ function Home() {
         <span>
           <p>
             Welcome to Bird Encounters, a social platform where bird enthusiasts
-            share their encounters with rare endemic European birds and provide
+            share their encounters with rare endemic European birds and record
             information about these marvellous experiences...
           </p>
         </span>

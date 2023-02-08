@@ -1,4 +1,4 @@
-import "../components/styles/NavigationBar.css";
+import "./NavigationBar.css";
 
 function NavigationBar() {
   return (
@@ -13,13 +13,13 @@ function NavigationBar() {
         </label>
         <ul className="menu">
           <li>
-            <a href="/encounters">Encounters</a>
+            <a href="/encounters">encounters</a>
           </li>
           <li>
-            <a href="https://www.google.com">Log In</a>
+            <a href="https://www.google.com">log in</a>
           </li>
           <li>
-            <a href="https://www.google.com">Sign Up</a>
+            <a href="https://www.google.com">sign up</a>
           </li>
         </ul>
       </header>

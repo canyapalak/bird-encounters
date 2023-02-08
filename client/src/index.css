@@ -9,6 +9,7 @@ body {
 background: radial-gradient(circle, rgba(255, 243, 184, 1) 0%, rgba(196, 231, 183, 1) 100%);
 font-family: 'Josefin Sans';
 font-size: 120%;
+color:rgb(46, 43, 41);
 min-height: 100% !important;
 min-width: 100% !important;
 margin: 0px !important;
