@@ -21,7 +21,9 @@ const getEncountersById = async (req, res) => {
   const { encounterID } = req.params;
 
   try {
-    const requestedId = await encounterModel.find({ _id: req.params._id });
+    const requestedId = await encounterModel
+      .find({ _id: req.params._id })
+      .exec();
     res.status(201).json({
       number: requestedId.length,
       requestedId,

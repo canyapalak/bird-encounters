@@ -1,29 +1,29 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const EncounterContext = createContext();
 
 export const EncounterContextProvider = (props) => {
-  const [error, setError] = useState();
-  const [encounters, setEncounters] = useState();
+  const [error, setError] = useState(null);
+  const [encounters, setEncounters] = useState(null);
 
-  const fetchAllEncounters = async () => {
-    try {
-      const urlAllEncounters = "http://localhost:5000/api/encounters/all";
-      const response = await fetch(urlAllEncounters);
-      const results = await response.json();
-      console.log("results :>> ", results.allEncounters);
+  useEffect(() => {
+    const fetchAllEncounters = async () => {
+      try {
+        const urlAllEncounters = "http://localhost:5000/api/encounters/all";
+        const response = await fetch(urlAllEncounters);
+        const results = await response.json();
+        setEncounters(results.allEncounters);
+      } catch (err) {
+        console.log("error", err);
+        setError(err);
+      }
+    };
 
-      setEncounters(results.allEncounters);
-    } catch (error) {
-      console.log("error", error);
-      setError(error);
-    }
-  };
+    fetchAllEncounters();
+  }, []);
 
   return (
-    <EncounterContext.Provider
-      value={{ encounters, setEncounters, error, fetchAllEncounters }}
-    >
+    <EncounterContext.Provider value={{ encounters, error }}>
       {props.children}
     </EncounterContext.Provider>
   );

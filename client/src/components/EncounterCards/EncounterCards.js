@@ -1,16 +1,19 @@
 import "./EncounterCards.css";
 import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import BookmarkEmpty from "../assets/bookmark-empty.png";
 import BookmarkFilled from "../assets/bookmark-filled.png";
 
 function EncounterCards() {
-  const { fetchAllEncounters, encounters } = useContext(EncounterContext);
+  const { encounters } = useContext(EncounterContext);
   const [isToggled, setIsToggled] = useState(false);
 
-  function handleClick() {
+  useEffect(() => {}, [encounters]);
+
+  function handleFavClick() {
     setIsToggled(!isToggled);
   }
 
@@ -23,10 +26,6 @@ function EncounterCards() {
       </>
     );
   };
-
-  useEffect(() => {
-    fetchAllEncounters();
-  }, []);
 
   return (
     <div className="cards-container">
@@ -55,7 +54,7 @@ function EncounterCards() {
                   </span>
                 </div>
                 <div className="fav-icon-and-number">
-                  <div onClick={handleClick} className="fav-icon">
+                  <div onClick={handleFavClick} className="fav-icon">
                     {!isToggled ? (
                       <img src={BookmarkEmpty} alt="Not Fav" />
                     ) : (
@@ -68,9 +67,11 @@ function EncounterCards() {
                 </div>
               </div>
               <hr />
-              <Button variant="success" id="card-button">
-                Details
-              </Button>{" "}
+              <Link to={"/" + encounter._id}>
+                <Button variant="success" id="card-button">
+                  Details
+                </Button>{" "}
+              </Link>
             </Card>
           );
         })}
