@@ -15,4 +15,21 @@ const getAllEncounters = async (req, res) => {
     });
   }
 };
-export { getAllEncounters };
+
+const getEncountersById = async (req, res) => {
+  console.log("req :>> ", req._id);
+  const { encounterID } = req.params;
+
+  try {
+    const requestedId = await encounterModel.find({ _id: req.params._id });
+    res.status(201).json({
+      number: requestedId.length,
+      requestedId,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "something went wrong in the server",
+    });
+  }
+};
+export { getAllEncounters, getEncountersById };

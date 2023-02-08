@@ -20,9 +20,9 @@
 
 
 .one-card {
-    width: 25rem;
+    width: 22rem;
     margin: 1rem;
-    border: 2px solid rgb(46, 43, 41);
+    border: 1px solid rgb(91, 90, 90);
     border-radius: 5px;
     background: radial-gradient(circle, rgb(232, 239, 230) 0%, rgb(220, 233, 195)100%);
     padding: 1rem;
@@ -34,7 +34,7 @@
     max-width: 100%;
     max-height: 100%;
     object-fit:fill;
-    border: 1px solid rgb(79, 78, 62);
+
     border-radius: 5px;
     margin-bottom: 0.5rem;
 }
@@ -44,48 +44,75 @@
 }
 
 .one-card hr {
-    border: 1px rgb(46, 43, 41) solid;
+    border: 1px rgb(46, 43, 41) dashed;
     opacity: 0.5;
 }
 
 .username-and-favs {
     display: flex;
     justify-content: space-between;
-    height: 5rem;
+    height: 4rem;
 }
 
 .fav-icon-and-number {
     display: flex;
     justify-content: space-around;
     padding-bottom: -0.5rem;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.4rem;
     background-color: rgb(190, 229, 173);
-    border: 1px solid rgb(79, 78, 62);
+    border: 1px solid rgb(91, 90, 90);
     border-radius: 5px;
 }
 
 .fav-icon img {
     border: none;
-    width: 2rem;
+    width: 1.7rem;
     padding-top: 0.4rem;
 }
 
 .fav-number {
+    font-size: 90%;
 padding-top: 0.7rem;
-padding-right: 0.2rem;
+padding-right: 0.3rem;
+padding-left: 0.1rem;
 }
 
+.username-and-time {
+    padding-bottom: 1rem;
+}
 
 .username {
-font-size: 110%;
+    display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+}
+
+#username-text {
+font-size: 100%;
+color: rgb(33, 71, 97);
+}
+
+#posted-by {
+text-decoration: wavy;
+font-style: italic;
+color: rgb(91, 90, 90);
+
 }
 
 .post-time {
+        display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+}
+
+#post-time-text {
     font-size: 100%;
+    color: rgb(33, 71, 97);
+
 }
 
 .title p {
-font-size: 120%;
+font-size: 110%;
 color: rgb(31, 147, 49);
 margin-top: 0.3rem;
 margin-bottom: -0.7rem;
@@ -98,17 +125,15 @@ margin-bottom: -0.7rem;
     width: 70%;
     background-color: rgb(190, 229, 173);
     height: 2.5rem;
-    border: 2px solid rgb(46, 43, 41);
+    border: 1px solid rgb(91, 90, 90);
     border-radius: 5px;
     color: rgb(46, 43, 41);
 }
 
 #card-button:hover {
     background-color: rgb(204, 241, 141);
-    border: 2px solid rgb(46, 43, 41);
 }
 
 #card-button:active {
     background-color: rgb(188, 212, 180);
-    border: 2px solid rgb(46, 43, 41)
 }

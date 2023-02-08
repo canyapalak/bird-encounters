@@ -1,13 +1,13 @@
 import "./EncounterCards.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { EncounterContext } from "../../store/EncounterContext";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import BookmarkEmpty from "../assets/bookmark-empty.png";
 import BookmarkFilled from "../assets/bookmark-filled.png";
 
 function EncounterCards() {
-  const [encounters, setEncounters] = useState();
-  const [error, setError] = useState();
+  const { fetchAllEncounters, encounters } = useContext(EncounterContext);
   const [isToggled, setIsToggled] = useState(false);
 
   function handleClick() {
@@ -22,20 +22,6 @@ function EncounterCards() {
         {date} {time}
       </>
     );
-  };
-
-  const fetchAllEncounters = async () => {
-    try {
-      const urlAllEncounters = "http://localhost:5000/api/encounters/all";
-      const response = await fetch(urlAllEncounters);
-      const results = await response.json();
-      console.log("results :>> ", results.allEncounters);
-
-      setEncounters(results.allEncounters);
-    } catch (error) {
-      console.log("error", error);
-      setError(error);
-    }
   };
 
   useEffect(() => {
@@ -60,10 +46,12 @@ function EncounterCards() {
               <div className="username-and-favs">
                 <div className="username-and-time">
                   <span className="username">
-                    <p>{encounter.username}</p>
+                    <p id="posted-by">posted by&nbsp;</p>
+                    <p id="username-text">{encounter.username}</p>
                   </span>
                   <span className="post-time">
-                    <p>{postTime(encounter.posttime)}</p>
+                    <p id="posted-by">on&nbsp;</p>
+                    <p id="post-time-text">{postTime(encounter.posttime)}</p>
                   </span>
                 </div>
                 <div className="fav-icon-and-number">
