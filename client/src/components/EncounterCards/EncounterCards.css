@@ -1,3 +1,11 @@
+#small-logo {
+    width: 5rem;
+    margin-top: 9rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
 .cards-container {
     display: flex;
@@ -13,40 +21,94 @@
 
 .one-card {
     width: 25rem;
-    height: 30rem;
     margin: 1rem;
-    border: 2px solid rgb(204, 241, 141);
+    border: 2px solid rgb(46, 43, 41);
     border-radius: 5px;
-    background: radial-gradient(circle, rgb(42, 48, 41) 0%, rgb(99, 107, 98)100%);
+    background: radial-gradient(circle, rgb(232, 239, 230) 0%, rgb(220, 233, 195)100%);
     padding: 1rem;
 }
 
-
-.one-card img {
+.post-image img {
     margin: auto;
     display: block;
     max-width: 100%;
     max-height: 100%;
     object-fit:fill;
-    border: 1px solid rgb(204, 241, 141);
+    border: 1px solid rgb(79, 78, 62);
     border-radius: 5px;
     margin-bottom: 0.5rem;
 }
 
 .one-card p {
-    color:rgb(240, 241, 237);
+    color:rgb(46, 43, 41);
 }
 
 .one-card hr {
-    border: 1px rgb(204, 241, 141) solid;
+    border: 1px rgb(46, 43, 41) solid;
     opacity: 0.5;
 }
 
-#small-logo {
-    width: 5rem;
-    margin-top: 9rem;
-    margin-bottom: 3rem;
+.username-and-favs {
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+}
+
+.fav-icon-and-number {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: -0.5rem;
+    margin-bottom: 1.8rem;
+    background-color: rgb(190, 229, 173);
+    border: 1px solid rgb(79, 78, 62);
+    border-radius: 5px;
+}
+
+.fav-icon img {
+    border: none;
+    width: 2rem;
+    padding-top: 0.4rem;
+}
+
+.fav-number {
+padding-top: 0.7rem;
+padding-right: 0.2rem;
+}
+
+
+.username {
+font-size: 110%;
+}
+
+.post-time {
+    font-size: 100%;
+}
+
+.title p {
+font-size: 120%;
+color: rgb(31, 147, 49);
+margin-top: 0.3rem;
+margin-bottom: -0.7rem;
+}
+
+#card-button {
+    font-size: large;
     margin-left: auto;
     margin-right: auto;
-    display: block;
+    width: 70%;
+    background-color: rgb(190, 229, 173);
+    height: 2.5rem;
+    border: 2px solid rgb(46, 43, 41);
+    border-radius: 5px;
+    color: rgb(46, 43, 41);
+}
+
+#card-button:hover {
+    background-color: rgb(204, 241, 141);
+    border: 2px solid rgb(46, 43, 41);
+}
+
+#card-button:active {
+    background-color: rgb(188, 212, 180);
+    border: 2px solid rgb(46, 43, 41)
 }
