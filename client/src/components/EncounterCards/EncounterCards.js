@@ -33,10 +33,8 @@ function EncounterCards() {
         encounters.map((encounter, index) => {
           return (
             <Card className="one-card" key={index}>
-              <span className="card-img">
-                <span className="post-image">
-                  <img src={encounter.image} alt="Encounter Image" />
-                </span>
+              <span className="post-image">
+                <img src={encounter.image} alt="Encounter Image" />
               </span>
               <span className="title">
                 <p>{encounter.title}</p>
