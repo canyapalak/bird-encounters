@@ -3,13 +3,18 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
 import PlaceholderAvatar from "../assets/avatar-placeholder.png";
 import MapIcon from "../../components/assets/map-icon.png";
+import EncounterMap from "../EncounterMap/EncounterMap";
 
 function EncounterDetails() {
   const [oneEncounter, setOneEncounter] = useState("");
   const [error, setError] = useState();
   const { _id } = useParams();
+  const [showMap, setShowMap] = useState(false);
+  const handleCloseMap = () => setShowMap(false);
+  const handleShowMap = () => setShowMap(true);
 
   const postTime = (dateAndTime) => {
     const date = new Date(dateAndTime).toLocaleDateString();
@@ -80,10 +85,30 @@ function EncounterDetails() {
                   : "-"}{" "}
               </p>
             </span>
+            <span className="encounter-time">
+              <p className="small-title">encounter time: &nbsp;</p>
+              <p>{postTime(oneEncounter.time)}</p>
+            </span>
           </div>
-          <img src={MapIcon} alt="Map" />
+          <img src={MapIcon} alt="Map" onClick={handleShowMap} />
+          <Modal show={showMap} onHide={handleCloseMap}>
+            <Modal.Header closeButton>
+              <Modal.Title>something</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <EncounterMap />
+            </Modal.Body>
+          </Modal>
         </div>
         <hr />
+        <div className="title-and-experience">
+          <span className="details-title">
+            <p>{oneEncounter.title}</p>
+          </span>
+          <span className="experience">
+            <p>{oneEncounter.experience}</p>
+          </span>
+        </div>
       </Card>
     </div>
   );

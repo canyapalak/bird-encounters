@@ -1,0 +1,9 @@
+#up-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -1.5rem;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}

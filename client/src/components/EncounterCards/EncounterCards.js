@@ -2,7 +2,6 @@ import "./EncounterCards.css";
 import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import BookmarkEmpty from "../assets/bookmark-empty.png";
 import BookmarkFilled from "../assets/bookmark-filled.png";
@@ -65,11 +64,11 @@ function EncounterCards() {
                 </div>
               </div>
               <hr />
-              <Link to={"/" + encounter._id}>
-                <Button variant="success" id="card-button">
-                  Details
-                </Button>{" "}
-              </Link>
+              <a class="nav-link">
+                <Link to={"/" + encounter._id}>
+                  <button id="card-button">Details</button>{" "}
+                </Link>
+              </a>
             </Card>
           );
         })}
