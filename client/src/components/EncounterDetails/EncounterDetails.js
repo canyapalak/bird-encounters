@@ -91,11 +91,18 @@ function EncounterDetails() {
             </span>
           </div>
           <img src={MapIcon} alt="Map" onClick={handleShowMap} />
-          <Modal show={showMap} onHide={handleCloseMap}>
-            <Modal.Header closeButton>
+          <Modal
+            show={showMap}
+            onHide={handleCloseMap}
+            className="map-modal"
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton className="modal-header">
               <Modal.Title>something</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="modal-body">
               <EncounterMap />
             </Modal.Body>
           </Modal>

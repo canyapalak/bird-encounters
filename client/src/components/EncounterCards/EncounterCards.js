@@ -64,11 +64,10 @@ function EncounterCards() {
                 </div>
               </div>
               <hr />
-              <a class="nav-link">
-                <Link to={"/" + encounter._id}>
-                  <button id="card-button">Details</button>{" "}
-                </Link>
-              </a>
+
+              <Link to={"/" + encounter._id}>
+                <button id="card-button">Details</button>{" "}
+              </Link>
             </Card>
           );
         })}
