@@ -1,0 +1,18 @@
+
+
+.modal-body {
+    background: radial-gradient(rgb(232, 237, 237) 0%, rgb(227, 236, 239) 100%);
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+
+}
+
+.location-and-close-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: -1rem;
+    border-bottom: 1px solid rgb(91, 90, 90);
+
+}
+

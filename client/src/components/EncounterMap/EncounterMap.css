@@ -1,5 +1,9 @@
+#popup-image {
+    height: 6rem;
+    width: 9rem;
+}
 
-
-#map {
-
+#popup-text {
+    font-size: 130%;
+    margin-bottom: -1rem;
 }

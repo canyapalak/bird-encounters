@@ -5,26 +5,18 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import BookmarkEmpty from "../assets/bookmark-empty.png";
 import BookmarkFilled from "../assets/bookmark-filled.png";
+import useConvertTime from "../../hooks/useConvertTime";
 
 function EncounterCards() {
   const { encounters } = useContext(EncounterContext);
   const [isToggled, setIsToggled] = useState(false);
+  const convertTime = useConvertTime();
 
   useEffect(() => {}, [encounters]);
 
   function handleFavClick() {
     setIsToggled(!isToggled);
   }
-
-  const postTime = (dateAndTime) => {
-    const date = new Date(dateAndTime).toLocaleDateString();
-    const time = new Date(dateAndTime).toLocaleTimeString();
-    return (
-      <>
-        {date} {time}
-      </>
-    );
-  };
 
   return (
     <div className="cards-container">
@@ -47,7 +39,7 @@ function EncounterCards() {
                   </span>
                   <span className="post-time">
                     <p id="posted-by">on&nbsp;</p>
-                    <p id="post-time-text">{postTime(encounter.posttime)}</p>
+                    <p id="post-time-text">{convertTime(encounter.posttime)}</p>
                   </span>
                 </div>
                 <div className="fav-icon-and-number">

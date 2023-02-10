@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Modal from "react-bootstrap/Modal";
 import PlaceholderAvatar from "../assets/avatar-placeholder.png";
 import MapIcon from "../../components/assets/map-icon.png";
-import EncounterMap from "../EncounterMap/EncounterMap";
+import useConvertTime from "../../hooks/useConvertTime";
+import MapModal from "../MapModal/MapModal";
 
 function EncounterDetails() {
   const [oneEncounter, setOneEncounter] = useState("");
@@ -15,16 +15,8 @@ function EncounterDetails() {
   const [showMap, setShowMap] = useState(false);
   const handleCloseMap = () => setShowMap(false);
   const handleShowMap = () => setShowMap(true);
+  const convertTime = useConvertTime();
 
-  const postTime = (dateAndTime) => {
-    const date = new Date(dateAndTime).toLocaleDateString();
-    const time = new Date(dateAndTime).toLocaleTimeString();
-    return (
-      <>
-        {date} {time}
-      </>
-    );
-  };
   useEffect(() => {
     const fetchEncounterById = async () => {
       try {
@@ -59,7 +51,7 @@ function EncounterDetails() {
             </span>
           </div>
           <span className="details-post-time">
-            <p>{postTime(oneEncounter.posttime)}</p>
+            <p>{convertTime(oneEncounter.posttime)}</p>
           </span>
         </div>
         <hr />
@@ -87,25 +79,15 @@ function EncounterDetails() {
             </span>
             <span className="encounter-time">
               <p className="small-title">encounter time: &nbsp;</p>
-              <p>{postTime(oneEncounter.time)}</p>
+              <p>{convertTime(oneEncounter.time)}</p>
             </span>
           </div>
           <img src={MapIcon} alt="Map" onClick={handleShowMap} />
-          <Modal
-            show={showMap}
-            onHide={handleCloseMap}
-            className="map-modal"
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header closeButton className="modal-header">
-              <Modal.Title>something</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="modal-body">
-              <EncounterMap />
-            </Modal.Body>
-          </Modal>
+          <MapModal
+            oneEncounter={oneEncounter}
+            showMap={showMap}
+            handleCloseMap={handleCloseMap}
+          />
         </div>
         <hr />
         <div className="title-and-experience">
@@ -120,4 +102,5 @@ function EncounterDetails() {
     </div>
   );
 }
+
 export default EncounterDetails;
