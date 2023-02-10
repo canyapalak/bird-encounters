@@ -48,7 +48,8 @@
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
-    color: rgb(204, 241, 141)
+    color: rgb(204, 241, 141);
+    margin-bottom: 0.5rem
 }
 
 /* menu icon */
@@ -119,7 +120,7 @@
 
 
 
-@media (min-width: 778px) {
+@media (min-width: 854px) {
     .nav-bar li {
         float: left;
     }

@@ -16,6 +16,9 @@ function NavigationBar() {
             <a href="/encounters">encounters</a>
           </li>
           <li>
+            <a href="/map">map</a>
+          </li>
+          <li>
             <a href="https://www.google.com">log in</a>
           </li>
           <li>
