@@ -100,6 +100,12 @@ color: rgb(25, 125, 150);
     color: rgb(25, 125, 150)
 }
 
+.record {
+    display: flex;
+    flex-direction: row;
+    color: rgb(25, 125, 150)
+}
+
 .small-title {
     text-decoration: wavy;
         font-style: italic;
@@ -144,4 +150,14 @@ font-size: 110%;
         }
 }
 
+
+@media (max-width: 440px) {
+.info-and-map img {
+        width: 50px;
+        height: 50px;
+        margin-left: -2rem;
+        cursor: pointer;
+
+    }
+}
 

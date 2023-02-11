@@ -1,6 +1,7 @@
 import "./EncounterDetails.css";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import AudioPlayer from "../AudioPlayer.js/AudioPlayer";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import PlaceholderAvatar from "../assets/avatar-placeholder.png";
@@ -80,6 +81,14 @@ function EncounterDetails() {
             <span className="encounter-time">
               <p className="small-title">encounter time: &nbsp;</p>
               <p>{convertTime(oneEncounter.time)}</p>
+            </span>
+            <span className="record">
+              <p className="small-title">record: &nbsp;</p>
+              {oneEncounter.record ? (
+                <AudioPlayer src={oneEncounter.record} />
+              ) : (
+                <p>no record</p>
+              )}
             </span>
           </div>
           <img src={MapIcon} alt="Map" onClick={handleShowMap} />

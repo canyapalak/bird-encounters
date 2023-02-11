@@ -21,6 +21,7 @@ const encounterSchema = new Schema({
   image: { type: String },
   posttime: { type: Date },
   favs: { type: Number },
+  record: { type: String },
 });
 
 const encounterModel = mongoose.model("encounter", encounterSchema);

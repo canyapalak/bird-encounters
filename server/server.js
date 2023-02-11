@@ -5,6 +5,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
 import encounterRoutes from "./routes/encounterRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import cloudinaryConfig from "./config/cloudinaryConfig.js";
 
 const app = express();
 
@@ -23,6 +25,7 @@ const mongoDBConnection = async () => {
 const loadRoutes = () => {
   app.use("/api", router);
   app.use("/api/encounters", encounterRoutes);
+  app.use("/api/users", userRoutes);
 };
 
 const startServer = () => {
@@ -43,6 +46,7 @@ const addMiddlewares = () => {
     credentials: true,
   };
   app.use(cors(corsOptions));
+  cloudinaryConfig();
 };
 
 //IIFE
