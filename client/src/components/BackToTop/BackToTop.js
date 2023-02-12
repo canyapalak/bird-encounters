@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./BackToTop.css";
-import UpIcon from "../assets/up-icon.png";
+import UpIcon from "../../assets/up-icon.png";
 
 function BackToTop() {
   useEffect(() => {

@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import AudioPlayer from "../AudioPlayer.js/AudioPlayer";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import PlaceholderAvatar from "../assets/avatar-placeholder.png";
-import MapIcon from "../../components/assets/map-icon.png";
+import PlaceholderAvatar from "../../assets/avatar-placeholder.png";
+import MapIcon from "../../assets/map-icon.png";
 import useConvertTime from "../../hooks/useConvertTime";
 import MapModal from "../MapModal/MapModal";
 

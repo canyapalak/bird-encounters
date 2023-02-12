@@ -1,7 +1,7 @@
 import "./MapPage.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import GeneralMap from "../../components/GeneralMap/GeneralMap";
-import SmallLogo from "../../components/assets/cropped.png";
+import SmallLogo from "../../assets/cropped.png";
 
 function MapPage() {
   return (

@@ -1,7 +1,7 @@
 import "./Encounters.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import EncounterCards from "../../components/EncounterCards/EncounterCards";
-import SmallLogo from "../../components/assets/cropped.png";
+import SmallLogo from "../../assets/cropped.png";
 import BackToTop from "../../components/BackToTop/BackToTop";
 
 function Encounters() {

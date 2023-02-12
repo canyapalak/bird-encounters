@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
-import LocationMarker from "../assets/marker.png";
+import LocationMarker from "../../assets/marker.png";
 
 function EncounterMap() {
   const { encounters } = useContext(EncounterContext);

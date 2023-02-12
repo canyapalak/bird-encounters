@@ -1,7 +1,7 @@
 import "./SignUp.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import SignUpCard from "../../components/SignUpCard/SignUpCard";
-import SmallLogo from "../../components/assets/cropped.png";
+import SmallLogo from "../../assets/cropped.png";
 
 function Encounters() {
   return (

@@ -17,7 +17,7 @@
 .home-container {
   position:absolute;
   min-height: 100%;
-  background-image: url("../../components/assets/landing.png");
+  background-image: url("../../assets/landing.png");
   background-repeat: no-repeat;
   background-position: center bottom;
   background-attachment: fixed;

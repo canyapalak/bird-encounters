@@ -1,8 +1,8 @@
 import "./Details.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import EncounterDetails from "../../components/EncounterDetails/EncounterDetails";
-import SmallLogo from "../../components/assets/cropped.png";
-import BackIcon from "../../components/assets/back-icon.png";
+import SmallLogo from "../../assets/cropped.png";
+import BackIcon from "../../assets/back-icon.png";
 import { useNavigate } from "react-router-dom";
 
 function Encounters() {

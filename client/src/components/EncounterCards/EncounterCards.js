@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
-import BookmarkEmpty from "../assets/bookmark-empty.png";
-import BookmarkFilled from "../assets/bookmark-filled.png";
+import BookmarkEmpty from "../../assets/bookmark-empty.png";
+import BookmarkFilled from "../../assets/bookmark-filled.png";
 import useConvertTime from "../../hooks/useConvertTime";
 
 function EncounterCards() {
