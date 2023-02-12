@@ -4,6 +4,8 @@ import Home from "./views/Home/Home";
 import Encounters from "./views/Encounters/Encounters";
 import Details from "./views/Details/Details";
 import MapPage from "./views/MapPage/MapPage";
+import SignUp from "./views/SignUp/SignUp";
+import LogIn from "./views/LogIn/LogIn";
 import { EncounterContextProvider } from "./store/EncounterContext";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
             <Route path="/encounters" element={<Encounters />} />
             <Route path="/:_id" element={<Details />} />
             <Route path="/map" element={<MapPage />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </EncounterContextProvider>
       </BrowserRouter>

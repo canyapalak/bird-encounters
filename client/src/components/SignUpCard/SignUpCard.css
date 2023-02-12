@@ -1,0 +1,135 @@
+.signup-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.signup-card {
+    width: 40rem;
+    margin: 1rem;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    background: radial-gradient(circle, rgb(254, 255, 254) 0%, rgb(245, 249, 210)100%);
+    padding: 1rem;
+    padding-top: 2rem;
+}
+
+.signup-card hr {
+    border: 1px rgb(46, 43, 41) dashed;
+    opacity: 0.5;
+}
+
+.signup-card input {
+    width: 40%;
+    height: 1rem;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+    padding-top: 1.2rem;
+    padding-left: 0.3rem;
+    margin-top: -0.5rem;
+}
+
+.signup-username {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+}
+
+.signup-username input {
+margin-left: 3rem;
+}
+
+.signup-email {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.signup-email input {
+    margin-left: 0.3rem;
+}
+
+
+.signup-password {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.signup-password input {
+    margin-left: 3.4rem;
+    -webkit-text-security: disc;
+}
+
+.signup-avatar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#upload-image {
+    margin-left: 1.3rem;
+    width: 50%;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    font-size: 1.1rem;
+    padding-bottom: 1.8rem;
+    padding-top: 0.4rem;
+}
+
+
+
+#signup-button {
+    font-size: large;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 6rem;
+    background-color: rgb(190, 229, 173);
+    height: 2.5rem;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    color: rgb(46, 43, 41);
+    text-decoration: none !important;
+}
+
+#required-fields-text {
+    text-decoration: wavy !important;
+    font-style: italic !important;
+    color: rgb(91, 90, 90);
+}
+
+#signup-button:link {
+    text-decoration: none !important;
+}
+
+#signup-button:visited {
+    text-decoration: none !important;
+}
+
+#signup-button:hover {
+    background-color: rgb(204, 241, 141);
+    text-decoration: none !important;
+}
+
+#signup-button:active {
+    background-color: rgb(188, 212, 180);
+    text-decoration: none !important;
+}
+
+.go-to-login {
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.go-to-login a {
+    color: rgb(25, 125, 150)
+}
