@@ -1,16 +1,29 @@
 import "./SignUpCard.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/esm/Button";
 
 function SignUpCard() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [newUser, setNewUser] = useState({});
   const redirectTo = useNavigate();
-  const [isSignUpSuccessful, setIsSignUpSuccessful] = useState(null);
-  const [isMailInUse, setisMailInUse] = useState(null);
+  const [isSignUpSuccessful, setIsSignUpSuccessful] = useState(false);
+  const [isMailInUse, setisMailInUse] = useState(false);
+  const [isUserNameInUse, setIsUserNameInUse] = useState(false);
+  const [isMailInvalid, setIsMailInvalid] = useState(false);
+  const [isPasswordShort, setIsPasswordShort] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
   const AvatarPlaceholder =
     "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676284633/bird-encounters/avatar-placeholder_yh3ock.png";
+
+  function handleSignUpAndModal() {
+    handleSignUp();
+    handleShowModal();
+  }
 
   const handleAttachPicture = (e) => {
     e.preventDefault();
@@ -52,6 +65,13 @@ function SignUpCard() {
   };
   const submitUserData = () => {
     console.log("newUser :>> ", newUser);
+
+    setIsSignUpSuccessful(false);
+    setIsUserNameInUse(false);
+    setisMailInUse(false);
+    setIsMailInvalid(false);
+    setIsPasswordShort(false);
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -78,12 +98,21 @@ function SignUpCard() {
         if (result.msg === "signup successful") {
           setIsSignUpSuccessful(true);
         }
+        if (result.msg === "this username is already in use") {
+          setIsUserNameInUse(true);
+        }
+        if (result.msg === "this email address is already in use") {
+          setisMailInUse(true);
+        }
+        if (result.msg === "email address is invalid") {
+          setIsMailInvalid(true);
+        }
+        if (result.msg === "password should be at least 6 characters") {
+          setIsPasswordShort(true);
+        }
       })
       .catch((error) => {
         console.log("error", error);
-        if (error.msg.includes("in use")) {
-          setisMailInUse(true);
-        }
       });
   };
 
@@ -140,9 +169,57 @@ function SignUpCard() {
         </span>
 
         <span className="signup-button">
-          <button onClick={handleSignUp} id="signup-button">
+          <button onClick={handleSignUpAndModal} id="signup-button">
             Sign Up
           </button>
+          <Modal show={showModal} className="signup-modal">
+            <Modal.Body>
+              {isSignUpSuccessful && <p>You have successfully registered.</p>}
+              {isMailInUse && (
+                <p id="error-message">
+                  This e-mail address is in use. Try another one.
+                </p>
+              )}
+              {isUserNameInUse && (
+                <p id="error-message">
+                  This username is in use. Username should be unique.
+                </p>
+              )}
+              {isMailInvalid && (
+                <p id="error-message">
+                  E-mail address is invalid. Please check it.
+                </p>
+              )}
+              {isPasswordShort && (
+                <p id="error-message">
+                  Password should be at least 6 characters.
+                </p>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              {isSignUpSuccessful && (
+                <Button
+                  variant="primary"
+                  className="signup-modal-button"
+                  onClick={() => redirectTo(-1)}
+                >
+                  Close
+                </Button>
+              )}
+              {isMailInUse ||
+              isUserNameInUse ||
+              isMailInvalid ||
+              isPasswordShort ? (
+                <Button
+                  variant="primary"
+                  className="signup-modal-button"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </Button>
+              ) : null}
+            </Modal.Footer>
+          </Modal>
         </span>
         <span className="go-to-login">
           <p>

@@ -26,13 +26,30 @@ const signup = async (req, res) => {
   // const { userName, email, password, userPicture } = req.body; //desctructured version (be careful with undefined/null fields)
   try {
     const existingUser = await userModel.findOne({ email: req.body.email });
-    console.log("existingUser", existingUser);
-
+    const existingUserName = await userModel.findOne({
+      userName: req.body.userName,
+    });
+    const email = req.body.email;
+    const emailRegex =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const password = req.body.password;
     const currentDate = new Date();
 
     if (existingUser) {
       res.status(500).json({
         msg: "this email address is already in use",
+      });
+    } else if (existingUserName) {
+      res.status(500).json({
+        msg: "this username is already in use",
+      });
+    } else if (!emailRegex.test(email)) {
+      res.status(500).json({
+        msg: "email address is invalid",
+      });
+    } else if (password.length < 6) {
+      res.status(500).json({
+        msg: "password should be at least 6 characters",
       });
     } else {
       const hashedPassword = await passwordEncryption(req.body.password);

@@ -134,3 +134,41 @@ margin-left: 3rem;
 .go-to-login a {
     color: rgb(25, 125, 150)
 }
+
+.signup-modal {
+    margin-top: 15rem;
+}
+
+#error-message {
+    color: crimson;
+}
+
+.signup-modal .modal-body {
+    border: none !important;
+    background-color: aqua;
+    text-align: center;
+    height: 4rem;
+}
+
+.signup-modal-button {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: large;
+    width: 6rem;
+    background-color: rgb(190, 229, 173);
+    height: 2.5rem;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    color: rgb(46, 43, 41);
+    text-decoration: none !important;
+}
+
+.signup-modal-button:hover {
+    background-color: rgb(204, 241, 141);
+    text-decoration: none !important;
+}
+
+.signup-modal-button:active {
+    background-color: rgb(188, 212, 180);
+    text-decoration: none !important;
+}
