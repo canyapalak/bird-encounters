@@ -7,11 +7,7 @@ const multerUpload = multer({
   fileFilter: function (req, file, cb) {
     let extension = path.extname(file.originalname);
 
-    if (
-      extension !== ".jpg" &&
-      extension !== ".jpeg" &&
-      extension !== " .png"
-    ) {
+    if (extension !== ".jpg" && extension !== ".jpeg" && extension !== ".png") {
       cb(new Error("sorry the file format is not allowed"), false);
 
       // The function should call `cb` with a boolean

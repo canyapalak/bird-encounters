@@ -19,11 +19,15 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
 
-  //   favs: [
-  //     {
-  //       type: String,
-  //     },
-  //   ],
+  signupTime: {
+    type: Date,
+  },
+
+  favs: [
+    {
+      type: String,
+    },
+  ],
 });
 
 const userModel = mongoose.model("user", userSchema);

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import AudioPlayer from "../AudioPlayer.js/AudioPlayer";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import PlaceholderAvatar from "../../assets/avatar-placeholder.png";
+import AvatarPlaceholder from "../../assets/avatar-placeholder.png";
 import MapIcon from "../../assets/map-icon.png";
 import useConvertTime from "../../hooks/useConvertTime";
 import MapModal from "../MapModal/MapModal";
@@ -45,7 +45,7 @@ function EncounterDetails() {
         <div className="avatar-username-and-post-time">
           <div className="avatar-and-username">
             <span className="avatar">
-              <img src={PlaceholderAvatar} alt="Avatar" />
+              <img src={AvatarPlaceholder} alt="Avatar" />
             </span>
             <span className="details-username">
               <p>{oneEncounter.username}</p>

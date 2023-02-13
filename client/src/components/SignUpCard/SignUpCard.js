@@ -1,41 +1,57 @@
 import "./SignUpCard.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
-import AvatarPlaceholder from "../../assets/avatar-placeholder.png";
+import { useNavigate } from "react-router-dom";
 
 function SignUpCard() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [newUser, setNewUser] = useState({});
+  const redirectTo = useNavigate();
+  const [isSignUpSuccessful, setIsSignUpSuccessful] = useState(null);
+  const [isMailInUse, setisMailInUse] = useState(null);
+  const AvatarPlaceholder =
+    "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676284633/bird-encounters/avatar-placeholder_yh3ock.png";
 
-  // const handleAttachPicture = (e) => {
-  //   // console.log("e.target :>> ", e);
-  //   setSelectedFile(e.target.files[0]);
-  // };
-  // const submitPicture = (e) => {
-  //   e.preventDefault();
-  //   const formdata = new FormData();
-  //   formdata.append("image", selectedFile);
-
-  //   const requestOptions = {
-  //     method: "POST",
-  //     body: formdata,
-  //   };
-
-  //   fetch("http://localhost:5001/api/users/imageUpload", requestOptions)
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       console.log("result", result);
-  //       setNewUser({ ...newUser, userPicture: result.userPicture });
-  //     })
-  //     .catch((error) => console.log("error", error));
-  // };
+  const handleAttachPicture = (e) => {
+    e.preventDefault();
+    console.log("e.target :>> ", e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
+  };
 
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    setNewUser({
+      ...newUser,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSignUp = () => {
+    // Submit the picture
+    // const submitPicture = () => {
+    const formdata = new FormData();
+    formdata.append("userPicture", selectedFile);
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+    };
+
+    fetch("http://localhost:5000/api/users/imageUpload", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("result", result);
+        setNewUser({ ...newUser, userPicture: result.userPicture });
+        submitUserData();
+      })
+      .catch((error) => console.log("error", error));
+    // };
+
+    // Submit user data after the picture has been uploaded
+
+    // submitPicture();
+  };
+  const submitUserData = () => {
+    console.log("newUser :>> ", newUser);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -45,7 +61,7 @@ function SignUpCard() {
     urlencoded.append("userName", newUser.userName);
     urlencoded.append(
       "userPicture",
-      newUser.userPicture ? newUser.userPicture : null
+      newUser.userPicture ? newUser.userPicture : AvatarPlaceholder
     );
 
     const requestOptions = {
@@ -57,8 +73,18 @@ function SignUpCard() {
 
     fetch("http://localhost:5000/api/users/signup", requestOptions)
       .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+      .then((result) => {
+        console.log(result);
+        if (result.msg === "signup successful") {
+          setIsSignUpSuccessful(true);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        if (error.msg.includes("in use")) {
+          setisMailInUse(true);
+        }
+      });
   };
 
   return (
@@ -72,7 +98,6 @@ function SignUpCard() {
             placeholder="Username"
             className="signup-input"
             onChange={handleInputChange}
-            autoComplete="username"
           />
         </span>
         <span className="signup-email">
@@ -83,7 +108,6 @@ function SignUpCard() {
             placeholder="E-mail Address"
             className="signup-input"
             onChange={handleInputChange}
-            autoComplete="email"
           />
         </span>
 
@@ -95,19 +119,21 @@ function SignUpCard() {
             placeholder="Password"
             className="password-input"
             onChange={handleInputChange}
-            autoComplete="password"
           />
         </span>
-        <span className="signup-avatar">
-          <p>Profile Picture: &nbsp;</p>
-          <input
-            type="file"
-            name="userPicture"
-            className="form-control"
-            id="upload-image"
-            // onChange={handleAttachPicture}
-          />
-        </span>
+        <form>
+          <span className="signup-avatar">
+            <p>Profile Picture: &nbsp;</p>
+            <input
+              type="file"
+              name="userPicture"
+              id="upload-image"
+              className="form-control"
+              onChange={handleAttachPicture}
+            />
+          </span>
+        </form>
+
         <hr />
         <span className="required-fields">
           <p id="required-fields-text">*required fields</p>

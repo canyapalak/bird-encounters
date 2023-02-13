@@ -39,7 +39,7 @@ function EncounterMap({ oneEncounter }) {
             <br />
             <img
               src={oneEncounter.image}
-              alt="Bird Image"
+              alt="Encounter"
               id="popup-image"
             />{" "}
           </Popup>

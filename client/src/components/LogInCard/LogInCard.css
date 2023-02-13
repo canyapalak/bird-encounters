@@ -72,7 +72,7 @@
 
 
 
-#signup-button {
+#login-button {
     font-size: large;
     margin-left: auto;
     margin-right: auto;
@@ -84,6 +84,7 @@
     border-radius: 5px;
     color: rgb(46, 43, 41);
     text-decoration: none !important;
+    margin-top: 0.5rem;
 }
 
 #required-fields-text {
@@ -92,20 +93,20 @@
     color: rgb(91, 90, 90);
 }
 
-#signup-button:link {
+#login-button:link {
     text-decoration: none !important;
 }
 
-#signup-button:visited {
+#login-button:visited {
     text-decoration: none !important;
 }
 
-#signup-button:hover {
+#login-button:hover {
     background-color: rgb(204, 241, 141);
     text-decoration: none !important;
 }
 
-#signup-button:active {
+#login-button:active {
     background-color: rgb(188, 212, 180);
     text-decoration: none !important;
 }

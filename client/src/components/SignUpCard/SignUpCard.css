@@ -99,6 +99,7 @@ margin-left: 3rem;
     border-radius: 5px;
     color: rgb(46, 43, 41);
     text-decoration: none !important;
+    margin-top: -0.5rem;
 }
 
 #required-fields-text {

@@ -9,7 +9,7 @@ const imageUpload = async (req, res) => {
     const pictureUpload = await cloudinary.uploader.upload(req.file.path, {
       folder: "bird-encounters",
     });
-    console.log("pictureUpload", pictureUpload).url;
+    console.log("pictureUpload", pictureUpload);
     res.status(200).json({
       msg: "file was uploaded",
       userPicture: pictureUpload.url,
@@ -28,6 +28,8 @@ const signup = async (req, res) => {
     const existingUser = await userModel.findOne({ email: req.body.email });
     console.log("existingUser", existingUser);
 
+    const currentDate = new Date();
+
     if (existingUser) {
       res.status(500).json({
         msg: "this email address is already in use",
@@ -41,7 +43,8 @@ const signup = async (req, res) => {
         email: req.body.email,
         password: hashedPassword,
         userPicture: req.body.userPicture,
-        // favs: req.body.favs,
+        signupTime: currentDate,
+        favs: req.body.favs,
       });
 
       try {
@@ -52,7 +55,8 @@ const signup = async (req, res) => {
             userName: savedUser.userName,
             email: savedUser.email,
             userPicture: savedUser.userPicture,
-            // favs: savedUser.favs,
+            signupTime: savedUser.signupTime,
+            favs: savedUser.favs,
           },
         });
       } catch (error) {
