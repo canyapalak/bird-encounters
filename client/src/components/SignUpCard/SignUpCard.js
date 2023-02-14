@@ -16,7 +16,7 @@ function SignUpCard() {
   const [isPasswordShort, setIsPasswordShort] = useState(false);
   const [isUploadSuccessful, setIsUploadSuccessful] = useState(false);
   const [isUploadFail, setIsUploadFail] = useState(false);
-  const [isUploadExceeds, setIsUploadExceeds] = useState(false);
+  const [isFetchFail, setIsFetchFail] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
@@ -88,6 +88,7 @@ function SignUpCard() {
     setisMailInUse(false);
     setIsMailInvalid(false);
     setIsPasswordShort(false);
+    setIsFetchFail(false);
 
     console.log("newUser :>> ", newUser);
 
@@ -132,6 +133,7 @@ function SignUpCard() {
       })
       .catch((error) => {
         console.log("error", error);
+        setIsFetchFail(true);
       });
   };
 
@@ -244,6 +246,11 @@ function SignUpCard() {
                   Password should be at least 6 characters.
                 </p>
               )}
+              {isFetchFail && (
+                <p id="error-message">
+                  Something went wrong. Please try again.
+                </p>
+              )}
             </Modal.Body>
             <Modal.Footer>
               {isSignUpSuccessful && (
@@ -258,7 +265,8 @@ function SignUpCard() {
               {isMailInUse ||
               isUserNameInUse ||
               isMailInvalid ||
-              isPasswordShort ? (
+              isPasswordShort ||
+              isFetchFail ? (
                 <Button
                   variant="primary"
                   className="signup-modal-button"

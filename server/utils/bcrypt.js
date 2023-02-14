@@ -9,4 +9,9 @@ const passwordEncryption = async (password) => {
   return hashedPassword;
 };
 
-export { passwordEncryption };
+const verifyPassword = async (userPassword, hashedPassword) => {
+  const result = await bcrypt.compare(userPassword, hashedPassword);
+  return result;
+};
+
+export { passwordEncryption, verifyPassword };

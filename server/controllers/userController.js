@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
-import { passwordEncryption } from "../utils/bcrypt.js";
+import { passwordEncryption, verifyPassword } from "../utils/bcrypt.js";
+import generateToken from "../utils/jwt.js";
 
 const uploadUserPicture = async (req, res) => {
   console.log("req", req.file);
@@ -87,4 +88,41 @@ const signup = async (req, res) => {
   }
 };
 
-export { uploadUserPicture, signup };
+const login = async (req, res) => {
+  console.log("req.body :>> ", req.body);
+
+  try {
+    const existingUser = await userModel.findOne({ email: req.body.email });
+    if (!existingUser) {
+      res.status(401).json({ msg: "email is wrong" });
+    } else {
+      const isPasswordMatch = await verifyPassword(
+        req.body.password,
+        existingUser.password
+      );
+      if (!isPasswordMatch) {
+        res.status(401).json({ msg: "password is wrong" });
+      } else {
+        const token = generateToken(existingUser._id);
+
+        console.log("token", token);
+
+        res.status(200).json({
+          msg: "you are logged in",
+          user: {
+            id: existingUser._id,
+            userName: existingUser.userName,
+            email: existingUser.email,
+            signupTime: existingUser.signupTime,
+            userPicture: existingUser.userPicture,
+          },
+          token,
+        });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({ msg: "something went wrong" });
+  }
+};
+
+export { uploadUserPicture, signup, login };
