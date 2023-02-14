@@ -39,9 +39,13 @@ function SignUpCard() {
     });
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
+    setIsSignUpSuccessful(false);
+    setIsUserNameInUse(false);
+    setisMailInUse(false);
+    setIsMailInvalid(false);
+    setIsPasswordShort(false);
     // Submit the picture
-    // const submitPicture = () => {
     const formdata = new FormData();
     formdata.append("userPicture", selectedFile);
     const requestOptions = {
@@ -49,28 +53,23 @@ function SignUpCard() {
       body: formdata,
     };
 
-    fetch("http://localhost:5000/api/users/imageUpload", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("result", result);
-        setNewUser({ ...newUser, userPicture: result.userPicture });
-        submitUserData();
-      })
-      .catch((error) => console.log("error", error));
-    // };
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/imageUpload",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("result", result);
+      setNewUser({ ...newUser, userPicture: result.userPicture });
 
-    // Submit user data after the picture has been uploaded
-
-    // submitPicture();
+      // Submit user data after the picture has been uploaded
+      submitUserData();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
   const submitUserData = () => {
     console.log("newUser :>> ", newUser);
-
-    setIsSignUpSuccessful(false);
-    setIsUserNameInUse(false);
-    setisMailInUse(false);
-    setIsMailInvalid(false);
-    setIsPasswordShort(false);
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -174,7 +173,7 @@ function SignUpCard() {
           </button>
           <Modal show={showModal} className="signup-modal">
             <Modal.Body>
-              {isSignUpSuccessful && <p>You have successfully registered.</p>}
+              {isSignUpSuccessful && <p>You have successfully signed.</p>}
               {isMailInUse && (
                 <p id="error-message">
                   This e-mail address is in use. Try another one.

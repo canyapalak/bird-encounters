@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
 import BookmarkEmpty from "../../assets/bookmark-empty.png";
 import BookmarkFilled from "../../assets/bookmark-filled.png";
 import useConvertTime from "../../hooks/useConvertTime";
@@ -19,6 +20,22 @@ function EncounterCards() {
   }
 
   return (
+    // <div className="panel-and-container">
+    /* <span className="panel"> */
+    /* <span className="dropdown">
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-toggle">
+              Sort By
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">Newest</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Oldest</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Favorites</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </span>
+        <button id="new-post-button">New Encounter </button>{" "}
+      </span> */
     <div className="cards-container">
       {encounters &&
         encounters.map((encounter, index) => {
@@ -64,6 +81,7 @@ function EncounterCards() {
           );
         })}
     </div>
+    // </div>
   );
 }
 

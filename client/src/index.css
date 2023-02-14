@@ -14,3 +14,7 @@ min-height: 100% !important;
 min-width: 100% !important;
 margin: 0px !important;
 }
+
+* a {
+  text-decoration: none;
+}
