@@ -14,15 +14,28 @@ function SignUpCard() {
   const [isUserNameInUse, setIsUserNameInUse] = useState(false);
   const [isMailInvalid, setIsMailInvalid] = useState(false);
   const [isPasswordShort, setIsPasswordShort] = useState(false);
+  const [isUploadSuccessful, setIsUploadSuccessful] = useState(false);
+  const [isUploadFail, setIsUploadFail] = useState(false);
+  const [isUploadExceeds, setIsUploadExceeds] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
+  const [showPictureModal, setShowPictureModal] = useState(false);
+  const handleClosePictureModal = () => setShowPictureModal(false);
+  const handleShowPictureModal = () => setShowPictureModal(true);
+
   const AvatarPlaceholder =
     "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676284633/bird-encounters/avatar-placeholder_yh3ock.png";
 
   function handleSignUpAndModal() {
     handleSignUp();
     handleShowModal();
+  }
+
+  function handleSubmitPictureAndModal() {
+    handleSubmitPicture();
+    handleShowPictureModal();
   }
 
   const handleAttachPicture = (e) => {
@@ -39,15 +52,14 @@ function SignUpCard() {
     });
   };
 
-  const handleSignUp = async () => {
-    setIsSignUpSuccessful(false);
-    setIsUserNameInUse(false);
-    setisMailInUse(false);
-    setIsMailInvalid(false);
-    setIsPasswordShort(false);
-    // Submit the picture
+  const handleSubmitPicture = async (e) => {
+    setIsUploadSuccessful(false);
+    setIsUploadFail(false);
     const formdata = new FormData();
-    formdata.append("userPicture", selectedFile);
+    formdata.append("image", selectedFile);
+
+    console.log("formData :>> ", formdata);
+
     const requestOptions = {
       method: "POST",
       body: formdata,
@@ -60,15 +72,23 @@ function SignUpCard() {
       );
       const result = await response.json();
       console.log("result", result);
-      setNewUser({ ...newUser, userPicture: result.userPicture });
-
-      // Submit user data after the picture has been uploaded
-      submitUserData();
+      setNewUser({ ...newUser, userPicture: result.imageUrl });
+      if (result.msg === "image upload ok") {
+        setIsUploadSuccessful(true);
+      }
     } catch (error) {
-      console.log("error", error);
+      console.log("error :>> ", error);
+      setIsUploadFail(true);
     }
   };
-  const submitUserData = () => {
+
+  const handleSignUp = async () => {
+    setIsSignUpSuccessful(false);
+    setIsUserNameInUse(false);
+    setisMailInUse(false);
+    setIsMailInvalid(false);
+    setIsPasswordShort(false);
+
     console.log("newUser :>> ", newUser);
 
     const myHeaders = new Headers();
@@ -161,6 +181,34 @@ function SignUpCard() {
             />
           </span>
         </form>
+        <button
+          onClick={handleSubmitPictureAndModal}
+          id="upload-button"
+          disabled={!selectedFile}
+        >
+          Upload
+        </button>
+        <span className="signup-button">
+          <Modal show={showPictureModal} className="signup-modal">
+            <Modal.Body>
+              {isUploadSuccessful && (
+                <p>You have successfully uploaded your picture.</p>
+              )}
+              {isUploadFail && (
+                <p id="error-message">Please use a jpg, jpeg or png file.</p>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="primary"
+                className="signup-modal-button"
+                onClick={handleClosePictureModal}
+              >
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </span>
 
         <hr />
         <span className="required-fields">
@@ -173,7 +221,9 @@ function SignUpCard() {
           </button>
           <Modal show={showModal} className="signup-modal">
             <Modal.Body>
-              {isSignUpSuccessful && <p>You have successfully signed.</p>}
+              {isSignUpSuccessful && (
+                <p>You have successfully signed up. Please log in.</p>
+              )}
               {isMailInUse && (
                 <p id="error-message">
                   This e-mail address is in use. Try another one.
@@ -200,7 +250,7 @@ function SignUpCard() {
                 <Button
                   variant="primary"
                   className="signup-modal-button"
-                  onClick={() => redirectTo(-1)}
+                  onClick={() => redirectTo("/login")}
                 >
                   Close
                 </Button>

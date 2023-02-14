@@ -2,22 +2,21 @@ import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
 import { passwordEncryption } from "../utils/bcrypt.js";
 
-const imageUpload = async (req, res) => {
-  console.log("request :>> ", req.file);
+const uploadUserPicture = async (req, res) => {
+  console.log("req", req.file);
 
   try {
-    const pictureUpload = await cloudinary.uploader.upload(req.file.path, {
+    const upload = await cloudinary.uploader.upload(req.file.path, {
       folder: "bird-encounters",
     });
-    console.log("pictureUpload", pictureUpload);
+
+    console.log("upload", upload);
     res.status(200).json({
-      msg: "file was uploaded",
-      userPicture: pictureUpload.url,
+      msg: "image upload ok",
+      imageUrl: upload.url,
     });
   } catch (error) {
-    res.status(400).json({
-      msg: "file upload failed",
-    });
+    res.status(500).json({ msg: "couldn't upload image", error: error });
   }
 };
 
@@ -88,4 +87,4 @@ const signup = async (req, res) => {
   }
 };
 
-export { imageUpload, signup };
+export { uploadUserPicture, signup };

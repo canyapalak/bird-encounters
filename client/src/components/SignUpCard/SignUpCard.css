@@ -85,8 +85,6 @@ margin-left: 3rem;
     padding-top: 0.4rem;
 }
 
-
-
 #signup-button {
     font-size: large;
     margin-left: auto;
@@ -102,25 +100,36 @@ margin-left: 3rem;
     margin-top: -0.5rem;
 }
 
+#upload-button {
+    font-size: large;
+    position: relative;
+    margin-left: 9.8rem;
+    width: 6rem;
+    background-color: rgb(190, 229, 173);
+    height: 2.5rem;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    color: rgb(46, 43, 41);
+    text-decoration: none !important;
+}
+
+#upload-button:disabled {
+        background-color: rgb(167, 169, 166);
+}
+
 #required-fields-text {
     text-decoration: wavy !important;
     font-style: italic !important;
     color: rgb(91, 90, 90);
 }
 
-#signup-button:link {
-    text-decoration: none !important;
-}
-
-#signup-button:visited {
-    text-decoration: none !important;
-}
-
+#upload-button:hover,
 #signup-button:hover {
     background-color: rgb(204, 241, 141);
     text-decoration: none !important;
 }
 
+#upload-button:active,
 #signup-button:active {
     background-color: rgb(188, 212, 180);
     text-decoration: none !important;
@@ -163,12 +172,9 @@ margin-left: 3rem;
     text-decoration: none !important;
 }
 
+.signup-modal-button:active,
 .signup-modal-button:hover {
     background-color: rgb(204, 241, 141);
     text-decoration: none !important;
-}
-
-.signup-modal-button:active {
-    background-color: rgb(188, 212, 180);
-    text-decoration: none !important;
+    color: rgb(46, 43, 41);
 }
