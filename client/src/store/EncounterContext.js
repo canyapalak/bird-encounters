@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getToken } from "../utils/getToken";
 
 export const EncounterContext = createContext();
 
@@ -21,16 +20,10 @@ export const EncounterContextProvider = (props) => {
     };
 
     fetchAllEncounters();
-    const token = getToken();
-    if (token) {
-      console.log("LOGGED IN");
-    } else {
-      console.log("NOT logged in");
-    }
   }, []);
 
   return (
-    <EncounterContext.Provider value={{ encounters, error, token }}>
+    <EncounterContext.Provider value={{ encounters, error }}>
       {props.children}
     </EncounterContext.Provider>
   );

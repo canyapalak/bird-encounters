@@ -1,9 +1,12 @@
 import "./LogInCard.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import { AuthContext } from "../../store/AuthContext";
 
 function LogInCard() {
   const [logInUser, setLogInUser] = useState({});
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  console.log("currentUser :>> ", currentUser);
 
   const handleInputChange = (e) => {
     setLogInUser({
@@ -35,13 +38,14 @@ function LogInCard() {
         console.log(result);
         if (result.token) {
           localStorage.setItem("token", result.token);
-          setLogInUser(result.user);
+          setCurrentUser(result.user);
         }
       })
       .catch((error) => console.log("error", error));
   };
 
   // useEffect(() => {
+  //   console.log("logInUser", logInUser);
   //   const token = localStorage.getItem("token");
 
   //   if (token) {
@@ -49,7 +53,7 @@ function LogInCard() {
   //   } else {
   //     console.log("you are NOT logged in");
   //   }
-  // }, []);
+  // }, [logInUser]);
 
   return (
     <div className="login-container">

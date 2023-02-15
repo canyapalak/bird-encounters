@@ -7,21 +7,26 @@ import MapPage from "./views/MapPage/MapPage";
 import SignUp from "./views/SignUp/SignUp";
 import LogIn from "./views/LogIn/LogIn";
 import { EncounterContextProvider } from "./store/EncounterContext";
+import { AuthContextProvider } from "./store/AuthContext";
+import Profile from "./views/Profile/Profile";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <EncounterContextProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/encounters" element={<Encounters />} />
-            <Route path="/:_id" element={<Details />} />
-            <Route path="/map" element={<MapPage />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </EncounterContextProvider>
+        <AuthContextProvider>
+          <EncounterContextProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/encounters" element={<Encounters />} />
+              <Route path="/:_id" element={<Details />} />
+              <Route path="/map" element={<MapPage />} />
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </EncounterContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
     </div>
   );
