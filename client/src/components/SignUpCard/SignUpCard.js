@@ -197,7 +197,7 @@ function SignUpCard() {
                 <p>You have successfully uploaded your picture.</p>
               )}
               {isUploadFail && (
-                <p id="error-message">Please use a jpg, jpeg or png file.</p>
+                <p id="error-message">Please upload a jpg, jpeg or png file.</p>
               )}
             </Modal.Body>
             <Modal.Footer>

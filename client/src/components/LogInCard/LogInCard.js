@@ -1,59 +1,31 @@
 import "./LogInCard.css";
 import React, { useContext, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/esm/Button";
 import { AuthContext } from "../../store/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function LogInCard() {
-  const [logInUser, setLogInUser] = useState({});
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const {
+    currentUser,
+    handleLogIn,
+    handleInputChange,
+    isEmailWrong,
+    isPasswordWrong,
+    isLogInSuccessful,
+  } = useContext(AuthContext);
+  const [showLogInModal, setShowLogInModal] = useState(false);
+  const handleCloseLogInModal = () => setShowLogInModal(false);
+  const handleShowLogInModal = () => setShowLogInModal(true);
+  const redirectTo = useNavigate();
+
   console.log("currentUser :>> ", currentUser);
 
-  const handleInputChange = (e) => {
-    setLogInUser({
-      ...logInUser,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLogIn = () => {
-    console.log("loginuser :>> ", logInUser);
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("email", logInUser.email);
-    urlencoded.append("password", logInUser.password);
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:5000/api/users/login", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.token) {
-          localStorage.setItem("token", result.token);
-          setCurrentUser(result.user);
-        }
-      })
-      .catch((error) => console.log("error", error));
-  };
-
-  // useEffect(() => {
-  //   console.log("logInUser", logInUser);
-  //   const token = localStorage.getItem("token");
-
-  //   if (token) {
-  //     console.log("you are logged in");
-  //   } else {
-  //     console.log("you are NOT logged in");
-  //   }
-  // }, [logInUser]);
+  function handleLogInAndModal() {
+    handleLogIn();
+    handleShowLogInModal();
+  }
 
   return (
     <div className="login-container">
@@ -80,9 +52,47 @@ function LogInCard() {
         </span>
         <hr />
         <span className="experience">
-          <button onClick={handleLogIn} id="login-button">
+          <button onClick={handleLogInAndModal} id="login-button">
             Log In
           </button>
+
+          <span className="signup-button">
+            <Modal show={showLogInModal} className="signup-modal">
+              <Modal.Body>
+                {isLogInSuccessful && (
+                  <p>
+                    Welcome, {currentUser.userName}. You have successfully
+                    logged in.
+                  </p>
+                )}
+                {isPasswordWrong && (
+                  <p id="error-message">Password is wrong.</p>
+                )}
+                {isEmailWrong && (
+                  <p id="error-message">E-mail address is wrong.</p>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                {isLogInSuccessful ? (
+                  <Button
+                    variant="primary"
+                    className="signup-modal-button"
+                    onClick={() => redirectTo("/")}
+                  >
+                    Close
+                  </Button>
+                ) : (
+                  <Button
+                    variant="primary"
+                    className="signup-modal-button"
+                    onClick={handleCloseLogInModal}
+                  >
+                    Close
+                  </Button>
+                )}
+              </Modal.Footer>
+            </Modal>
+          </span>
         </span>
         <span className="go-to-login">
           <p>

@@ -133,6 +133,20 @@ font-size: 110%;
     margin-bottom: 0.5rem;
 }
 
+#map-hover {
+
+}
+
+#map-hover {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.2s ease-in-out;
+}
+
+#map-hover:hover {
+    transform: scale(1.2);
+}
+
 
 @media (max-width: 550px) {
 .avatar-username-and-post-time {

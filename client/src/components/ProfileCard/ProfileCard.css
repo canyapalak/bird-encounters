@@ -1,0 +1,83 @@
+.profile-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+.profile-card {
+    width: 40rem;
+    margin: 1rem;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    background: radial-gradient(circle, rgb(254, 255, 254) 0%, rgb(245, 249, 210)100%);
+    padding: 1rem;
+}
+
+.user-picture img {
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 2rem;
+    display: block;
+width: 12rem;
+    object-fit: fill;
+    border-radius: 90%;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-card hr {
+    border: 1px rgb(46, 43, 41) dashed;
+    opacity: 0.5;
+}
+
+.profile-part {
+    display: flex;
+}
+
+#profile-title {
+    text-decoration: wavy;
+        font-style: italic;
+        color: rgb(91, 90, 90);
+}
+
+#profile-detail {
+        color: rgb(25, 125, 150);
+            margin-left: 0.5rem;
+}
+
+.user-encounters p,
+.user-bookmarks p {
+    text-align: center;
+    text-decoration: wavy;
+        font-style: italic;
+        color: rgb(91, 90, 90);
+}
+
+#part-title {
+        font-size: 110%;
+            color: rgb(31, 147, 49);
+            text-align: center;
+
+
+}
+
+.edit-icon {
+    float: right;
+    margin-left: auto;
+    margin-right: -2rem;
+    margin-top: -1rem;
+}
+
+.edit-icon img {
+    width: 70%;
+    cursor:pointer
+}

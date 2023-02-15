@@ -1,39 +1,41 @@
 import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../store/AuthContext";
 import "./NavigationBar.css";
 
 function NavigationBar() {
-  const { isToken, logOut } = useContext(AuthContext);
+  const { isToken, logOut, isLogInSuccessful } = useContext(AuthContext);
 
-  useEffect(() => {}, [isToken]);
+  useEffect(() => {}, [isToken, isLogInSuccessful]);
 
   return (
     <>
       <header className="nav-bar">
-        <a href="/" className="logo">
-          bird encounters
-        </a>
+        <Link to={"/"}>
+          <p className="logo">bird encounters</p>
+        </Link>
+
         <input className="menu-btn" type="checkbox" id="menu-btn" />
         <label className="menu-icon" htmlFor="menu-btn">
           <span className="navicon"></span>
         </label>
         <ul className="menu">
           <li>
-            <a href="/encounters">encounters</a>
+            <Link to={"/encounters"}>encounters</Link>
           </li>
           <li>
-            <a href="/map">map</a>
+            <Link to={"/map"}>map</Link>
           </li>
-          {isToken ? (
+          {isToken || isLogInSuccessful ? (
             <li>
-              <a href="/profile">profile</a>
+              <Link to={"/profile"}>profile</Link>
             </li>
           ) : (
             <li>
-              <a href="/signup">sign up</a>
+              <Link to={"/signup"}>sign up</Link>
             </li>
           )}
-          {isToken ? (
+          {isToken || isLogInSuccessful ? (
             <li>
               <a href="/" id="logout-link" onClick={logOut}>
                 log out
@@ -41,7 +43,7 @@ function NavigationBar() {
             </li>
           ) : (
             <li>
-              <a href="/login">log in</a>
+              <Link to={"/login"}>log in</Link>
             </li>
           )}
         </ul>
