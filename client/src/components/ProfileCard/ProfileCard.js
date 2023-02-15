@@ -8,6 +8,7 @@ import PencilIcon from "../../assets/pencil-icon.png";
 function ProfileCard() {
   const { currentUser } = useContext(AuthContext);
   const convertTime = useConvertTime();
+
   console.log("currentUser :>> ", currentUser);
 
   return (
@@ -42,9 +43,9 @@ function ProfileCard() {
         </div>
         <hr />
         <div className="user-bookmarks">
-          <p id="part-title">bookmarks</p>
+          <p id="part-title">favourites</p>
           <span className="bookmarks-part">
-            <p>You have currently no bookmarks.</p>
+            <p>You have currently no favourites.</p>
           </span>
         </div>
       </Card>

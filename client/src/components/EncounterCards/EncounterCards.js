@@ -9,79 +9,127 @@ import BookmarkFilled from "../../assets/bookmark-filled.png";
 import useConvertTime from "../../hooks/useConvertTime";
 
 function EncounterCards() {
+  const convertTime = useConvertTime();
   const { encounters } = useContext(EncounterContext);
   const [isToggled, setIsToggled] = useState(false);
-  const convertTime = useConvertTime();
+  const [sortingMethod, setSortingMethod] = useState("newest");
 
-  useEffect(() => {}, [encounters]);
+  useEffect(() => {}, []);
+
+  function handleSort(value) {
+    setSortingMethod(value);
+  }
+
+  const sortedEncounters =
+    encounters &&
+    encounters.slice().sort((a, b) => {
+      if (sortingMethod === "newest") {
+        return new Date(b.posttime) - new Date(a.posttime);
+      } else if (sortingMethod === "oldest") {
+        return new Date(a.posttime) - new Date(b.posttime);
+      } else if (sortingMethod === "favorites") {
+        return b.favs - a.favs;
+      }
+    });
 
   function handleFavClick() {
     setIsToggled(!isToggled);
   }
 
   return (
-    // <div className="panel-and-container">
-    /* <span className="panel"> */
-    /* <span className="dropdown">
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-toggle">
-              Sort By
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Newest</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Oldest</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Favorites</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+    <div className="panel-and-container">
+      <div className="panel">
+        <span className="dropdown-and-new">
+          <span className="dropdown">
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-toggle">
+                Sort By
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  value="newest"
+                  onClick={() => handleSort("newest")}
+                >
+                  Newest
+                </Dropdown.Item>
+                <Dropdown.Item
+                  value="oldest"
+                  onClick={() => handleSort("oldest")}
+                >
+                  Oldest
+                </Dropdown.Item>
+                <Dropdown.Item
+                  value="favorites"
+                  onClick={() => handleSort("favorites")}
+                >
+                  Favourites
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </span>
+          <span className="new-post">
+            {" "}
+            <button id="new-post-button">+ New Encounter </button>{" "}
+          </span>
         </span>
-        <button id="new-post-button">New Encounter </button>{" "}
-      </span> */
-    <div className="cards-container">
-      {encounters &&
-        encounters.map((encounter, index) => {
-          return (
-            <Card className="one-card" key={index}>
-              <span className="post-image">
-                <img src={encounter.image} alt="Encounter Image" />
-              </span>
-              <span className="title">
-                <p>{encounter.title}</p>
-              </span>
-              <hr />
-              <div className="username-and-favs">
-                <div className="username-and-time">
-                  <span className="username">
-                    <p id="posted-by">posted by&nbsp;</p>
-                    <p id="username-text">{encounter.username}</p>
-                  </span>
-                  <span className="post-time">
-                    <p id="posted-by">on&nbsp;</p>
-                    <p id="post-time-text">{convertTime(encounter.posttime)}</p>
-                  </span>
-                </div>
-                <div className="fav-icon-and-number">
-                  <div onClick={handleFavClick} className="fav-icon">
-                    {!isToggled ? (
-                      <img src={BookmarkEmpty} alt="Not Fav" />
-                    ) : (
-                      <img src={BookmarkFilled} alt="Fav" />
-                    )}
+        <span className="search-input">
+          <input
+            type="text"
+            name="email"
+            placeholder="Search by Title"
+            className="signup-input"
+          />
+        </span>
+      </div>
+      <hr id="line"></hr>
+      <div className="cards-container">
+        {sortedEncounters &&
+          sortedEncounters.map((encounter, index) => {
+            return (
+              <Card className="one-card" key={index}>
+                <span className="post-image">
+                  <img src={encounter.image} alt="Encounter Image" />
+                </span>
+                <span className="title">
+                  <p>{encounter.title}</p>
+                </span>
+                <hr />
+                <div className="username-and-favs">
+                  <div className="username-and-time">
+                    <span className="username">
+                      <p id="posted-by">posted by&nbsp;</p>
+                      <p id="username-text">{encounter.username}</p>
+                    </span>
+                    <span className="post-time">
+                      <p id="posted-by">on&nbsp;</p>
+                      <p id="post-time-text">
+                        {convertTime(encounter.posttime)}
+                      </p>
+                    </span>
                   </div>
-                  <span className="fav-number">
-                    <p>{encounter.favs}</p>
-                  </span>
+                  <div className="fav-icon-and-number">
+                    <div onClick={handleFavClick} className="fav-icon">
+                      {!isToggled ? (
+                        <img src={BookmarkEmpty} alt="Not Fav" />
+                      ) : (
+                        <img src={BookmarkFilled} alt="Fav" />
+                      )}
+                    </div>
+                    <span className="fav-number">
+                      <p>{encounter.favs}</p>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <hr />
+                <hr />
 
-              <Link to={"/" + encounter._id}>
-                <button id="card-button">Details</button>{" "}
-              </Link>
-            </Card>
-          );
-        })}
+                <Link to={"/" + encounter._id}>
+                  <button id="card-button">Details</button>{" "}
+                </Link>
+              </Card>
+            );
+          })}
+      </div>{" "}
     </div>
-    // </div>
   );
 }
 

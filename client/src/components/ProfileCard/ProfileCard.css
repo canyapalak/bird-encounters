@@ -79,5 +79,9 @@ width: 12rem;
 
 .edit-icon img {
     width: 70%;
-    cursor:pointer
+    cursor:pointer;
+}
+
+.edit-icon img:hover {
+    filter: invert(26%) sepia(39%) saturate(1583%) hue-rotate(75deg) brightness(96%) contrast(116%);
 }

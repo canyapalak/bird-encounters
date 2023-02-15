@@ -121,20 +121,19 @@ color: rgb(25, 125, 150);
 
 .info-and-map img {
     width: 60px;
-        height: 60px;
-        margin-left: auto;
-        cursor: pointer;
+    height: 60px;
+    margin-left: auto;
+    cursor: pointer;
+}
 
+.info-and-map img:hover {
+    filter: invert(26%) sepia(39%) saturate(1583%) hue-rotate(75deg) brightness(96%) contrast(116%);
 }
 
 .details-title p {
-font-size: 110%;
+    font-size: 110%;
     color: rgb(31, 147, 49);
     margin-bottom: 0.5rem;
-}
-
-#map-hover {
-
 }
 
 #map-hover {
