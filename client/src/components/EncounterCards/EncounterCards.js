@@ -29,6 +29,10 @@ function EncounterCards() {
         return new Date(a.posttime) - new Date(b.posttime);
       } else if (sortingMethod === "favorites") {
         return b.favs - a.favs;
+      } else if (sortingMethod === "species") {
+        return a.species.localeCompare(b.species);
+      } else if (sortingMethod === "country") {
+        return a.location.country.localeCompare(b.location.country);
       }
     });
 
@@ -57,6 +61,18 @@ function EncounterCards() {
                   onClick={() => handleSort("oldest")}
                 >
                   Oldest
+                </Dropdown.Item>
+                <Dropdown.Item
+                  value="species"
+                  onClick={() => handleSort("species")}
+                >
+                  Species
+                </Dropdown.Item>
+                <Dropdown.Item
+                  value="country"
+                  onClick={() => handleSort("country")}
+                >
+                  Country
                 </Dropdown.Item>
                 <Dropdown.Item
                   value="favorites"
