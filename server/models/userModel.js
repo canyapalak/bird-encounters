@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
   },
 
+  isAdmin: {
+    type: Boolean,
+  },
+
   favs: [
     {
       type: String,

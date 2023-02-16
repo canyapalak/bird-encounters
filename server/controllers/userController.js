@@ -9,6 +9,26 @@ const uploadUserPicture = async (req, res) => {
   try {
     const upload = await cloudinary.uploader.upload(req.file.path, {
       folder: "bird-encounters",
+      transformation: [{ width: 400, height: 400, crop: "fill" }],
+    });
+
+    console.log("upload", upload);
+    res.status(200).json({
+      msg: "image upload ok",
+      imageUrl: upload.url,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: "couldn't upload image", error: error });
+  }
+};
+
+const uploadEncounterPicture = async (req, res) => {
+  console.log("req", req.file);
+
+  try {
+    const upload = await cloudinary.uploader.upload(req.file.path, {
+      folder: "bird-encounters",
+      transformation: [{ width: 700, height: 447, crop: "fill" }],
     });
 
     console.log("upload", upload);
@@ -62,6 +82,7 @@ const signup = async (req, res) => {
         userPicture: req.body.userPicture,
         signupTime: currentDate,
         favs: req.body.favs,
+        isAdmin: false,
       });
 
       try {
@@ -74,6 +95,7 @@ const signup = async (req, res) => {
             userPicture: savedUser.userPicture,
             signupTime: savedUser.signupTime,
             favs: savedUser.favs,
+            isAdmin: savedUser.isAdmin,
           },
         });
       } catch (error) {
@@ -115,6 +137,7 @@ const login = async (req, res) => {
             email: existingUser.email,
             signupTime: existingUser.signupTime,
             userPicture: existingUser.userPicture,
+            isAdmin: existingUser.isAdmin,
           },
           token,
         });
@@ -125,4 +148,4 @@ const login = async (req, res) => {
   }
 };
 
-export { uploadUserPicture, signup, login };
+export { uploadUserPicture, uploadEncounterPicture, signup, login };
