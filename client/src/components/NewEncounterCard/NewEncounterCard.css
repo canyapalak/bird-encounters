@@ -1,4 +1,4 @@
-.signup-container {
+.newencounter-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -9,7 +9,7 @@
     margin-bottom: 1rem;
 }
 
-.signup-card {
+.newencounter-card {
     width: 40rem;
     margin: 1rem;
     border: 1px solid rgb(91, 90, 90);
@@ -19,12 +19,12 @@
     padding-top: 2rem;
 }
 
-.signup-card hr {
+.newencounter-card hr {
     border: 1px rgb(46, 43, 41) dashed;
     opacity: 0.5;
 }
 
-.signup-card input {
+.newencounter-card input {
     width: 45%;
     height: 1rem;
     border: 1px solid rgb(91, 90, 90);
@@ -36,44 +36,60 @@
     margin-top: -0.5rem;
 }
 
-.signup-username {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-
-}
-
-.signup-username input {
-margin-left: 3rem;
-}
-
-.signup-email {
+.newencounter-area,
+.newencounter-province,
+.newencounter-country,
+.newencounter-title,
+.newencounter-species,
+.newencounter-coordinates,
+.newencounter-encounter-time,
+.newencounter-title {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 }
 
-.signup-email input {
-    margin-left: 0.3rem;
+.newencounter-title input {
+    margin-left: 3rem;
+}
+
+.newencounter-species input {
+    margin-left: 3rem;
+}
+.newencounter-area input {
+    margin-left: 3rem;
+}
+.newencounter-province input {
+    margin-left: 4.6rem;
+}
+.newencounter-country input {
+    margin-left: 4.85rem;
+}
+.newencounter-encounter-time input {
+    margin-left: 1rem;
+}
+
+.two-coordinates {
+    margin-left: 2.6rem;
+}
+
+.two-coordinates input {
+    width: 7rem;
+}
+
+.newencounter-experience textarea {
+    height: 5rem;
+    width: 100%;
+    padding-top: 5px;
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    font-size: 1.2rem;
+
+    padding-left: 0.3rem;
+
 }
 
 
-.signup-password {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
-
-.signup-password input {
-    margin-left: 3.4rem;
-    -webkit-text-security: disc;
-}
-
-.signup-avatar {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
 
 #upload-image {
     margin-left: 1.3rem;
@@ -114,7 +130,7 @@ margin-left: 3rem;
 }
 
 #upload-button:disabled {
-        background-color: rgb(167, 169, 166);
+    background-color: rgb(167, 169, 166);
 }
 
 #required-fields-text {
@@ -152,10 +168,15 @@ margin-left: 3rem;
     color: crimson;
 }
 
+.signup-modal .modal-body {
+    border: none !important;
+    background-color: aqua;
+    text-align: center;
+    height: 4rem;
+}
 
 .signup-modal-button {
-    margin-left: auto;
-    margin-right: auto;
+
     font-size: large;
     width: 6rem;
     background-color: rgb(190, 229, 173);
@@ -172,3 +193,8 @@ margin-left: 3rem;
     text-decoration: none !important;
     color: rgb(46, 43, 41);
 }
+
+
+
+
+

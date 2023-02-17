@@ -68,19 +68,16 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("token");
   }
 
-  //   // loader
-  //   const [loader, setLoader] = useState(true);
-
-  //   const loaderFunction = () => {
-  //     if (currentUser) {
-  //       setLoader(false);
-  //     } else {
-  //       setLoader(true);
-  //     }
-  //   };
+  const loaderFunction = () => {
+    if (currentUser) {
+      setLoader(false);
+    } else {
+      setLoader(true);
+    }
+  };
 
   useEffect(() => {
-    // loaderFunction();
+    loaderFunction();
     const token = getToken();
     if (token) {
       console.log("LOGGED IN");
@@ -89,9 +86,8 @@ export const AuthContextProvider = (props) => {
       console.log("NOT logged in");
       setIsToken(false);
     }
-    // setCurrentUser({});
     setLoader(false);
-  }, []);
+  }, [currentUser]);
 
   if (loader) {
     return <div>...Page is Loading...</div>;

@@ -5,6 +5,7 @@ import {
   signup,
   login,
 } from "../controllers/userController.js";
+import { postEncounter } from "../controllers/encounterController.js";
 import { multerUpload } from "../middlewares/multer.js";
 
 const router = express.Router();
@@ -15,6 +16,7 @@ router.post(
   multerUpload.single("image"),
   uploadEncounterPicture
 );
+router.post("/postEncounter", postEncounter);
 router.post("/signup", signup);
 router.post("/login", login);
 

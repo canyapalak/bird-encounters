@@ -10,6 +10,7 @@ import { EncounterContextProvider } from "./store/EncounterContext";
 import { AuthContextProvider } from "./store/AuthContext";
 import Profile from "./views/Profile/Profile";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import NewEncounterPage from "./views/NewEncounterPage/NewEncounterPage";
 
 function App() {
   return (
@@ -24,9 +25,22 @@ function App() {
               <Route path="/map" element={<MapPage />} />
               <Route path="/login" element={<LogIn />} />
               <Route path="/signup" element={<SignUp />} />
-              {/* <ProtectedRoute> */}
-              <Route path="/profile" element={<Profile />} />
-              {/* </ProtectedRoute> */}
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/newencounter"
+                element={
+                  <ProtectedRoute>
+                    <NewEncounterPage />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </EncounterContextProvider>
         </AuthContextProvider>

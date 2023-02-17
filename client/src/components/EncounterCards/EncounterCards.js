@@ -1,20 +1,28 @@
 import "./EncounterCards.css";
 import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
-import { Link } from "react-router-dom";
+import { AuthContext } from "../../store/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import BookmarkEmpty from "../../assets/bookmark-empty.png";
 import BookmarkFilled from "../../assets/bookmark-filled.png";
 import useConvertTime from "../../hooks/useConvertTime";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/esm/Button";
 
 function EncounterCards() {
+  const redirectTo = useNavigate();
   const convertTime = useConvertTime();
   const { encounters } = useContext(EncounterContext);
+  const { isToken, currentUser } = useContext(AuthContext);
   const [isToggled, setIsToggled] = useState(false);
   const [sortingMethod, setSortingMethod] = useState("newest");
+  const [showNewEncounterModal, setShowNewEncounterModal] = useState(false);
+  const handleCloseNewEncounterModal = () => setShowNewEncounterModal(false);
+  const handleShowNewEncounterModal = () => setShowNewEncounterModal(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [isToken]);
 
   function handleSort(value) {
     setSortingMethod(value);
@@ -85,7 +93,36 @@ function EncounterCards() {
           </span>
           <span className="new-post">
             {" "}
-            <button id="new-post-button">+ New Encounter </button>{" "}
+            {isToken ? (
+              <Link to={"/newencounter"}>
+                <button id="new-post-button">+ New Encounter </button>
+              </Link>
+            ) : (
+              <>
+                <button
+                  id="new-post-button"
+                  onClick={handleShowNewEncounterModal}
+                >
+                  + New Encounter
+                </button>
+                <Modal show={showNewEncounterModal} className="signup-modal">
+                  <Modal.Body>
+                    <p id="error-message">
+                      You need to log in first to post a new encounter.
+                    </p>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button
+                      variant="primary"
+                      className="signup-modal-button"
+                      onClick={handleCloseNewEncounterModal}
+                    >
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              </>
+            )}
           </span>
         </span>
         <span className="search-input">

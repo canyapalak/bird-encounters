@@ -6,6 +6,9 @@ import { Icon } from "leaflet";
 import LocationMarker from "../../assets/marker.png";
 
 function EncounterMap({ oneEncounter }) {
+
+
+  
   return (
     <div id="map">
       <MapContainer
