@@ -35,10 +35,7 @@ function EncounterMap() {
             encounters.map((encounter, index) => (
               <Marker
                 key={index}
-                position={[
-                  encounter.coordinates.latitude,
-                  encounter.coordinates.longitude,
-                ]}
+                position={[encounter.latitude, encounter.longitude]}
                 icon={
                   new Icon({
                     iconUrl: LocationMarker,

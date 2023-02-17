@@ -65,16 +65,16 @@ function EncounterDetails() {
             <span className="location">
               <p className="small-title">location: &nbsp;</p>
               <p>
-                {oneEncounter && oneEncounter.location
-                  ? `${oneEncounter.location.area}, ${oneEncounter.location.province}, ${oneEncounter.location.country}`
+                {oneEncounter
+                  ? `${oneEncounter.province}, ${oneEncounter.country}`
                   : "-"}
               </p>
             </span>
             <span className="coordinates">
               <p className="small-title">coordinates: &nbsp;</p>
               <p>
-                {oneEncounter && oneEncounter.coordinates
-                  ? `${oneEncounter.coordinates.latitude}, ${oneEncounter.coordinates.longitude}`
+                {oneEncounter
+                  ? `${oneEncounter.latitude}, ${oneEncounter.longitude}`
                   : "-"}{" "}
               </p>
             </span>

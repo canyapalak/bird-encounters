@@ -6,16 +6,10 @@ import { Icon } from "leaflet";
 import LocationMarker from "../../assets/marker.png";
 
 function EncounterMap({ oneEncounter }) {
-
-
-  
   return (
     <div id="map">
       <MapContainer
-        center={[
-          oneEncounter.coordinates.latitude,
-          oneEncounter.coordinates.longitude,
-        ]}
+        center={[oneEncounter.latitude, oneEncounter.longitude]}
         zoom={14}
         scrollWheelZoom={false}
         style={{ height: "50vh", width: "50wh" }}
@@ -25,10 +19,7 @@ function EncounterMap({ oneEncounter }) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <Marker
-          position={[
-            oneEncounter.coordinates.latitude,
-            oneEncounter.coordinates.longitude,
-          ]}
+          position={[oneEncounter.latitude, oneEncounter.longitude]}
           icon={
             new Icon({
               iconUrl: LocationMarker,

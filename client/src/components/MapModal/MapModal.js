@@ -17,8 +17,8 @@ function MapModal({ oneEncounter, showMap, handleCloseMap }) {
         <div className="location-and-close-button">
           <span>
             <p>
-              {oneEncounter && oneEncounter.location
-                ? `${oneEncounter.location.area}, ${oneEncounter.location.province}, ${oneEncounter.location.country}`
+              {oneEncounter
+                ? `${oneEncounter.province}, ${oneEncounter.country}`
                 : "-"}
             </p>
           </span>

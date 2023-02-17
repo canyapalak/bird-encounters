@@ -40,7 +40,7 @@ function EncounterCards() {
       } else if (sortingMethod === "species") {
         return a.species.localeCompare(b.species);
       } else if (sortingMethod === "country") {
-        return a.location.country.localeCompare(b.location.country);
+        return a.country.localeCompare(b.location.country);
       }
     });
 

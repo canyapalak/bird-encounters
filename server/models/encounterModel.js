@@ -2,17 +2,19 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const encounterSchema = new Schema({
-  username: { type: String },
-  coordinates: {
-    latitude: {
-      type: String,
-      required: true,
-    },
+  // username: {
+  //   type: String,
+  //   default: "test",
+  // },
 
-    longitude: {
-      type: String,
-      required: true,
-    },
+  latitude: {
+    type: Number,
+    required: true,
+  },
+
+  longitude: {
+    type: Number,
+    required: true,
   },
 
   experience: {
@@ -20,20 +22,14 @@ const encounterSchema = new Schema({
     required: true,
   },
 
-  location: {
-    area: {
-      type: String,
-      required: true,
-    },
+  province: {
+    type: String,
+    required: true,
+  },
 
-    province: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: true,
-    },
+  country: {
+    type: String,
+    required: true,
   },
 
   species: {
@@ -56,7 +52,10 @@ const encounterSchema = new Schema({
     default: null,
   },
 
-  posttime: { type: Date },
+  posttime: {
+    type: Date,
+  },
+
   favs: {
     type: Number,
     default: 0,
