@@ -41,6 +41,24 @@ const uploadEncounterPicture = async (req, res) => {
   }
 };
 
+const uploadAudioFile = async (req, res) => {
+  console.log("req", req.file);
+
+  try {
+    const upload = await cloudinary.uploader.upload(req.file.path, {
+      folder: "bird-encounters",
+    });
+
+    console.log("upload", upload);
+    res.status(200).json({
+      msg: "file upload ok",
+      recordUrl: upload.url,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: "couldn't upload file", error: error });
+  }
+};
+
 const signup = async (req, res) => {
   console.log("req.body :>> ", req.body);
   // const { userName, email, password, userPicture } = req.body; //desctructured version (be careful with undefined/null fields)
@@ -148,4 +166,10 @@ const login = async (req, res) => {
   }
 };
 
-export { uploadUserPicture, uploadEncounterPicture, signup, login };
+export {
+  uploadUserPicture,
+  uploadEncounterPicture,
+  uploadAudioFile,
+  signup,
+  login,
+};

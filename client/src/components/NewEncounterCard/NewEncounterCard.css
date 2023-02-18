@@ -50,31 +50,27 @@
 }
 
 .newencounter-title input {
-    margin-left: 3rem;
+    margin-left: 6.8rem;
 }
 
 .newencounter-species input {
-    margin-left: 3rem;
+    margin-left: 5.1rem;
 }
+
 .newencounter-area input {
     margin-left: 3rem;
 }
+
 .newencounter-province input {
     margin-left: 4.6rem;
 }
+
 .newencounter-country input {
-    margin-left: 4.85rem;
+    margin-left: 4.8rem;
 }
+
 .newencounter-encounter-time input {
-    margin-left: 1rem;
-}
-
-.two-coordinates {
-    margin-left: 2.6rem;
-}
-
-.two-coordinates input {
-    width: 7rem;
+    margin-left: 0.9rem;
 }
 
 .newencounter-experience textarea {
@@ -84,22 +80,47 @@
     border: 1px solid rgb(91, 90, 90);
     border-radius: 5px;
     font-size: 1.2rem;
-
     padding-left: 0.3rem;
-
 }
 
-
-
-#upload-image {
-    margin-left: 1.3rem;
-    width: 50%;
-    border: 1px solid rgb(91, 90, 90);
-    border-radius: 5px;
-    font-size: 1.1rem;
-    padding-bottom: 1.8rem;
-    padding-top: 0.4rem;
+.newencounter-upload-file {
+    display: flex;
+        flex-direction: column;
+        align-items: flex-start
 }
+
+#newencounter-upload {
+        width: 70%;
+        border: 1px solid rgb(91, 90, 90);
+        border-radius: 5px;
+        font-size: 1.1rem;
+        padding-bottom: 1.8rem;
+        padding-top: 0.4rem;
+        margin-bottom: 1rem;
+}
+#newencounter-choose-coordinates,
+#newencounter-upload-file-button,
+#newencounter-upload-button {
+    font-size: large;
+        display: block;
+        width: 6rem;
+        background-color: rgb(190, 229, 173);
+        height: 2.5rem;
+        border: 1px solid rgb(91, 90, 90);
+        border-radius: 5px;
+        color: rgb(46, 43, 41);
+        text-decoration: none !important;
+}
+
+#newencounter-choose-coordinates {
+    margin-left: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#newencounter-upload-button {
+    margin-bottom: 0.7rem;
+}
+
 
 #signup-button {
     font-size: large;
@@ -116,7 +137,7 @@
     margin-top: -0.5rem;
 }
 
-#upload-button {
+/* #upload-button {
     font-size: large;
     position: relative;
     margin-left: 9.8rem;
@@ -127,7 +148,7 @@
     border-radius: 5px;
     color: rgb(46, 43, 41);
     text-decoration: none !important;
-}
+} */
 
 #upload-button:disabled {
     background-color: rgb(167, 169, 166);
@@ -149,15 +170,6 @@
 #signup-button:active {
     background-color: rgb(188, 212, 180);
     text-decoration: none !important;
-}
-
-.go-to-login {
-    padding-top: 1rem;
-    text-align: center;
-}
-
-.go-to-login a {
-    color: rgb(25, 125, 150)
 }
 
 .signup-modal {

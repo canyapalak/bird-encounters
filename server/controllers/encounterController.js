@@ -45,7 +45,7 @@ const postEncounter = async (req, res) => {
     //   userName: req.body.userName,
     // });
     // console.log("existingUserName", existingUserName);
-    // const currentDate = new Date();
+    const currentDate = new Date();
 
     // if (
     //   !req.body.location.area ||
@@ -76,7 +76,7 @@ const postEncounter = async (req, res) => {
     //   });
     // } else {
     const newEncounter = new encounterModel({
-      // username: existingUserName.userName,
+      username: "test",
       province: req.body.province,
       country: req.body.country,
       experience: req.body.experience,
@@ -96,7 +96,7 @@ const postEncounter = async (req, res) => {
       res.status(201).json({
         msg: "posting successful",
         encounter: {
-          // username: savedEncounter.username,
+          username: savedEncounter.username,
           latitude: savedEncounter.latitude,
           longitude: savedEncounter.longitude,
           experience: savedEncounter.experience,
