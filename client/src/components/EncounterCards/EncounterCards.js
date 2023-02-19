@@ -22,7 +22,7 @@ function EncounterCards() {
   const handleCloseNewEncounterModal = () => setShowNewEncounterModal(false);
   const handleShowNewEncounterModal = () => setShowNewEncounterModal(true);
 
-  useEffect(() => {}, [isToken]);
+  useEffect(() => {}, [isToken, encounters]);
 
   function handleSort(value) {
     setSortingMethod(value);
@@ -40,7 +40,7 @@ function EncounterCards() {
       } else if (sortingMethod === "species") {
         return a.species.localeCompare(b.species);
       } else if (sortingMethod === "country") {
-        return a.country.localeCompare(b.location.country);
+        return a.country.localeCompare(b.country);
       }
     });
 

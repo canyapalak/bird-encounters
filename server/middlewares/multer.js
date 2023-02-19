@@ -17,8 +17,9 @@ const multerUploadforAudio = multer({
   fileFilter: function (req, file, cb) {
     let extension = path.extname(file.originalname);
     if (extension !== ".mp3" && extension !== ".wav" && extension !== ".m4a") {
-      cb(new Error("File extension not supported"), false);
+      cb(new Error("Audio file extension not supported"), false);
     }
+    console.log("req :>> ", req);
     cb(null, true);
   },
 });

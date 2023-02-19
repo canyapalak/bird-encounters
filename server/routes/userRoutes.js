@@ -17,11 +17,13 @@ router.post(
   multerUpload.single("image"),
   uploadEncounterPicture
 );
+
 router.post(
   "/audioUpload",
   multerUploadforAudio.single("record"),
   uploadAudioFile
 );
+
 router.post("/signup", signup);
 
 router.post("/login", login);

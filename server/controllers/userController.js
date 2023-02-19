@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 import { passwordEncryption, verifyPassword } from "../utils/bcrypt.js";
 import generateToken from "../utils/jwt.js";
 
+//upload avatar
 const uploadUserPicture = async (req, res) => {
   console.log("req", req.file);
 
@@ -22,6 +23,7 @@ const uploadUserPicture = async (req, res) => {
   }
 };
 
+//upload encounter photo
 const uploadEncounterPicture = async (req, res) => {
   console.log("req", req.file);
 
@@ -41,6 +43,7 @@ const uploadEncounterPicture = async (req, res) => {
   }
 };
 
+//upload audio record file for encounter
 const uploadAudioFile = async (req, res) => {
   console.log("req", req.file);
 
@@ -54,11 +57,13 @@ const uploadAudioFile = async (req, res) => {
       msg: "file upload ok",
       recordUrl: upload.url,
     });
+    console.log("res", res);
   } catch (error) {
     res.status(500).json({ msg: "couldn't upload file", error: error });
   }
 };
 
+//new user signup
 const signup = async (req, res) => {
   console.log("req.body :>> ", req.body);
   // const { userName, email, password, userPicture } = req.body; //desctructured version (be careful with undefined/null fields)
@@ -128,6 +133,7 @@ const signup = async (req, res) => {
   }
 };
 
+//existing user login
 const login = async (req, res) => {
   console.log("req.body :>> ", req.body);
 

@@ -207,6 +207,19 @@
 }
 
 
+.date-time-picker {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5rem;
+}
 
+input[type="date"],
+input[type="time"] {
+    padding: 5px;
+    height: 2rem;
+    margin-right: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 
 

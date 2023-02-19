@@ -9,12 +9,14 @@ const encounterSchema = new Schema({
 
   latitude: {
     type: Number,
-    required: true,
+    required: false,
+    default: 35,
   },
 
   longitude: {
     type: Number,
-    required: true,
+    required: false,
+    default: 15,
   },
 
   experience: {
@@ -39,7 +41,8 @@ const encounterSchema = new Schema({
 
   time: {
     type: Date,
-    default: null,
+    default: "2022-09-16T11:30:00.000+00:00",
+    required: false,
   },
 
   title: {
@@ -49,7 +52,8 @@ const encounterSchema = new Schema({
 
   image: {
     type: String,
-    default: null,
+    default:
+      "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676672744/bird-encounters/encounter-placeholder_pjoc9a.png",
   },
 
   posttime: {
