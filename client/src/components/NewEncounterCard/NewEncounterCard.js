@@ -4,6 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
 
 function NewEncounterCard() {
   const redirectTo = useNavigate();
@@ -21,7 +23,18 @@ function NewEncounterCard() {
   const handleClosePostModal = () => setShowPostModal(false);
   const handleShowPostModal = () => setShowPostModal(true);
   const [encounterTimeValue, setEncounterTimeValue] = useState("");
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [showNewEncounterMap, setShowNewEncounterMap] = useState(false);
+  const handleShowNewEncounterMap = () => setShowNewEncounterMap(true);
+  const handleCloseNewEncounterMap = () => setShowNewEncounterMap(false);
   const now = new Date();
+
+  const handleMapClick = (e) => {
+    setLatitude(e.latlng.lat);
+    setLongitude(e.latlng.lng);
+    handleCloseNewEncounterMap();
+  };
 
   const EncounterPlaceholder =
     "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676672744/bird-encounters/encounter-placeholder_pjoc9a.png";
@@ -177,9 +190,14 @@ function NewEncounterCard() {
           <button
             id="newencounter-choose-coordinates"
             // disabled={!selectedFile}
+            onClick={handleShowNewEncounterMap}
           >
             Choose
           </button>
+          <NewEncounterMapModal
+            showNewEncounterMap={showNewEncounterMap}
+            handleCloseNewEncounterMap={handleCloseNewEncounterMap}
+          />
         </span>
         <span className="newencounter-encounter-time">
           <p>Encounter Time: &nbsp;</p>
