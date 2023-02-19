@@ -28,6 +28,8 @@ function EncounterCards() {
     setSortingMethod(value);
   }
 
+  console.log("encounters :>> ", encounters);
+
   const sortedEncounters =
     encounters &&
     encounters.slice().sort((a, b) => {

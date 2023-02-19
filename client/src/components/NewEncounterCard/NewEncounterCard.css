@@ -150,7 +150,11 @@
     text-decoration: none !important;
 } */
 
-#upload-button:disabled {
+#newencounter-upload-button:disabled {
+    background-color: rgb(167, 169, 166);
+}
+
+#newencounter-upload-file-button:disabled {
     background-color: rgb(167, 169, 166);
 }
 
@@ -221,5 +225,3 @@ input[type="time"] {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
-
-

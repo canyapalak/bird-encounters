@@ -52,8 +52,7 @@ const encounterSchema = new Schema({
 
   image: {
     type: String,
-    default:
-      "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676672744/bird-encounters/encounter-placeholder_pjoc9a.png",
+    default: null,
   },
 
   posttime: {
