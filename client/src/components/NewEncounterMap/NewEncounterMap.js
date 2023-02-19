@@ -10,10 +10,10 @@ import {
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import MarkerIcon from "../../assets/marker.png";
+import BirdMarker from "../../assets/bird-marker.png";
 
-function NewEncounterMap({}) {
+function NewEncounterMap({ encounterPosition, setEncounterPosition }) {
   function LocationMarker({}) {
-    const [encounterPosition, setEncounterPosition] = useState(null);
     const [position, setPosition] = useState(null);
 
     const map = useMapEvents({
@@ -35,28 +35,43 @@ function NewEncounterMap({}) {
     console.log("encounterPosition", encounterPosition);
 
     return position === null ? null : (
-      <Marker
-        position={position}
-        icon={
-          new Icon({
-            iconUrl: MarkerIcon,
-            iconSize: [30, 35],
-            iconAnchor: [12, 31],
-          })
-        }
-      >
-        <Popup>You are here</Popup>
-      </Marker>
+      <>
+        <Marker
+          position={position}
+          icon={
+            new Icon({
+              iconUrl: MarkerIcon,
+              iconSize: [30, 35],
+              iconAnchor: [12, 31],
+            })
+          }
+        >
+          <Popup>You are here</Popup>
+        </Marker>
+        {encounterPosition && (
+          <Marker
+            position={encounterPosition}
+            icon={
+              new Icon({
+                iconUrl: BirdMarker,
+                iconSize: [30, 35],
+                iconAnchor: [12, 31],
+              })
+            }
+          >
+            <Popup>New marker</Popup>
+          </Marker>
+        )}
+      </>
     );
   }
 
   return (
     <div className="newencounter-map">
       <MapContainer
-        center={[52, 0]}
+        center={[51.5, 0.11]}
         zoom={9}
         scrollWheelZoom={false}
-        //   style={{ height: "61vh" }}
         id="map-container"
       >
         <TileLayer

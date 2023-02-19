@@ -6,6 +6,8 @@ import NewEncounterMap from "../NewEncounterMap/NewEncounterMap";
 function NewEncounterMapModal({
   showNewEncounterMap,
   handleCloseNewEncounterMap,
+  encounterPosition,
+  setEncounterPosition,
 }) {
   return (
     <Modal
@@ -30,7 +32,10 @@ function NewEncounterMapModal({
           </span>
         </div>
         <hr />
-        <NewEncounterMap />
+        <NewEncounterMap
+          encounterPosition={encounterPosition}
+          setEncounterPosition={setEncounterPosition}
+        />
       </Modal.Body>
     </Modal>
   );

@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
 
 function NewEncounterCard() {
@@ -23,18 +22,13 @@ function NewEncounterCard() {
   const handleClosePostModal = () => setShowPostModal(false);
   const handleShowPostModal = () => setShowPostModal(true);
   const [encounterTimeValue, setEncounterTimeValue] = useState("");
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
   const [showNewEncounterMap, setShowNewEncounterMap] = useState(false);
   const handleShowNewEncounterMap = () => setShowNewEncounterMap(true);
   const handleCloseNewEncounterMap = () => setShowNewEncounterMap(false);
+  const [encounterPosition, setEncounterPosition] = useState(null);
   const now = new Date();
-
-  const handleMapClick = (e) => {
-    setLatitude(e.latlng.lat);
-    setLongitude(e.latlng.lng);
-    handleCloseNewEncounterMap();
-  };
+  const lat = encounterPosition && encounterPosition.lat.toFixed(6);
+  const lng = encounterPosition && encounterPosition.lng.toFixed(6);
 
   const EncounterPlaceholder =
     "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676672744/bird-encounters/encounter-placeholder_pjoc9a.png";
@@ -110,6 +104,8 @@ function NewEncounterCard() {
     urlencoded.append("country", newEncounter.country);
     urlencoded.append("experience", newEncounter.experience);
     urlencoded.append("posttime", now);
+    urlencoded.append("latitude", lat);
+    urlencoded.append("longitude", lng);
     urlencoded.append("time", encounterTimeValue);
     urlencoded.append(
       "image",
@@ -189,7 +185,6 @@ function NewEncounterCard() {
           <p>Coordinates*: &nbsp;</p>
           <button
             id="newencounter-choose-coordinates"
-            // disabled={!selectedFile}
             onClick={handleShowNewEncounterMap}
           >
             Choose
@@ -197,10 +192,12 @@ function NewEncounterCard() {
           <NewEncounterMapModal
             showNewEncounterMap={showNewEncounterMap}
             handleCloseNewEncounterMap={handleCloseNewEncounterMap}
+            encounterPosition={encounterPosition}
+            setEncounterPosition={setEncounterPosition}
           />
         </span>
         <span className="newencounter-encounter-time">
-          <p>Encounter Time: &nbsp;</p>
+          <p>Encounter Time*: &nbsp;</p>
           <input
             type="datetime-local"
             name="time"
