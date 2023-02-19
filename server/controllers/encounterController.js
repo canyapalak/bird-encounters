@@ -41,40 +41,8 @@ const postEncounter = async (req, res) => {
   // username icin authotization sonrasinda req.user.username cagirmam yeterli olacak.
 
   try {
-    // const existingUserName = await userModel.findOne({
-    //   userName: req.body.userName,
-    // });
-    // console.log("existingUserName", existingUserName);
     const currentDate = new Date();
 
-    // if (
-    //   !req.body.location.area ||
-    //   !req.body.location.province ||
-    //   !req.body.location.country
-    // ) {
-    //   res.status(500).json({
-    //     msg: "you should give the location details",
-    //   });
-    // } else if (!req.body.title) {
-    //   res.status(500).json({
-    //     msg: "you should write a title",
-    //   });
-    // } else if (
-    //   !req.body.coordinates.latitude ||
-    //   !req.body.coordinates.longitude
-    // ) {
-    //   res.status(500).json({
-    //     msg: "you should choose the coordinates",
-    //   });
-    // } else if (!req.body.species) {
-    //   res.status(500).json({
-    //     msg: "you should write a species",
-    //   });
-    // } else if (!req.body.experience) {
-    //   res.status(500).json({
-    //     msg: "you should write an experience",
-    //   });
-    // } else {
     const newEncounter = new encounterModel({
       username: "test",
       province: req.body.province,
