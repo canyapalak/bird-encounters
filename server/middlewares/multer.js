@@ -24,5 +24,4 @@ const multerUploadforAudio = multer({
   },
 });
 
-//REVIEW[epic=demo, seq=6] 6. Export the function
 export { multerUpload, multerUploadforAudio };

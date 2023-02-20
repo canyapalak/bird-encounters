@@ -21,14 +21,24 @@ function EncounterCards() {
   const [showNewEncounterModal, setShowNewEncounterModal] = useState(false);
   const handleCloseNewEncounterModal = () => setShowNewEncounterModal(false);
   const handleShowNewEncounterModal = () => setShowNewEncounterModal(true);
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchedEncounters, setSearchedEncounters] = useState("");
 
   useEffect(() => {}, [isToken, encounters]);
+
+  const handleSearchQuery = (event) => {
+    const searchTerm = event.target.value;
+    console.log("searchTerm", searchTerm);
+    setSearchQuery(searchTerm);
+    const searchedEncounters = encounters.filter((encounter) =>
+      encounter.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchedEncounters(searchedEncounters);
+  };
 
   function handleSort(value) {
     setSortingMethod(value);
   }
-
-  console.log("encounters :>> ", encounters);
 
   const sortedEncounters =
     encounters &&
@@ -49,6 +59,10 @@ function EncounterCards() {
   function handleFavClick() {
     setIsToggled(!isToggled);
   }
+
+  const encountersToRender = searchQuery
+    ? searchedEncounters
+    : sortedEncounters;
 
   return (
     <div className="panel-and-container">
@@ -130,16 +144,18 @@ function EncounterCards() {
         <span className="search-input">
           <input
             type="text"
-            name="email"
-            placeholder="Search by Title"
-            className="signup-input"
+            onChange={handleSearchQuery}
+            placeholder="Search by title"
           />
         </span>
       </div>
       <hr id="line"></hr>
       <div className="cards-container">
-        {sortedEncounters &&
-          sortedEncounters.map((encounter, index) => {
+        {encountersToRender && encountersToRender.length === 0 && (
+          <p>No encounters found.</p>
+        )}
+        {encountersToRender &&
+          encountersToRender.map((encounter, index) => {
             return (
               <Card className="one-card" key={index}>
                 <span className="post-image">

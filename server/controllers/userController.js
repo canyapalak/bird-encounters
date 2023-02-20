@@ -23,46 +23,6 @@ const uploadUserPicture = async (req, res) => {
   }
 };
 
-//upload encounter photo
-const uploadEncounterPicture = async (req, res) => {
-  console.log("req", req.file);
-
-  try {
-    const upload = await cloudinary.uploader.upload(req.file.path, {
-      folder: "bird-encounters",
-      transformation: [{ width: 700, height: 447, crop: "fill" }],
-    });
-
-    console.log("upload", upload);
-    res.status(200).json({
-      msg: "image upload ok",
-      imageUrl: upload.url,
-    });
-  } catch (error) {
-    res.status(500).json({ msg: "couldn't upload image", error: error });
-  }
-};
-
-//upload audio record file for encounter
-const uploadAudioFile = async (req, res) => {
-  console.log("req", req.file);
-
-  try {
-    const upload = await cloudinary.uploader.upload(req.file.path, {
-      folder: "bird-encounters",
-    });
-
-    console.log("upload", upload);
-    res.status(200).json({
-      msg: "file upload ok",
-      recordUrl: upload.url,
-    });
-    console.log("res", res);
-  } catch (error) {
-    res.status(500).json({ msg: "couldn't upload file", error: error });
-  }
-};
-
 //new user signup
 const signup = async (req, res) => {
   console.log("req.body :>> ", req.body);
@@ -172,10 +132,4 @@ const login = async (req, res) => {
   }
 };
 
-export {
-  uploadUserPicture,
-  uploadEncounterPicture,
-  uploadAudioFile,
-  signup,
-  login,
-};
+export { uploadUserPicture, signup, login };

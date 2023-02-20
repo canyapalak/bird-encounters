@@ -9,7 +9,6 @@ import userRoutes from "./routes/userRoutes.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
 
 const app = express();
-
 const port = process.env.PORT || 5000;
 
 const mongoDBConnection = async () => {

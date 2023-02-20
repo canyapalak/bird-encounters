@@ -1,5 +1,5 @@
+import { v2 as cloudinary } from "cloudinary";
 import encounterModel from "../models/encounterModel.js";
-import userModel from "../models/userModel.js";
 
 //get all encounters
 const getAllEncounters = async (req, res) => {
@@ -107,4 +107,50 @@ const postEncounter = async (req, res) => {
   }
 };
 
-export { getAllEncounters, getEncountersById, postEncounter };
+//upload encounter photo
+const uploadEncounterPicture = async (req, res) => {
+  console.log("req", req.file);
+
+  try {
+    const upload = await cloudinary.uploader.upload(req.file.path, {
+      folder: "bird-encounters",
+      transformation: [{ width: 700, height: 447, crop: "fill" }],
+    });
+
+    console.log("upload", upload);
+    res.status(200).json({
+      msg: "image upload ok",
+      imageUrl: upload.url,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: "couldn't upload image", error: error });
+  }
+};
+
+//upload audio record file for encounter
+const uploadAudioFile = async (req, res) => {
+  console.log("req", req.file);
+
+  try {
+    const upload = await cloudinary.uploader.upload(req.file.path, {
+      folder: "bird-encounters",
+    });
+
+    console.log("upload", upload);
+    res.status(200).json({
+      msg: "file upload ok",
+      recordUrl: upload.url,
+    });
+    console.log("res", res);
+  } catch (error) {
+    res.status(500).json({ msg: "couldn't upload file", error: error });
+  }
+};
+
+export {
+  getAllEncounters,
+  getEncountersById,
+  postEncounter,
+  uploadEncounterPicture,
+  uploadAudioFile,
+};

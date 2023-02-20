@@ -64,7 +64,7 @@ function NewEncounterCard() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/imageUploadEncounter",
+        "http://localhost:5000/api/encounters/imageUploadEncounter",
         requestOptions
       );
       const result = await response.json();
