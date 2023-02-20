@@ -1,7 +1,7 @@
 import "./EncounterDetails.css";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AudioPlayer from "../AudioPlayer.js/AudioPlayer";
+import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Card from "react-bootstrap/Card";
 import AvatarPlaceholder from "../../assets/avatar-placeholder.png";
 import MapIcon from "../../assets/map-icon.png";

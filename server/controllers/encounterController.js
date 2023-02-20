@@ -5,7 +5,6 @@ import encounterModel from "../models/encounterModel.js";
 const getAllEncounters = async (req, res) => {
   try {
     const allEncounters = await encounterModel.find({});
-    console.log("allEncounters", allEncounters);
     res.status(201).json({
       number: allEncounters.length,
       allEncounters,
@@ -44,9 +43,39 @@ const postEncounter = async (req, res) => {
   // username icin authotization sonrasinda req.user.username cagirmam yeterli olacak.
 
   try {
-    const { title, species, country, province, experience } = req.body;
+    const {
+      title,
+      species,
+      country,
+      province,
+      experience,
+      longitude,
+      latitude,
+      time,
+    } = req.body;
 
-    if (!title || !species || !country || !province || !experience) {
+    console.log("req.body :>> ", req.body);
+
+    function isNullUndefinedOrEmpty(value) {
+      return (
+        value === null ||
+        value === "null" ||
+        value === "undefined" ||
+        value === undefined ||
+        value === ""
+      );
+    }
+
+    if (
+      isNullUndefinedOrEmpty(title) ||
+      isNullUndefinedOrEmpty(species) ||
+      isNullUndefinedOrEmpty(country) ||
+      isNullUndefinedOrEmpty(province) ||
+      isNullUndefinedOrEmpty(latitude) ||
+      isNullUndefinedOrEmpty(longitude) ||
+      isNullUndefinedOrEmpty(time) ||
+      isNullUndefinedOrEmpty(experience)
+    ) {
       return res.status(400).json({
         error: "Some fields are missing",
         msg: "missing fields",
@@ -129,21 +158,24 @@ const uploadEncounterPicture = async (req, res) => {
 
 //upload audio record file for encounter
 const uploadAudioFile = async (req, res) => {
-  console.log("req", req.file);
+  console.log("req.file", req.file);
+  // console.log("req", req);
 
   try {
+    console.log("req.file.path :>> ", req.file.path);
     const upload = await cloudinary.uploader.upload(req.file.path, {
       folder: "bird-encounters",
+      resource_type: "auto",
     });
 
     console.log("upload", upload);
     res.status(200).json({
-      msg: "file upload ok",
+      msg: "audio upload ok",
       recordUrl: upload.url,
     });
     console.log("res", res);
   } catch (error) {
-    res.status(500).json({ msg: "couldn't upload file", error: error });
+    res.status(500).json({ msg: "couldn't upload audio", error: error });
   }
 };
 

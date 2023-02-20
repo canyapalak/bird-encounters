@@ -9,14 +9,12 @@ const encounterSchema = new Schema({
 
   latitude: {
     type: Number,
-    required: false,
-    default: 35,
+    required: true,
   },
 
   longitude: {
     type: Number,
-    required: false,
-    default: 15,
+    required: true,
   },
 
   experience: {
@@ -41,8 +39,7 @@ const encounterSchema = new Schema({
 
   time: {
     type: Date,
-    default: "2022-09-16T11:30:00.000+00:00",
-    required: false,
+    required: true,
   },
 
   title: {

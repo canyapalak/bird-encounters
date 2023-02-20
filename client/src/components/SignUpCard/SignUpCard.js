@@ -11,6 +11,7 @@ function SignUpCard() {
   const redirectTo = useNavigate();
   const [isSignUpSuccessful, setIsSignUpSuccessful] = useState(false);
   const [isMailInUse, setisMailInUse] = useState(false);
+  const [isUserNameEmpty, setisUserNameEmpty] = useState(false);
   const [isUserNameInUse, setIsUserNameInUse] = useState(false);
   const [isMailInvalid, setIsMailInvalid] = useState(false);
   const [isPasswordShort, setIsPasswordShort] = useState(false);
@@ -130,6 +131,9 @@ function SignUpCard() {
         if (result.msg === "password should be at least 6 characters") {
           setIsPasswordShort(true);
         }
+        if (result.msg === "username can not be empty") {
+          setisUserNameEmpty(true);
+        }
       })
       .catch((error) => {
         console.log("error", error);
@@ -236,6 +240,9 @@ function SignUpCard() {
                   This username is in use. Username should be unique.
                 </p>
               )}
+              {isUserNameEmpty && (
+                <p id="error-message">Please type a username.</p>
+              )}
               {isMailInvalid && (
                 <p id="error-message">
                   E-mail address is invalid. Please check it.
@@ -266,6 +273,7 @@ function SignUpCard() {
               isUserNameInUse ||
               isMailInvalid ||
               isPasswordShort ||
+              isUserNameEmpty ||
               isFetchFail ? (
                 <Button
                   variant="primary"

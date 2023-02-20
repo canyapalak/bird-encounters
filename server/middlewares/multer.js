@@ -15,12 +15,16 @@ const multerUpload = multer({
 const multerUploadforAudio = multer({
   storage: multer.diskStorage({}),
   fileFilter: function (req, file, cb) {
+    console.log("file :>> ", file);
     let extension = path.extname(file.originalname);
     if (extension !== ".mp3" && extension !== ".wav" && extension !== ".m4a") {
-      cb(new Error("Audio file extension not supported"), false);
+      console.log("wrong file");
+      cb(new Error("video file extension not supported"), false);
+    } else {
+      // console.log("req :>> ", req);
+      console.log("file ok");
+      cb(null, true);
     }
-    console.log("req :>> ", req);
-    cb(null, true);
   },
 });
 

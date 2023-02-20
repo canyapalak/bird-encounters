@@ -8,16 +8,22 @@ import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
 
 function NewEncounterCard() {
   const redirectTo = useNavigate();
-  const [newEncounter, setNewEncounter] = useState({});
+  const [newEncounter, setNewEncounter] = useState(new Map());
   const [selectedImageFile, setSelectedImageFile] = useState(null);
-  const [isUploadSuccessful, setIsUploadSuccessful] = useState(false);
-  const [isUploadFail, setIsUploadFail] = useState(false);
+  const [isImageUploadSuccessful, setIsImageUploadSuccessful] = useState(false);
+  const [isImageUploadFail, setIsImageUploadFail] = useState(false);
+  const [selectedAudioFile, setSelectedAudioFile] = useState(null);
+  const [isAudioUploadSuccessful, setIsAudioUploadSuccessful] = useState(false);
+  const [isAudioUploadFail, setIsAudioUploadFail] = useState(false);
   const [isPostSuccessful, setIsPostSuccessful] = useState(false);
   const [isPostFail, setIsPostFail] = useState(false);
   const [isMissingFields, setIsMissingFields] = useState(false);
   const [showPictureModal, setShowPictureModal] = useState(false);
   const handleClosePictureModal = () => setShowPictureModal(false);
   const handleShowPictureModal = () => setShowPictureModal(true);
+  const [showAudioModal, setShowAudioModal] = useState(false);
+  const handleCloseAudioModal = () => setShowAudioModal(false);
+  const handleShowAudioModal = () => setShowAudioModal(true);
   const [showPostModal, setShowPostModal] = useState(false);
   const handleClosePostModal = () => setShowPostModal(false);
   const handleShowPostModal = () => setShowPostModal(true);
@@ -39,9 +45,20 @@ function NewEncounterCard() {
     setSelectedImageFile(e.target.files[0]);
   };
 
+  const handleAttachAudio = (e) => {
+    e.preventDefault();
+    console.log("e.target :>> ", e.target.files[0]);
+    setSelectedAudioFile(e.target.files[0]);
+  };
+
   function handleSubmitPictureAndModal() {
     handleSubmitPicture();
     handleShowPictureModal();
+  }
+
+  function handleSubmitAudioAndModal() {
+    handleSubmitAudio();
+    handleShowAudioModal();
   }
 
   function handlePostEncounterAndModal() {
@@ -50,11 +67,10 @@ function NewEncounterCard() {
   }
 
   const handleSubmitPicture = async (e) => {
-    setIsUploadSuccessful(false);
-    setIsUploadFail(false);
+    setIsImageUploadSuccessful(false);
+    setIsImageUploadFail(false);
     const formdata = new FormData();
     formdata.append("image", selectedImageFile);
-
     console.log("formData :>> ", formdata);
 
     const requestOptions = {
@@ -71,11 +87,41 @@ function NewEncounterCard() {
       console.log("result", result);
       setNewEncounter({ ...newEncounter, image: result.imageUrl });
       if (result.msg === "image upload ok") {
-        setIsUploadSuccessful(true);
+        setIsImageUploadSuccessful(true);
       }
     } catch (error) {
       console.log("error :>> ", error);
-      setIsUploadFail(true);
+      setIsImageUploadFail(true);
+    }
+  };
+
+  const handleSubmitAudio = async (e) => {
+    setIsAudioUploadSuccessful(false);
+    setIsAudioUploadFail(false);
+    const formdata = new FormData();
+    formdata.append("image", selectedAudioFile);
+
+    console.log("formData :>> ", formdata);
+
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/encounters/audioUpload",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("result", result);
+      setNewEncounter({ ...newEncounter, record: result.recordUrl });
+      if (result.msg === "audio upload ok") {
+        setIsAudioUploadSuccessful(true);
+      }
+    } catch (error) {
+      console.log("error :>> ", error);
+      setIsAudioUploadFail(true);
     }
   };
 
@@ -93,7 +139,6 @@ function NewEncounterCard() {
     setIsPostSuccessful(false);
 
     console.log("newEncounter :>> ", newEncounter);
-
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -111,6 +156,10 @@ function NewEncounterCard() {
       "image",
       newEncounter.image ? newEncounter.image : EncounterPlaceholder
     );
+    urlencoded.append(
+      "record",
+      newEncounter.record ? newEncounter.record : null
+    );
 
     const requestOptions = {
       method: "POST",
@@ -118,6 +167,9 @@ function NewEncounterCard() {
       body: urlencoded,
       redirect: "follow",
     };
+
+    console.log("lat", lat);
+    console.log("latitude", newEncounter.lat);
 
     fetch("http://localhost:5000/api/encounters/postEncounter", requestOptions)
       .then((response) => response.json())
@@ -134,6 +186,7 @@ function NewEncounterCard() {
         setIsPostFail(true);
         console.log("error", error);
       });
+    // }
   };
 
   return (
@@ -241,10 +294,10 @@ function NewEncounterCard() {
           <span className="signup-button">
             <Modal show={showPictureModal} className="signup-modal">
               <Modal.Body>
-                {isUploadSuccessful && (
+                {isImageUploadSuccessful && (
                   <p>You have successfully uploaded your picture.</p>
                 )}
-                {isUploadFail && (
+                {isImageUploadFail && (
                   <p id="error-message">
                     Please upload a jpg, jpeg or png file.
                   </p>
@@ -271,16 +324,40 @@ function NewEncounterCard() {
                 name="record"
                 id="newencounter-upload"
                 className="form-control"
-                // onChange={handleAttachRecord}
+                onChange={handleAttachAudio}
               />
             </span>
           </form>
           <button
             id="newencounter-upload-file-button"
-            disabled={!selectedImageFile}
+            disabled={!selectedAudioFile}
+            onClick={handleSubmitAudioAndModal}
           >
             Upload
           </button>
+          <span className="signup-button">
+            <Modal show={showAudioModal} className="signup-modal">
+              <Modal.Body>
+                {isAudioUploadSuccessful && (
+                  <p>You have successfully uploaded your record.</p>
+                )}
+                {isAudioUploadFail && (
+                  <p id="error-message">
+                    Please upload a wav, mp3 or m4a file.
+                  </p>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="primary"
+                  className="signup-modal-button"
+                  onClick={handleCloseAudioModal}
+                >
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </span>
         </span>
 
         <hr />
@@ -289,11 +366,7 @@ function NewEncounterCard() {
         </span>
 
         <span className="signup-button">
-          <button
-            id="signup-button"
-            onClick={handlePostEncounterAndModal}
-            // disabled={!selectedImageFile}
-          >
+          <button id="signup-button" onClick={handlePostEncounterAndModal}>
             Submit
           </button>
           <Modal show={showPostModal} className="signup-modal">

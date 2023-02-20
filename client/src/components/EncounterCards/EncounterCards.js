@@ -10,6 +10,7 @@ import BookmarkFilled from "../../assets/bookmark-filled.png";
 import useConvertTime from "../../hooks/useConvertTime";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
+import BackToTop from "../BackToTop/BackToTop";
 
 function EncounterCards() {
   const redirectTo = useNavigate();
@@ -200,6 +201,7 @@ function EncounterCards() {
             );
           })}
       </div>{" "}
+      {encountersToRender && encountersToRender.length >= 6 && <BackToTop />}
     </div>
   );
 }

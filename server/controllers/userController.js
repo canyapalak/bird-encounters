@@ -26,7 +26,6 @@ const uploadUserPicture = async (req, res) => {
 //new user signup
 const signup = async (req, res) => {
   console.log("req.body :>> ", req.body);
-  // const { userName, email, password, userPicture } = req.body; //desctructured version (be careful with undefined/null fields)
   try {
     const existingUser = await userModel.findOne({ email: req.body.email });
     const existingUserName = await userModel.findOne({
@@ -41,6 +40,10 @@ const signup = async (req, res) => {
     if (existingUser) {
       res.status(500).json({
         msg: "this email address is already in use",
+      });
+    } else if (req.body.userName === "undefined") {
+      res.status(500).json({
+        msg: "username can not be empty",
       });
     } else if (existingUserName) {
       res.status(500).json({
