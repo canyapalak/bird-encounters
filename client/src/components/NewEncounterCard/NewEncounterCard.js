@@ -99,7 +99,7 @@ function NewEncounterCard() {
     setIsAudioUploadSuccessful(false);
     setIsAudioUploadFail(false);
     const formdata = new FormData();
-    formdata.append("image", selectedAudioFile);
+    formdata.append("record", selectedAudioFile);
 
     console.log("formData :>> ", formdata);
 
@@ -389,7 +389,7 @@ function NewEncounterCard() {
                   variant="primary"
                   className="signup-modal-button"
                   // onClick={() => redirectTo("/encounters")}
-                  onClick={handleClosePostModal}
+                  onClick={() => redirectTo("/encounters")}
                 >
                   Close
                 </Button>

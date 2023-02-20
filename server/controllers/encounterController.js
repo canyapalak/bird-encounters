@@ -158,16 +158,15 @@ const uploadEncounterPicture = async (req, res) => {
 
 //upload audio record file for encounter
 const uploadAudioFile = async (req, res) => {
+  console.log("herereeeeerfthgrtgf");
   console.log("req.file", req.file);
-  // console.log("req", req);
-
+  console.log("req", req);
   try {
     console.log("req.file.path :>> ", req.file.path);
     const upload = await cloudinary.uploader.upload(req.file.path, {
       folder: "bird-encounters",
       resource_type: "auto",
     });
-
     console.log("upload", upload);
     res.status(200).json({
       msg: "audio upload ok",
