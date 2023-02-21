@@ -7,15 +7,7 @@ function ProtectedRoute({ children }) {
   const { currentUser, loader } = useContext(AuthContext);
 
   return (
-    <>
-      {loader ? (
-        <p>....Loading...</p>
-      ) : currentUser ? (
-        children
-      ) : (
-        <Navigate to="/login" />
-      )}
-    </>
+    <>{loader ? <p> </p> : currentUser ? children : <Navigate to="/login" />}</>
   );
 }
 

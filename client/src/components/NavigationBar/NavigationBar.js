@@ -2,52 +2,58 @@ import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../store/AuthContext";
 import "./NavigationBar.css";
+import { EncounterContext } from "../../store/EncounterContext";
 
 function NavigationBar() {
+  const { loading } = useContext(EncounterContext);
   const { isToken, logOut, isLogInSuccessful } = useContext(AuthContext);
 
-  useEffect(() => {}, [isToken, isLogInSuccessful]);
+  useEffect(() => {}, []);
 
   return (
     <>
-      <header className="nav-bar">
-        <Link to={"/"}>
-          <p className="logo">bird encounters</p>
-        </Link>
+      {loading ? (
+        <p></p>
+      ) : (
+        <header className="nav-bar">
+          <Link to={"/"}>
+            <p className="logo">bird encounters</p>
+          </Link>
 
-        <input className="menu-btn" type="checkbox" id="menu-btn" />
-        <label className="menu-icon" htmlFor="menu-btn">
-          <span className="navicon"></span>
-        </label>
-        <ul className="menu">
-          <li>
-            <Link to={"/encounters"}>encounters</Link>
-          </li>
-          <li>
-            <Link to={"/map"}>map</Link>
-          </li>
-          {isToken || isLogInSuccessful ? (
+          <input className="menu-btn" type="checkbox" id="menu-btn" />
+          <label className="menu-icon" htmlFor="menu-btn">
+            <span className="navicon"></span>
+          </label>
+          <ul className="menu">
             <li>
-              <Link to={"/profile"}>profile</Link>
+              <Link to={"/encounters"}>encounters</Link>
             </li>
-          ) : (
             <li>
-              <Link to={"/signup"}>sign up</Link>
+              <Link to={"/map"}>map</Link>
             </li>
-          )}
-          {isToken || isLogInSuccessful ? (
-            <li>
-              <a href="/" id="logout-link" onClick={logOut}>
-                log out
-              </a>
-            </li>
-          ) : (
-            <li>
-              <Link to={"/login"}>log in</Link>
-            </li>
-          )}
-        </ul>
-      </header>
+            {isToken || isLogInSuccessful ? (
+              <li>
+                <Link to={"/profile"}>profile</Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={"/signup"}>sign up</Link>
+              </li>
+            )}
+            {isToken || isLogInSuccessful ? (
+              <li>
+                <a href="/" id="logout-link" onClick={logOut}>
+                  log out
+                </a>
+              </li>
+            ) : (
+              <li>
+                <Link to={"/login"}>log in</Link>
+              </li>
+            )}
+          </ul>
+        </header>
+      )}
     </>
   );
 }

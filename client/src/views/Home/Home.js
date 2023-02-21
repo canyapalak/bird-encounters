@@ -1,5 +1,5 @@
 import "./Home.css";
-import React from "react";
+import React, { useContext } from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 
 function Home() {
@@ -8,7 +8,7 @@ function Home() {
       <>
         <NavigationBar />
       </>
-
+      <div className="loader"> </div>
       <div className="home-container">
         <span>
           <p>

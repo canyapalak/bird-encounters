@@ -40,6 +40,7 @@ const getEncountersById = async (req, res) => {
 //create new encounter
 const postEncounter = async (req, res) => {
   console.log("req.body :>> ", req.body);
+  console.log("req.user :>> ", req.user);
   // username icin authotization sonrasinda req.user.username cagirmam yeterli olacak.
 
   try {
@@ -82,7 +83,6 @@ const postEncounter = async (req, res) => {
       });
     } else {
       const newEncounter = new encounterModel({
-        username: "test",
         province: req.body.province,
         country: req.body.country,
         experience: req.body.experience,
@@ -103,7 +103,6 @@ const postEncounter = async (req, res) => {
         res.status(201).json({
           msg: "posting successful",
           encounter: {
-            username: savedEncounter.username,
             latitude: savedEncounter.latitude,
             longitude: savedEncounter.longitude,
             experience: savedEncounter.experience,

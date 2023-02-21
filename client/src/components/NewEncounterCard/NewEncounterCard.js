@@ -186,7 +186,6 @@ function NewEncounterCard() {
         setIsPostFail(true);
         console.log("error", error);
       });
-    // }
   };
 
   return (

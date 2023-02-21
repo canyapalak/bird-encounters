@@ -1,15 +1,17 @@
 import "./ProfileCard.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../store/AuthContext";
 import Card from "react-bootstrap/Card";
 import useConvertTime from "../../hooks/useConvertTime";
 import PencilIcon from "../../assets/pencil-icon.png";
 
 function ProfileCard() {
-  const { userProfile, getProfileError } = useContext(AuthContext);
+  const { userProfile, getProfile } = useContext(AuthContext);
   const convertTime = useConvertTime();
 
-  console.log("userProfile :>> ", userProfile);
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <>
@@ -34,6 +36,14 @@ function ProfileCard() {
               <span className="profile-part">
                 <p id="profile-title">member since: </p>
                 <p id="profile-detail">{convertTime(userProfile.signupTime)}</p>
+              </span>{" "}
+              <span className="profile-part">
+                <p id="profile-title">status: </p>
+                {userProfile.isAdmin === true ? (
+                  <p id="profile-detail">admin</p>
+                ) : (
+                  <p id="profile-detail">user</p>
+                )}
               </span>
             </div>
             <hr />
@@ -56,4 +66,5 @@ function ProfileCard() {
     </>
   );
 }
+
 export default ProfileCard;

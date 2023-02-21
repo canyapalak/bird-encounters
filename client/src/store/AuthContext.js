@@ -12,9 +12,8 @@ export const AuthContextProvider = (props) => {
   const [isLogInSuccessful, setIsLogInSuccessful] = useState(false);
   const [isEmailWrong, setIsEmailWrong] = useState(false);
   const [isPasswordWrong, setIsPasswordWrong] = useState(false);
-  const [loader, setLoader] = useState(true);
-  const [getProfileError, setGetProfileError] = useState(null);
-  const [userProfile, setUserProfile] = useState(null);
+  const [getProfileError, setGetProfileError] = useState("");
+  const [userProfile, setUserProfile] = useState("");
 
   //get profile
   const getProfile = () => {
@@ -53,7 +52,6 @@ export const AuthContextProvider = (props) => {
   };
 
   //login function
-
   const handleInputChange = (e) => {
     setLogInUser({
       ...logInUser,
@@ -67,7 +65,7 @@ export const AuthContextProvider = (props) => {
     setIsPasswordWrong(false);
 
     console.log("loginuser :>> ", logInUser);
-    // login(logInUser.email, logInUser.password)
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -106,17 +104,8 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("token");
   }
 
-  const loaderFunction = () => {
-    if (currentUser) {
-      setLoader(false);
-    } else {
-      setLoader(true);
-    }
-  };
-
-  //use effect and loader
+  //use effect
   useEffect(() => {
-    loaderFunction();
     const token = getToken();
     if (token) {
       console.log("LOGGED IN");
@@ -125,19 +114,13 @@ export const AuthContextProvider = (props) => {
       console.log("NOT logged in");
       setIsToken(false);
     }
-    setLoader(false);
-  }, []);
-
-  if (loader) {
-    return <div>...Page is Loading...</div>;
-  }
+  }, [currentUser]);
 
   return (
     <AuthContext.Provider
       value={{
         currentUser,
         isToken,
-        loader,
         logOut,
         handleLogIn,
         handleInputChange,
@@ -145,7 +128,7 @@ export const AuthContextProvider = (props) => {
         isLogInSuccessful,
         isPasswordWrong,
         getProfile,
-        getProfileError,
+        userProfile,
       }}
     >
       {props.children}
