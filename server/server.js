@@ -4,9 +4,11 @@ import router from "./routes/test.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
+import passport from "passport";
 import encounterRoutes from "./routes/encounterRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
+import { jwtStrategy } from "./config/passport.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -46,6 +48,8 @@ const addMiddlewares = () => {
   };
   app.use(cors(corsOptions));
   cloudinaryConfig();
+  app.use(passport.initialize());
+  passport.use(jwtStrategy);
 };
 
 //IIFE

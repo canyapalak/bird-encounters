@@ -13,6 +13,44 @@ export const AuthContextProvider = (props) => {
   const [isEmailWrong, setIsEmailWrong] = useState(false);
   const [isPasswordWrong, setIsPasswordWrong] = useState(false);
   const [loader, setLoader] = useState(true);
+  const [getProfileError, setGetProfileError] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+
+  //get profile
+  const getProfile = () => {
+    const token = getToken();
+
+    if (token) {
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+
+      fetch("http://localhost:5000/api/users/profile", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setUserProfile({
+            userName: result.user.userName,
+            email: result.user.email,
+            userPicture: result.user.userPicture,
+            signupTime: result.user.signupTime,
+            isAdmin: result.user.isAdmin,
+            favs: result.user.favs,
+          });
+          setGetProfileError(null);
+        })
+        .catch((error) => console.log("error", error));
+    } else {
+      console.log("you need to Login first");
+      setGetProfileError("you need to Login first");
+      setUserProfile(null);
+    }
+    console.log("userProfile", userProfile);
+  };
 
   //login function
 
@@ -76,6 +114,7 @@ export const AuthContextProvider = (props) => {
     }
   };
 
+  //use effect and loader
   useEffect(() => {
     loaderFunction();
     const token = getToken();
@@ -87,7 +126,7 @@ export const AuthContextProvider = (props) => {
       setIsToken(false);
     }
     setLoader(false);
-  }, [currentUser]);
+  }, []);
 
   if (loader) {
     return <div>...Page is Loading...</div>;
@@ -105,6 +144,8 @@ export const AuthContextProvider = (props) => {
         isEmailWrong,
         isLogInSuccessful,
         isPasswordWrong,
+        getProfile,
+        getProfileError,
       }}
     >
       {props.children}

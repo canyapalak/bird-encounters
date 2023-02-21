@@ -125,6 +125,7 @@ const login = async (req, res) => {
             signupTime: existingUser.signupTime,
             userPicture: existingUser.userPicture,
             isAdmin: existingUser.isAdmin,
+            favs: existingUser.favs,
           },
           token,
         });
@@ -135,4 +136,20 @@ const login = async (req, res) => {
   }
 };
 
-export { uploadUserPicture, signup, login };
+//get profile
+const getProfile = async (req, res) => {
+  console.log("req.user>>>", req.user);
+
+  res.status(200).json({
+    user: {
+      userName: req.user.userName,
+      email: req.user.email,
+      userPicture: req.user.userPicture,
+      favs: req.user.favs,
+      isAdmin: req.user.isAdmin,
+      signupTime: req.user.signupTime,
+    },
+  });
+};
+
+export { uploadUserPicture, signup, login, getProfile };
