@@ -25,7 +25,7 @@ function EncounterCards() {
   const [searchQuery, setSearchQuery] = useState(null);
   const [searchedEncounters, setSearchedEncounters] = useState("");
 
-  useEffect(() => {}, [isToken, encounters]);
+  useEffect(() => {}, []);
 
   const handleSearchQuery = (event) => {
     const searchTerm = event.target.value;

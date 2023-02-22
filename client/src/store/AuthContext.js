@@ -31,7 +31,6 @@ export const AuthContextProvider = (props) => {
       fetch("http://localhost:5000/api/users/profile", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           setUserProfile({
             userName: result.user.userName,
             email: result.user.email,

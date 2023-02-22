@@ -1,29 +1,45 @@
 import "./EncounterDetails.css";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/esm/Button";
 import AvatarPlaceholder from "../../assets/avatar-placeholder.png";
 import MapIcon from "../../assets/map-icon.png";
+import DeleteIcon from "../../assets/trash-icon.png";
+import EditIcon from "../../assets/pencil-icon.png";
 import useConvertTime from "../../hooks/useConvertTime";
 import MapModal from "../MapModal/MapModal";
+import { getToken } from "../../utils/getToken";
+import { AuthContext } from "../../store/AuthContext";
 
 function EncounterDetails() {
+  const redirectTo = useNavigate();
   const [oneEncounter, setOneEncounter] = useState("");
   const [error, setError] = useState();
   const { _id } = useParams();
   const [showMap, setShowMap] = useState(false);
   const handleCloseMap = () => setShowMap(false);
   const handleShowMap = () => setShowMap(true);
+  const [showDelete, setShowDelete] = useState(false);
+  const handleShowDelete = () => setShowDelete(true);
+  const handleCloseDelete = () => setShowDelete(false);
+  const [isDeleteSuccessful, setIsDeleteSuccessful] = useState(false);
+  const [isDeleteFail, setIsDeleteFail] = useState(false);
   const convertTime = useConvertTime();
+  const token = getToken();
+  const { userProfile, getProfile } = useContext(AuthContext);
+
+  console.log("userProfile", userProfile);
 
   useEffect(() => {
+    getProfile();
     const fetchEncounterById = async () => {
       try {
         const urlFetchEncounterById = `http://localhost:5000/api/encounters/${_id}`;
         const response = await fetch(urlFetchEncounterById);
         const results = await response.json();
-        // console.log("results :>> ", results);
 
         setOneEncounter(results.requestedId[0]);
       } catch (error) {
@@ -34,7 +50,55 @@ function EncounterDetails() {
 
     fetchEncounterById();
   }, []);
+
   console.log("oneEncounter :>> ", oneEncounter);
+
+  function handleDeleteAndCloseModal() {
+    handleDeleteEncounter();
+    handleCloseDelete();
+  }
+
+  function handleDeleteEncounter() {
+    setIsDeleteFail(false);
+    setIsDeleteSuccessful(false);
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      _id: oneEncounter._id,
+    });
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(
+      "http://localhost:5000/api/encounters/deleteEncounter",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.msg === "Encounter deleted successfully") {
+          setIsDeleteSuccessful(true);
+          setTimeout(() => redirectTo("/encounters"), 2000);
+          console.log("isDeleteSuccessful", isDeleteSuccessful);
+        }
+        if (result.msg === "Encounter not found") {
+          setIsDeleteSuccessful(true);
+          console.log("isDeleteFail :>> ", isDeleteFail);
+        }
+      })
+      .catch((error) => {
+        console.log("error :>> ", error);
+        setIsDeleteFail(true);
+      });
+  }
 
   return (
     <div className="details-container">
@@ -42,6 +106,42 @@ function EncounterDetails() {
         <span className="card-img">
           <img src={oneEncounter.image} alt="Encounter Image" />
         </span>
+        {oneEncounter.userName === userProfile.userName && (
+          <span className="edit-and-delete-icons">
+            <img src={DeleteIcon} alt="Delete" onClick={handleShowDelete} />
+            <Modal
+              show={showDelete}
+              onHide={handleCloseDelete}
+              className="signup-modal"
+            >
+              <Modal.Body>
+                {!isDeleteSuccessful && !isDeleteFail && (
+                  <p>Are you sure you want to delete this encounter?</p>
+                )}
+                {isDeleteSuccessful && (
+                  <p>You have successfully deleted the encounter.</p>
+                )}
+                {isDeleteFail && (
+                  <p id="error-message">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                {isDeleteSuccessful ? null : (
+                  <Button
+                    variant="primary"
+                    className="signup-modal-button"
+                    onClick={handleDeleteEncounter}
+                  >
+                    Delete
+                  </Button>
+                )}
+              </Modal.Footer>
+            </Modal>
+            <img src={EditIcon} alt="Edit" />
+          </span>
+        )}
         <div className="avatar-username-and-post-time">
           <div className="avatar-and-username">
             <span className="avatar">

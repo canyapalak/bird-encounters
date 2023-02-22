@@ -39,7 +39,7 @@
             flex-wrap: wrap;
             flex-direction: row;
             align-items: center;
-            margin-bottom: -0.6rem;
+
 }
 
 .avatar-and-username {
@@ -112,6 +112,22 @@ color: rgb(25, 125, 150);
         color: rgb(91, 90, 90);
 }
 
+
+.edit-and-delete-icons img {
+    width: 1.5rem;
+    float: right;
+    cursor: pointer;
+}
+
+.edit-and-delete-icons img:hover {
+    filter: invert(26%) sepia(39%) saturate(1583%) hue-rotate(75deg) brightness(96%) contrast(116%);
+}
+
+.details-post-time {
+    display: flex;
+    flex-direction: column;
+}
+
 .info-and-map {
     display: flex;
     flex-direction: row;
@@ -147,7 +163,7 @@ color: rgb(25, 125, 150);
 }
 
 
-@media (max-width: 550px) {
+@media (max-width: 500px) {
 .avatar-username-and-post-time {
         display: flex;
         flex-wrap: wrap;

@@ -73,12 +73,12 @@ width: 12rem;
 .edit-icon {
     float: right;
     margin-left: auto;
-    margin-right: -2rem;
+    margin-right: -1rem;
     margin-top: -1rem;
 }
 
 .edit-icon img {
-    width: 70%;
+    width: 2rem;
     cursor:pointer;
 }
 

@@ -140,7 +140,6 @@ const deleteEncounter = async (req, res) => {
   try {
     const encounterToDelete = await encounterModel.findOneAndDelete({
       _id: req.body._id,
-      userName: req.user.userName,
     });
 
     console.log("req.body-test", req.body);
