@@ -140,11 +140,6 @@
     text-decoration: none !important;
 }
 
-.panel-and-container {
-/* display: flex;
-flex-direction: column; */
-}
-
 .panel {
 display: flex;
 flex-direction: column;
