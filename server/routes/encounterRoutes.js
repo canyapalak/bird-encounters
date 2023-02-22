@@ -3,16 +3,21 @@ import {
   getAllEncounters,
   getEncountersById,
   postEncounter,
+  deleteEncounter,
+} from "../controllers/encounterController.js";
+import {
   uploadEncounterPicture,
   uploadAudioFile,
-} from "../controllers/encounterController.js";
+} from "../controllers/mediaController.js";
 import { multerUpload, multerUploadforAudio } from "../middlewares/multer.js";
+import jwt from "../middlewares/jwt.js";
 
 const router = express.Router();
 
 router.get("/all", getAllEncounters);
 router.get("/:_id", getEncountersById);
-router.post("/postEncounter", postEncounter);
+router.post("/postEncounter", jwt, postEncounter);
+router.delete("/deleteEncounter", jwt, deleteEncounter);
 
 router.post(
   "/imageUploadEncounter",

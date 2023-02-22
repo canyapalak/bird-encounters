@@ -134,6 +134,9 @@ function SignUpCard() {
         if (result.msg === "username can not be empty") {
           setisUserNameEmpty(true);
         }
+        if (result.msg === "error during signup") {
+          setIsFetchFail(true);
+        }
       })
       .catch((error) => {
         console.log("error", error);

@@ -170,7 +170,7 @@ function EncounterCards() {
                   <div className="username-and-time">
                     <span className="username">
                       <p id="posted-by">posted by&nbsp;</p>
-                      <p id="username-text">{encounter.username}</p>
+                      <p id="username-text">{encounter.userName}</p>
                     </span>
                     <span className="post-time">
                       <p id="posted-by">on&nbsp;</p>

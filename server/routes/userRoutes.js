@@ -1,10 +1,6 @@
 import express from "express";
-import {
-  uploadUserPicture,
-  signup,
-  login,
-  getProfile,
-} from "../controllers/userController.js";
+import { signup, login, getProfile } from "../controllers/userController.js";
+import { uploadUserPicture } from "../controllers/mediaController.js";
 import jwt from "../middlewares/jwt.js";
 import { multerUpload } from "../middlewares/multer.js";
 

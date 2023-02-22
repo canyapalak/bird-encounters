@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const encounterSchema = new Schema({
-  username: {
+  userName: {
     type: String,
-    default: "test",
+    required: true,
   },
 
   latitude: {

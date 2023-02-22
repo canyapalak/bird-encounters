@@ -1,4 +1,3 @@
-import { v2 as cloudinary } from "cloudinary";
 import encounterModel from "../models/encounterModel.js";
 
 //get all encounters
@@ -40,8 +39,7 @@ const getEncountersById = async (req, res) => {
 //create new encounter
 const postEncounter = async (req, res) => {
   console.log("req.body :>> ", req.body);
-  console.log("req.user :>> ", req.user);
-  // username icin authotization sonrasinda req.user.username cagirmam yeterli olacak.
+  console.log("req.user :>> ", req.user.userName);
 
   try {
     const {
@@ -83,6 +81,7 @@ const postEncounter = async (req, res) => {
       });
     } else {
       const newEncounter = new encounterModel({
+        userName: req.user.userName,
         province: req.body.province,
         country: req.body.country,
         experience: req.body.experience,
@@ -103,6 +102,7 @@ const postEncounter = async (req, res) => {
         res.status(201).json({
           msg: "posting successful",
           encounter: {
+            userName: savedEncounter.userName,
             latitude: savedEncounter.latitude,
             longitude: savedEncounter.longitude,
             experience: savedEncounter.experience,
@@ -135,52 +135,32 @@ const postEncounter = async (req, res) => {
   }
 };
 
-//upload encounter photo
-const uploadEncounterPicture = async (req, res) => {
-  console.log("req", req.file);
-
+//delete encounter
+const deleteEncounter = async (req, res) => {
   try {
-    const upload = await cloudinary.uploader.upload(req.file.path, {
-      folder: "bird-encounters",
-      transformation: [{ width: 700, height: 447, crop: "fill" }],
+    const encounterToDelete = await encounterModel.findOneAndDelete({
+      _id: req.body._id,
+      userName: req.user.userName,
     });
 
-    console.log("upload", upload);
+    console.log("req.body-test", req.body);
+    console.log("req.user :>> ", req.user);
+
+    if (!encounterToDelete) {
+      return res.status(404).json({
+        msg: "Encounter not found",
+      });
+    }
+
     res.status(200).json({
-      msg: "image upload ok",
-      imageUrl: upload.url,
+      msg: "Encounter deleted successfully",
     });
   } catch (error) {
-    res.status(500).json({ msg: "couldn't upload image", error: error });
+    console.log("something went wrong");
+    res.status(500).json({
+      msg: "something went wrong",
+      error: error,
+    });
   }
 };
-
-//upload audio record file for encounter
-const uploadAudioFile = async (req, res) => {
-  console.log("herereeeeerfthgrtgf");
-  console.log("req.file", req.file);
-  console.log("req", req);
-  try {
-    console.log("req.file.path :>> ", req.file.path);
-    const upload = await cloudinary.uploader.upload(req.file.path, {
-      folder: "bird-encounters",
-      resource_type: "auto",
-    });
-    console.log("upload", upload);
-    res.status(200).json({
-      msg: "audio upload ok",
-      recordUrl: upload.url,
-    });
-    console.log("res", res);
-  } catch (error) {
-    res.status(500).json({ msg: "couldn't upload audio", error: error });
-  }
-};
-
-export {
-  getAllEncounters,
-  getEncountersById,
-  postEncounter,
-  uploadEncounterPicture,
-  uploadAudioFile,
-};
+export { getAllEncounters, getEncountersById, postEncounter, deleteEncounter };

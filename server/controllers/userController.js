@@ -1,27 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
 import { passwordEncryption, verifyPassword } from "../utils/bcrypt.js";
 import generateToken from "../utils/jwt.js";
-
-//upload avatar
-const uploadUserPicture = async (req, res) => {
-  console.log("req", req.file);
-
-  try {
-    const upload = await cloudinary.uploader.upload(req.file.path, {
-      folder: "bird-encounters",
-      transformation: [{ width: 400, height: 400, crop: "fill" }],
-    });
-
-    console.log("upload", upload);
-    res.status(200).json({
-      msg: "image upload ok",
-      imageUrl: upload.url,
-    });
-  } catch (error) {
-    res.status(500).json({ msg: "couldn't upload image", error: error });
-  }
-};
 
 //new user signup
 const signup = async (req, res) => {
@@ -152,4 +131,4 @@ const getProfile = async (req, res) => {
   });
 };
 
-export { uploadUserPicture, signup, login, getProfile };
+export { signup, login, getProfile };

@@ -2,11 +2,14 @@ import "./NewEncounterCard.css";
 import Card from "react-bootstrap/Card";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
+import { getToken } from "../../utils/getToken";
+import { AuthContext } from "../../store/AuthContext";
 
 function NewEncounterCard() {
+  const { currentUser } = useContext(AuthContext);
   const redirectTo = useNavigate();
   const [newEncounter, setNewEncounter] = useState(new Map());
   const [selectedImageFile, setSelectedImageFile] = useState(null);
@@ -98,6 +101,7 @@ function NewEncounterCard() {
   const handleSubmitAudio = async (e) => {
     setIsAudioUploadSuccessful(false);
     setIsAudioUploadFail(false);
+    const token = getToken();
     const formdata = new FormData();
     formdata.append("record", selectedAudioFile);
 
@@ -137,55 +141,65 @@ function NewEncounterCard() {
     setIsMissingFields(false);
     setIsPostFail(false);
     setIsPostSuccessful(false);
+    const token = getToken();
+    if (token) {
+      console.log("newEncounter :>> ", newEncounter);
+      console.log("currentUser :>> ", currentUser);
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    console.log("newEncounter :>> ", newEncounter);
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      const urlencoded = new URLSearchParams();
+      // urlencoded.append("userName", currentUser.userName);
+      urlencoded.append("title", newEncounter.title);
+      urlencoded.append("species", newEncounter.species);
+      urlencoded.append("province", newEncounter.province);
+      urlencoded.append("country", newEncounter.country);
+      urlencoded.append("experience", newEncounter.experience);
+      urlencoded.append("posttime", now);
+      urlencoded.append("latitude", lat);
+      urlencoded.append("longitude", lng);
+      urlencoded.append("time", encounterTimeValue);
+      urlencoded.append(
+        "image",
+        newEncounter.image ? newEncounter.image : EncounterPlaceholder
+      );
+      urlencoded.append(
+        "record",
+        newEncounter.record ? newEncounter.record : null
+      );
 
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("title", newEncounter.title);
-    urlencoded.append("species", newEncounter.species);
-    urlencoded.append("province", newEncounter.province);
-    urlencoded.append("country", newEncounter.country);
-    urlencoded.append("experience", newEncounter.experience);
-    urlencoded.append("posttime", now);
-    urlencoded.append("latitude", lat);
-    urlencoded.append("longitude", lng);
-    urlencoded.append("time", encounterTimeValue);
-    urlencoded.append(
-      "image",
-      newEncounter.image ? newEncounter.image : EncounterPlaceholder
-    );
-    urlencoded.append(
-      "record",
-      newEncounter.record ? newEncounter.record : null
-    );
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: "follow",
+      };
 
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: "follow",
-    };
+      console.log("lat", lat);
+      console.log("latitude", newEncounter.lat);
 
-    console.log("lat", lat);
-    console.log("latitude", newEncounter.lat);
-
-    fetch("http://localhost:5000/api/encounters/postEncounter", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.msg === "posting successful") {
-          setIsPostSuccessful(true);
-        }
-        if (result.msg === "missing fields") {
-          setIsMissingFields(true);
-        }
-      })
-      .catch((error) => {
-        setIsPostFail(true);
-        console.log("error", error);
-      });
+      fetch(
+        "http://localhost:5000/api/encounters/postEncounter",
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          if (result.msg === "posting successful") {
+            setIsPostSuccessful(true);
+          }
+          if (result.msg === "missing fields") {
+            setIsMissingFields(true);
+          }
+        })
+        .catch((error) => {
+          setIsPostFail(true);
+          console.log("error", error);
+        });
+    } else {
+      console.log("no token");
+    }
   };
 
   return (

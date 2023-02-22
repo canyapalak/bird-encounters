@@ -48,7 +48,7 @@ function EncounterDetails() {
               <img src={AvatarPlaceholder} alt="Avatar" />
             </span>
             <span className="details-username">
-              <p>{oneEncounter.username}</p>
+              <p>{oneEncounter.userName}</p>
             </span>
           </div>
           <span className="details-post-time">
@@ -84,10 +84,12 @@ function EncounterDetails() {
             </span>
             <span className="record">
               <p className="small-title">record: &nbsp;</p>
-              {oneEncounter.record ? (
-                <AudioPlayer src={oneEncounter.record} />
-              ) : (
+              {oneEncounter.record === "null" ||
+              oneEncounter.record === null ||
+              oneEncounter.record === "undefined" ? (
                 <p>no record</p>
+              ) : (
+                <AudioPlayer src={oneEncounter.record} />
               )}
             </span>
           </div>
