@@ -162,4 +162,65 @@ const deleteEncounter = async (req, res) => {
     });
   }
 };
-export { getAllEncounters, getEncountersById, postEncounter, deleteEncounter };
+
+//update encounter
+const updateEncounter = async (req, res) => {
+  try {
+    const encounterToUpdate = await encounterModel.findOne({
+      _id: req.params._id,
+    });
+
+    console.log("req.body-test", req.body);
+    console.log("req.user :>> ", req.user);
+
+    if (!encounterToUpdate) {
+      return res.status(404).json({
+        msg: "Encounter not found",
+      });
+    }
+    if (req.body.title) {
+      encounterToUpdate.title = req.body.title;
+    }
+    if (req.body.species) {
+      encounterToUpdate.species = req.body.species;
+    }
+    if (req.body.country) {
+      encounterToUpdate.country = req.body.country;
+    }
+    if (req.body.province) {
+      encounterToUpdate.province = req.body.province;
+    }
+    if (req.body.experience) {
+      encounterToUpdate.experience = req.body.experience;
+    }
+    if (req.body.latitude) {
+      encounterToUpdate.latitude = req.body.latitude;
+    }
+    if (req.body.longitude) {
+      encounterToUpdate.longitude = req.body.longitude;
+    }
+    if (req.body.time) {
+      encounterToUpdate.time = req.body.time;
+    }
+
+    await encounterToUpdate.save();
+
+    res.status(200).json({
+      msg: "Encounter updated successfully",
+    });
+  } catch (error) {
+    console.log("something went wrong");
+    res.status(500).json({
+      msg: "something went wrong with update",
+      error: error,
+    });
+  }
+};
+
+export {
+  getAllEncounters,
+  getEncountersById,
+  postEncounter,
+  deleteEncounter,
+  updateEncounter,
+};

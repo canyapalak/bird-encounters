@@ -4,6 +4,7 @@ import {
   getEncountersById,
   postEncounter,
   deleteEncounter,
+  updateEncounter,
 } from "../controllers/encounterController.js";
 import {
   uploadEncounterPicture,
@@ -18,6 +19,7 @@ router.get("/all", getAllEncounters);
 router.get("/:_id", getEncountersById);
 router.post("/postEncounter", jwt, postEncounter);
 router.delete("/deleteEncounter", jwt, deleteEncounter);
+router.put("/updateEncounter/:_id", jwt, updateEncounter);
 
 router.post(
   "/imageUploadEncounter",

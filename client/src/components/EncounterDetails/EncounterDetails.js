@@ -106,7 +106,7 @@ function EncounterDetails() {
         <span className="card-img">
           <img src={oneEncounter.image} alt="Encounter Image" />
         </span>
-        {oneEncounter.userName === userProfile.userName && (
+        {userProfile && oneEncounter.userName === userProfile.userName && (
           <span className="edit-and-delete-icons">
             <img src={DeleteIcon} alt="Delete" onClick={handleShowDelete} />
             <Modal

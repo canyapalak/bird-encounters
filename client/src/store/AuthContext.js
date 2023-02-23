@@ -47,7 +47,6 @@ export const AuthContextProvider = (props) => {
       setGetProfileError("you need to Login first");
       setUserProfile(null);
     }
-    console.log("userProfile", userProfile);
   };
 
   //login function
