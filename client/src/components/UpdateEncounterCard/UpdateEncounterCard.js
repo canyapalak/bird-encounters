@@ -37,10 +37,15 @@ function UpdateEncounterCard(props) {
   const [showNewEncounterMap, setShowNewEncounterMap] = useState(false);
   const handleShowNewEncounterMap = () => setShowNewEncounterMap(true);
   const handleCloseNewEncounterMap = () => setShowNewEncounterMap(false);
+  const [encounterPosition, setEncounterPosition] = useState(null);
   const [updateEncounterPosition, setUpdateEncounterPosition] = useState(null);
   const now = new Date();
-  const lat = updateEncounterPosition && updateEncounterPosition.lat.toFixed(6);
-  const lng = updateEncounterPosition && updateEncounterPosition.lng.toFixed(6);
+  const lat = encounterPosition && encounterPosition.lat.toFixed(6);
+  const lng = encounterPosition && encounterPosition.lng.toFixed(6);
+  const updatedLat =
+    updateEncounterPosition && updateEncounterPosition.lat.toFixed(6);
+  const updatedLng =
+    updateEncounterPosition && updateEncounterPosition.lng.toFixed(6);
 
   useEffect(() => {
     const fetchEncounterById = async () => {
@@ -60,6 +65,7 @@ function UpdateEncounterCard(props) {
   }, []);
 
   console.log("encounterToUpdate :>> ", encounterToUpdate);
+  console.log("updatedEncounterPosition :>> ", updateEncounterPosition);
 
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
@@ -155,6 +161,46 @@ function UpdateEncounterCard(props) {
   //       setIsAudioUploadFail(true);
   //     }
   //   };
+
+  const handleSubmitEncounter = async () => {
+    const myHeaders = new Headers();
+    const token = getToken();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("title", encounterToUpdate.title);
+    urlencoded.append("species", encounterToUpdate.species);
+    urlencoded.append("province", encounterToUpdate.province);
+    urlencoded.append("country", encounterToUpdate.country);
+    urlencoded.append(
+      "latitude",
+      updateEncounterPosition !== null ? updatedLat : lat
+    );
+    urlencoded.append(
+      "longitude",
+      updateEncounterPosition !== null ? updatedLng : lng
+    );
+    urlencoded.append("experience", encounterToUpdate.experience);
+    urlencoded.append("time", encounterToUpdate.time);
+    urlencoded.append("image", encounterToUpdate.image);
+    urlencoded.append("record", encounterToUpdate.record);
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    fetch(
+      `http://localhost:5000/api/encounters/updateEncounter/${_id}`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
 
   //   const handleSubmitEncounter = async () => {
   //     setIsMissingFields(false);
@@ -278,6 +324,10 @@ function UpdateEncounterCard(props) {
           >
             Choose
           </button>
+          <span className="old-coordinates">
+            <p>{encounterToUpdate && encounterToUpdate.latitude}</p>
+            <p>{encounterToUpdate && encounterToUpdate.longitude}</p>
+          </span>
           <NewEncounterMapModal
             showNewEncounterMap={showNewEncounterMap}
             handleCloseNewEncounterMap={handleCloseNewEncounterMap}
@@ -403,7 +453,9 @@ function UpdateEncounterCard(props) {
         </span>
 
         <span className="signup-button">
-          <button id="signup-button">Update</button>
+          <button id="signup-button" onClick={handleSubmitEncounter}>
+            Update
+          </button>
           <Modal show={showPostModal} className="signup-modal">
             <Modal.Body>
               {isPostSuccessful && (

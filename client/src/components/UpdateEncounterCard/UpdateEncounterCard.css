@@ -1,0 +1,16 @@
+.old-coordinates {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem
+}
+
+.old-coordinates p {
+margin: 0px;
+font-size: 14px;
+}
+
+@media (max-width: 440px) {
+    .old-coordinates {
+        display: none;
+    }
+}
