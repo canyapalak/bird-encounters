@@ -1,6 +1,6 @@
 import "./EncounterDetails.css";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Card from "react-bootstrap/Card";
 import Modal from "react-bootstrap/Modal";
@@ -14,7 +14,8 @@ import MapModal from "../MapModal/MapModal";
 import { getToken } from "../../utils/getToken";
 import { AuthContext } from "../../store/AuthContext";
 
-function EncounterDetails() {
+function EncounterDetails(props) {
+  const { setIsEditing, isEditing } = props;
   const redirectTo = useNavigate();
   const [oneEncounter, setOneEncounter] = useState("");
   const [error, setError] = useState();
@@ -31,9 +32,14 @@ function EncounterDetails() {
   const token = getToken();
   const { userProfile, getProfile } = useContext(AuthContext);
 
+  function handleOpenUpdateCard() {
+    setIsEditing(true);
+  }
+
   console.log("userProfile", userProfile);
 
   useEffect(() => {
+    setIsEditing(false);
     getProfile();
     const fetchEncounterById = async () => {
       try {
@@ -139,7 +145,8 @@ function EncounterDetails() {
                 )}
               </Modal.Footer>
             </Modal>
-            <img src={EditIcon} alt="Edit" />
+
+            <img src={EditIcon} alt="Edit" onClick={handleOpenUpdateCard} />
           </span>
         )}
         <div className="avatar-username-and-post-time">

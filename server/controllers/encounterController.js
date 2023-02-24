@@ -202,6 +202,15 @@ const updateEncounter = async (req, res) => {
     if (req.body.time) {
       encounterToUpdate.time = req.body.time;
     }
+    if (req.body.record) {
+      encounterToUpdate.record = req.body.record;
+    }
+    if (req.body.image) {
+      encounterToUpdate.image = req.body.image;
+    }
+    if (req.body.posttime) {
+      encounterToUpdate.posttime = req.body.posttime;
+    }
 
     await encounterToUpdate.save();
 

@@ -8,6 +8,9 @@ function NewEncounterMapModal({
   handleCloseNewEncounterMap,
   encounterPosition,
   setEncounterPosition,
+  updateEncounterPosition,
+  setUpdateEncounterPosition,
+  isEditing,
 }) {
   return (
     <Modal
@@ -33,8 +36,11 @@ function NewEncounterMapModal({
         </div>
         <hr />
         <NewEncounterMap
+          updateEncounterPosition={updateEncounterPosition}
+          setUpdateEncounterPosition={setUpdateEncounterPosition}
           encounterPosition={encounterPosition}
           setEncounterPosition={setEncounterPosition}
+          isEditing={isEditing}
         />
       </Modal.Body>
     </Modal>
