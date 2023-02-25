@@ -1,4 +1,4 @@
-import "./NewEncounterMap.css";
+import "./UpdateEncounterMap.css";
 import React, { useEffect, useState } from "react";
 import {
   MapContainer,
@@ -8,22 +8,25 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Icon } from "leaflet";
-import MarkerIcon from "../../assets/marker.png";
+import { Icon, LatLng } from "leaflet";
 import BirdMarker from "../../assets/bird-marker.png";
 
-function NewEncounterMap({ encounterPosition, setEncounterPosition }) {
-  function LocationMarker({}) {
-    const [position, setPosition] = useState(null);
+function NewEncounterMap({
+  updateEncounterPosition,
+  setUpdateEncounterPosition,
+  encounterToUpdate,
+}) {
+  const encounterToUpdateLatLng = encounterToUpdate
+    ? new LatLng(encounterToUpdate.latitude, encounterToUpdate.longitude)
+    : null;
 
+  function LocationMarker({}) {
     const map = useMapEvents({
       locationfound(e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
+        map.flyTo(encounterToUpdateLatLng, map.getZoom());
       },
       click(e) {
-        setEncounterPosition(e.latlng);
-        console.log("encounterPosition", encounterPosition);
+        setUpdateEncounterPosition(e.latlng);
       },
     });
 
@@ -31,26 +34,11 @@ function NewEncounterMap({ encounterPosition, setEncounterPosition }) {
       map.locate();
     }, [map]);
 
-    console.log("position :>> ", position);
-    console.log("encounterPosition", encounterPosition);
-
-    return position === null ? null : (
+    return (
       <>
-        <Marker
-          position={position}
-          icon={
-            new Icon({
-              iconUrl: MarkerIcon,
-              iconSize: [30, 35],
-              iconAnchor: [12, 31],
-            })
-          }
-        >
-          <Popup>You are here</Popup>
-        </Marker>
-        {encounterPosition && (
+        {!updateEncounterPosition && (
           <Marker
-            position={encounterPosition}
+            position={encounterToUpdateLatLng}
             icon={
               new Icon({
                 iconUrl: BirdMarker,
@@ -59,7 +47,21 @@ function NewEncounterMap({ encounterPosition, setEncounterPosition }) {
               })
             }
           >
-            <Popup>New marker</Popup>
+            <Popup>Encounter Location</Popup>
+          </Marker>
+        )}
+        {updateEncounterPosition && (
+          <Marker
+            position={updateEncounterPosition}
+            icon={
+              new Icon({
+                iconUrl: BirdMarker,
+                iconSize: [30, 35],
+                iconAnchor: [12, 31],
+              })
+            }
+          >
+            <Popup>Update marker</Popup>
           </Marker>
         )}
       </>

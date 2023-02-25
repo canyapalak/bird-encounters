@@ -21,8 +21,8 @@ function UpdateEncounterCard(props) {
   const [selectedAudioFile, setSelectedAudioFile] = useState(null);
   const [isAudioUploadSuccessful, setIsAudioUploadSuccessful] = useState(false);
   const [isAudioUploadFail, setIsAudioUploadFail] = useState(false);
-  const [isPostSuccessful, setIsPostSuccessful] = useState(false);
-  const [isPostFail, setIsPostFail] = useState(false);
+  const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
+  const [isUpdateFail, setIsUpdateFail] = useState(false);
   const [isMissingFields, setIsMissingFields] = useState(false);
   const [showPictureModal, setShowPictureModal] = useState(false);
   const handleClosePictureModal = () => setShowPictureModal(false);
@@ -30,22 +30,29 @@ function UpdateEncounterCard(props) {
   const [showAudioModal, setShowAudioModal] = useState(false);
   const handleCloseAudioModal = () => setShowAudioModal(false);
   const handleShowAudioModal = () => setShowAudioModal(true);
-  const [showPostModal, setShowPostModal] = useState(false);
-  const handleClosePostModal = () => setShowPostModal(false);
-  const handleShowPostModal = () => setShowPostModal(true);
-  const [updateEncounterTimeValue, setUpdateEncounterTimeValue] = useState("");
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const handleCloseUpdateModal = () => setShowUpdateModal(false);
+  const handleShowUpdateModal = () => setShowUpdateModal(true);
   const [showNewEncounterMap, setShowNewEncounterMap] = useState(false);
   const handleShowNewEncounterMap = () => setShowNewEncounterMap(true);
   const handleCloseNewEncounterMap = () => setShowNewEncounterMap(false);
   const [encounterPosition, setEncounterPosition] = useState(null);
   const [updateEncounterPosition, setUpdateEncounterPosition] = useState(null);
-  const now = new Date();
-  const lat = encounterPosition && encounterPosition.lat.toFixed(6);
-  const lng = encounterPosition && encounterPosition.lng.toFixed(6);
+  // const lat = encounterToUpdate && encounterToUpdate.lat;
+  // const lng = encounterToUpdate && encounterToUpdate.lng;
+  // const updatedLat =
+  //   updateEncounterPosition && updateEncounterPosition.lat.toFixed(6);
+  // const updatedLng =
+  //   updateEncounterPosition && updateEncounterPosition.lng.toFixed(6);
+
+  function cropAndString(e) {
+    return parseFloat(e).toFixed(6).toString();
+  }
+
   const updatedLat =
-    updateEncounterPosition && updateEncounterPosition.lat.toFixed(6);
+    updateEncounterPosition && cropAndString(updateEncounterPosition.lat);
   const updatedLng =
-    updateEncounterPosition && updateEncounterPosition.lng.toFixed(6);
+    updateEncounterPosition && cropAndString(updateEncounterPosition.lng);
 
   useEffect(() => {
     const fetchEncounterById = async () => {
@@ -64,9 +71,6 @@ function UpdateEncounterCard(props) {
     fetchEncounterById();
   }, []);
 
-  console.log("encounterToUpdate :>> ", encounterToUpdate);
-  console.log("updatedEncounterPosition :>> ", updateEncounterPosition);
-
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
     setEncounterToUpdate({
@@ -75,94 +79,97 @@ function UpdateEncounterCard(props) {
     });
   };
 
-  //   const handleAttachPicture = (e) => {
-  //     e.preventDefault();
-  //     console.log("e.target :>> ", e.target.files[0]);
-  //     setSelectedImageFile(e.target.files[0]);
-  //   };
+  const handleAttachPicture = (e) => {
+    e.preventDefault();
+    console.log("e.target :>> ", e.target.files[0]);
+    setSelectedImageFile(e.target.files[0]);
+  };
 
-  //   const handleAttachAudio = (e) => {
-  //     e.preventDefault();
-  //     console.log("e.target :>> ", e.target.files[0]);
-  //     setSelectedAudioFile(e.target.files[0]);
-  //   };
+  const handleAttachAudio = (e) => {
+    e.preventDefault();
+    console.log("e.target :>> ", e.target.files[0]);
+    setSelectedAudioFile(e.target.files[0]);
+  };
 
-  //   function handleSubmitPictureAndModal() {
-  //     handleSubmitPicture();
-  //     handleShowPictureModal();
-  //   }
+  function handleSubmitPictureAndModal() {
+    handleSubmitPicture();
+    handleShowPictureModal();
+  }
 
-  //   function handleSubmitAudioAndModal() {
-  //     handleSubmitAudio();
-  //     handleShowAudioModal();
-  //   }
+  function handleSubmitAudioAndModal() {
+    handleSubmitAudio();
+    handleShowAudioModal();
+  }
 
-  //   function handlePostEncounterAndModal() {
-  //     handleSubmitEncounter();
-  //     handleShowPostModal();
-  //   }
+  function handleUpdateEncounterAndModal() {
+    handleSubmitEncounter();
+    handleShowUpdateModal();
+  }
 
-  //   const handleSubmitPicture = async (e) => {
-  //     setIsImageUploadSuccessful(false);
-  //     setIsImageUploadFail(false);
-  //     const formdata = new FormData();
-  //     formdata.append("image", selectedImageFile);
-  //     console.log("formData :>> ", formdata);
+  const handleSubmitPicture = async (e) => {
+    setIsImageUploadSuccessful(false);
+    setIsImageUploadFail(false);
+    const formdata = new FormData();
+    formdata.append("image", selectedImageFile);
+    console.log("formData :>> ", formdata);
 
-  //     const requestOptions = {
-  //       method: "POST",
-  //       body: formdata,
-  //     };
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+    };
 
-  //     try {
-  //       const response = await fetch(
-  //         "http://localhost:5000/api/encounters/imageUploadEncounter",
-  //         requestOptions
-  //       );
-  //       const result = await response.json();
-  //       console.log("result", result);
-  //       setNewEncounter({ ...newEncounter, image: result.imageUrl });
-  //       if (result.msg === "image upload ok") {
-  //         setIsImageUploadSuccessful(true);
-  //       }
-  //     } catch (error) {
-  //       console.log("error :>> ", error);
-  //       setIsImageUploadFail(true);
-  //     }
-  //   };
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/encounters/imageUploadEncounter",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("result", result);
+      setEncounterToUpdate({ ...encounterToUpdate, image: result.imageUrl });
+      if (result.msg === "image upload ok") {
+        setIsImageUploadSuccessful(true);
+      }
+    } catch (error) {
+      console.log("error :>> ", error);
+      setIsImageUploadFail(true);
+    }
+  };
 
-  //   const handleSubmitAudio = async (e) => {
-  //     setIsAudioUploadSuccessful(false);
-  //     setIsAudioUploadFail(false);
-  //     const token = getToken();
-  //     const formdata = new FormData();
-  //     formdata.append("record", selectedAudioFile);
+  const handleSubmitAudio = async (e) => {
+    setIsAudioUploadSuccessful(false);
+    setIsAudioUploadFail(false);
+    const token = getToken();
+    const formdata = new FormData();
+    formdata.append("record", selectedAudioFile);
 
-  //     console.log("formData :>> ", formdata);
+    console.log("formData :>> ", formdata);
 
-  //     const requestOptions = {
-  //       method: "POST",
-  //       body: formdata,
-  //     };
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+    };
 
-  //     try {
-  //       const response = await fetch(
-  //         "http://localhost:5000/api/encounters/audioUpload",
-  //         requestOptions
-  //       );
-  //       const result = await response.json();
-  //       console.log("result", result);
-  //       setNewEncounter({ ...newEncounter, record: result.recordUrl });
-  //       if (result.msg === "audio upload ok") {
-  //         setIsAudioUploadSuccessful(true);
-  //       }
-  //     } catch (error) {
-  //       console.log("error :>> ", error);
-  //       setIsAudioUploadFail(true);
-  //     }
-  //   };
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/encounters/audioUpload",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("result", result);
+      setEncounterToUpdate({ ...encounterToUpdate, record: result.recordUrl });
+      if (result.msg === "audio upload ok") {
+        setIsAudioUploadSuccessful(true);
+      }
+    } catch (error) {
+      console.log("error :>> ", error);
+      setIsAudioUploadFail(true);
+    }
+  };
 
   const handleSubmitEncounter = async () => {
+    setIsMissingFields(false);
+    setIsUpdateSuccessful(false);
+    setIsUpdateFail(false);
     const myHeaders = new Headers();
     const token = getToken();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -173,14 +180,15 @@ function UpdateEncounterCard(props) {
     urlencoded.append("species", encounterToUpdate.species);
     urlencoded.append("province", encounterToUpdate.province);
     urlencoded.append("country", encounterToUpdate.country);
-    urlencoded.append(
-      "latitude",
-      updateEncounterPosition !== null ? updatedLat : lat
-    );
-    urlencoded.append(
-      "longitude",
-      updateEncounterPosition !== null ? updatedLng : lng
-    );
+    if (
+      updatedLat !== null &&
+      updatedLat !== "null" &&
+      updatedLat !== undefined
+    ) {
+      urlencoded.append("latitude", updatedLat);
+      urlencoded.append("longitude", updatedLng);
+    }
+
     urlencoded.append("experience", encounterToUpdate.experience);
     urlencoded.append("time", encounterToUpdate.time);
     urlencoded.append("image", encounterToUpdate.image);
@@ -197,75 +205,24 @@ function UpdateEncounterCard(props) {
       `http://localhost:5000/api/encounters/updateEncounter/${_id}`,
       requestOptions
     )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.msg === "Encounter updated successfully") {
+          setIsUpdateSuccessful(true);
+        }
+        if (result.msg === "missing fields") {
+          setIsMissingFields(true);
+        }
+        if (result.msg === "error during posting") {
+          setIsUpdateFail(true);
+        }
+      })
+      .catch((error) => {
+        setIsUpdateFail(true);
+        console.log("error", error);
+      });
   };
-
-  //   const handleSubmitEncounter = async () => {
-  //     setIsMissingFields(false);
-  //     setIsPostFail(false);
-  //     setIsPostSuccessful(false);
-  //     const token = getToken();
-  //     if (token) {
-  //       console.log("newEncounter :>> ", newEncounter);
-  //       console.log("currentUser :>> ", currentUser);
-  //       const myHeaders = new Headers();
-  //       myHeaders.append("Authorization", `Bearer ${token}`);
-  //       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //       const urlencoded = new URLSearchParams();
-  //       // urlencoded.append("userName", currentUser.userName);
-  //       urlencoded.append("title", newEncounter.title);
-  //       urlencoded.append("species", newEncounter.species);
-  //       urlencoded.append("province", newEncounter.province);
-  //       urlencoded.append("country", newEncounter.country);
-  //       urlencoded.append("experience", newEncounter.experience);
-  //       urlencoded.append("posttime", now);
-  //       urlencoded.append("latitude", lat);
-  //       urlencoded.append("longitude", lng);
-  //       urlencoded.append("time", encounterTimeValue);
-  //     //   urlencoded.append(
-  //     //     "image",
-  //     //     newEncounter.image ? newEncounter.image : EncounterPlaceholder
-  //     //   );
-  //     //   urlencoded.append(
-  //     //     "record",
-  //     //     newEncounter.record ? newEncounter.record : null
-  //     //   );
-
-  //       const requestOptions = {
-  //         method: "POST",
-  //         headers: myHeaders,
-  //         body: urlencoded,
-  //         redirect: "follow",
-  //       };
-
-  //       console.log("lat", lat);
-  //       console.log("latitude", newEncounter.lat);
-
-  //       fetch(
-  //         "http://localhost:5000/api/encounters/postEncounter",
-  //         requestOptions
-  //       )
-  //         .then((response) => response.json())
-  //         .then((result) => {
-  //           console.log(result);
-  //           if (result.msg === "posting successful") {
-  //             setIsPostSuccessful(true);
-  //           }
-  //           if (result.msg === "missing fields") {
-  //             setIsMissingFields(true);
-  //           }
-  //         })
-  //         .catch((error) => {
-  //           setIsPostFail(true);
-  //           console.log("error", error);
-  //         });
-  //     } else {
-  //       console.log("no token");
-  //     }
-  //   };
 
   return (
     <div className="newencounter-container">
@@ -334,6 +291,7 @@ function UpdateEncounterCard(props) {
             updateEncounterPosition={updateEncounterPosition}
             setUpdateEncounterPosition={setUpdateEncounterPosition}
             isEditing={isEditing}
+            encounterToUpdate={encounterToUpdate}
           />
         </span>
         <span className="newencounter-encounter-time">
@@ -342,7 +300,7 @@ function UpdateEncounterCard(props) {
             type="datetime-local"
             name="time"
             id="time"
-            onChange={(e) => setUpdateEncounterTimeValue(e.target.value)}
+            onChange={handleInputChange}
           />
         </span>
         <span className="newencounter-experience">
@@ -367,13 +325,13 @@ function UpdateEncounterCard(props) {
                 name="image"
                 id="newencounter-upload"
                 className="form-control"
-                // onChange={handleAttachPicture}
+                onChange={handleAttachPicture}
               />
             </span>
           </form>
           <button
             id="newencounter-upload-button"
-            // onClick={handleSubmitPictureAndModal}
+            onClick={handleSubmitPictureAndModal}
             disabled={!selectedImageFile}
           >
             Upload
@@ -411,14 +369,14 @@ function UpdateEncounterCard(props) {
                 name="record"
                 id="newencounter-upload"
                 className="form-control"
-                // onChange={handleAttachAudio}
+                onChange={handleAttachAudio}
               />
             </span>
           </form>
           <button
             id="newencounter-upload-file-button"
             disabled={!selectedAudioFile}
-            // onClick={handleSubmitAudioAndModal}
+            onClick={handleSubmitAudioAndModal}
           >
             Upload
           </button>
@@ -453,25 +411,25 @@ function UpdateEncounterCard(props) {
         </span>
 
         <span className="signup-button">
-          <button id="signup-button" onClick={handleSubmitEncounter}>
+          <button id="signup-button" onClick={handleUpdateEncounterAndModal}>
             Update
           </button>
-          <Modal show={showPostModal} className="signup-modal">
+          <Modal show={showUpdateModal} className="signup-modal">
             <Modal.Body>
-              {isPostSuccessful && (
-                <p>You have successfully posted a new encounter.</p>
+              {isUpdateSuccessful && (
+                <p>You have successfully updated the encounter.</p>
               )}
               {isMissingFields && (
                 <p id="error-message">Please fill all the required fields.</p>
               )}
-              {isPostFail && (
+              {isUpdateFail && (
                 <p id="error-message">
                   Something went wrong. Please try again.
                 </p>
               )}
             </Modal.Body>
             <Modal.Footer>
-              {isPostSuccessful && (
+              {isUpdateSuccessful && (
                 <Button
                   variant="primary"
                   className="signup-modal-button"
@@ -481,11 +439,11 @@ function UpdateEncounterCard(props) {
                   Close
                 </Button>
               )}
-              {isMissingFields || isPostFail ? (
+              {isMissingFields || isUpdateFail ? (
                 <Button
                   variant="primary"
                   className="signup-modal-button"
-                  onClick={handleClosePostModal}
+                  onClick={handleCloseUpdateModal}
                 >
                   Close
                 </Button>

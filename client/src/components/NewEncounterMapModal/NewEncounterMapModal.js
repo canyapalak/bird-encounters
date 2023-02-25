@@ -2,6 +2,7 @@ import "./NewEncounterMapModal.css";
 import CloseButton from "react-bootstrap/esm/CloseButton";
 import Modal from "react-bootstrap/Modal";
 import NewEncounterMap from "../NewEncounterMap/NewEncounterMap";
+import UpdateEncounterMap from "../UpdateEncounterMap/UpdateEncounterMap";
 
 function NewEncounterMapModal({
   showNewEncounterMap,
@@ -11,6 +12,7 @@ function NewEncounterMapModal({
   updateEncounterPosition,
   setUpdateEncounterPosition,
   isEditing,
+  encounterToUpdate,
 }) {
   return (
     <Modal
@@ -35,13 +37,18 @@ function NewEncounterMapModal({
           </span>
         </div>
         <hr />
-        <NewEncounterMap
-          updateEncounterPosition={updateEncounterPosition}
-          setUpdateEncounterPosition={setUpdateEncounterPosition}
-          encounterPosition={encounterPosition}
-          setEncounterPosition={setEncounterPosition}
-          isEditing={isEditing}
-        />
+        {isEditing ? (
+          <UpdateEncounterMap
+            updateEncounterPosition={updateEncounterPosition}
+            setUpdateEncounterPosition={setUpdateEncounterPosition}
+            encounterToUpdate={encounterToUpdate}
+          />
+        ) : (
+          <NewEncounterMap
+            encounterPosition={encounterPosition}
+            setEncounterPosition={setEncounterPosition}
+          />
+        )}
       </Modal.Body>
     </Modal>
   );

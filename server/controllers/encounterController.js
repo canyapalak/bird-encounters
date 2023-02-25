@@ -166,97 +166,70 @@ const deleteEncounter = async (req, res) => {
 //update encounter
 const updateEncounter = async (req, res) => {
   try {
-    const encounterToUpdate = await encounterModel.findByIdAndUpdate(
-      req.params._id,
-      {
-        province: req.body.province,
-        country: req.body.country,
-        experience: req.body.experience,
-        species: req.body.species,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude,
-        title: req.body.title,
-        image: req.body.image,
-        time: req.body.time,
-        record: req.body.record,
-      },
-      { new: true }
-    );
+    const { title, species, country, province, experience, time } = req.body;
 
-    res.status(200).json({
-      msg: "Encounter updated successfully",
-      encounter: encounterToUpdate,
-    });
+    function isNullUndefinedOrEmpty(value) {
+      return (
+        value === null ||
+        value === "null" ||
+        value === "undefined" ||
+        value === undefined ||
+        value === ""
+      );
+    }
+
+    if (
+      isNullUndefinedOrEmpty(title) ||
+      isNullUndefinedOrEmpty(species) ||
+      isNullUndefinedOrEmpty(country) ||
+      isNullUndefinedOrEmpty(province) ||
+      isNullUndefinedOrEmpty(time) ||
+      isNullUndefinedOrEmpty(experience)
+    ) {
+      return res.status(400).json({
+        error: "Some fields are missing",
+        msg: "missing fields",
+      });
+    } else {
+      try {
+        const encounterToUpdate = await encounterModel.findByIdAndUpdate(
+          req.params._id,
+          {
+            province: req.body.province,
+            country: req.body.country,
+            experience: req.body.experience,
+            species: req.body.species,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            title: req.body.title,
+            image: req.body.image,
+            time: req.body.time,
+            record: req.body.record,
+          },
+          { new: true }
+        );
+
+        res.status(200).json({
+          msg: "Encounter updated successfully",
+          encounter: encounterToUpdate,
+        });
+      } catch (error) {
+        console.log("error during posting");
+        res.status(500).json({
+          msg: "error during posting",
+          error: error,
+        });
+      }
+      // }
+    }
   } catch (error) {
-    console.log("Error during updating", error);
+    console.log("something went wrong");
     res.status(500).json({
-      msg: "Error during updating",
+      msg: "something went wrong",
       error: error,
     });
   }
 };
-
-// const updateEncounter = async (req, res) => {
-//   try {
-//     const encounterToUpdate = await encounterModel.findOne({
-//       _id: req.params._id,
-//     });
-
-//     console.log("req.body-test", req.body);
-//     console.log("req.user :>> ", req.user);
-
-//     if (!encounterToUpdate) {
-//       return res.status(404).json({
-//         msg: "Encounter not found",
-//       });
-//     }
-//     if (req.body.title) {
-//       encounterToUpdate.title = req.body.title;
-//     }
-//     if (req.body.species) {
-//       encounterToUpdate.species = req.body.species;
-//     }
-//     if (req.body.country) {
-//       encounterToUpdate.country = req.body.country;
-//     }
-//     if (req.body.province) {
-//       encounterToUpdate.province = req.body.province;
-//     }
-//     if (req.body.experience) {
-//       encounterToUpdate.experience = req.body.experience;
-//     }
-//     if (req.body.latitude) {
-//       encounterToUpdate.latitude = req.body.latitude;
-//     }
-//     if (req.body.longitude) {
-//       encounterToUpdate.longitude = req.body.longitude;
-//     }
-//     if (req.body.time) {
-//       encounterToUpdate.time = req.body.time;
-//     }
-//     if (req.body.record) {
-//       encounterToUpdate.record = req.body.record;
-//     }
-//     if (req.body.image) {
-//       encounterToUpdate.image = req.body.image;
-//     }
-//     if (req.body.posttime) {
-//       encounterToUpdate.posttime = req.body.posttime;
-//     }
-
-//     await encounterToUpdate.save();
-
-//     res.status(200).json({
-//       msg: "Encounter updated successfully",
-//     });
-//   } catch (error) {
-//     console.log("something went wrong");
-//     res.status(500).json({
-//       msg: "something went wrong with update",
-//       error: error,
-//     });
-//   }
-// };
 
 export {
   getAllEncounters,
