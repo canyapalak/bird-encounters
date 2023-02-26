@@ -82,6 +82,7 @@ const postEncounter = async (req, res) => {
     } else {
       const newEncounter = new encounterModel({
         userName: req.user.userName,
+        userPicture: req.user.userPicture,
         province: req.body.province,
         country: req.body.country,
         experience: req.body.experience,
@@ -103,6 +104,7 @@ const postEncounter = async (req, res) => {
           msg: "posting successful",
           encounter: {
             userName: savedEncounter.userName,
+            userPicture: savedEncounter.userPicture,
             latitude: savedEncounter.latitude,
             longitude: savedEncounter.longitude,
             experience: savedEncounter.experience,

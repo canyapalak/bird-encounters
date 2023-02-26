@@ -144,19 +144,22 @@ function UpdateProfileCard() {
       .then((response) => response.json())
       .then((result) => {
         console.log("UPDATE RESULT", result);
-        if (result.errors.msg === "Username already in use") {
+        if (result.errors && result.errors.msg === "Username already in use") {
           setIsUserNameInUse(true);
         }
-        if (result.errors.msg === "Email already in use") {
+        if (result.errors && result.errors.msg === "Email already in use") {
           setIsMailInUse(true);
         }
-        if (result.errors.msg === "email address is invalid") {
+        if (result.errors && result.errors.msg === "email address is invalid") {
           setIsMailInvalid(true);
         }
-        if (result.errors.msg === "password should be at least 6 characters") {
+        if (
+          result.errors &&
+          result.errors.msg === "password should be at least 6 characters"
+        ) {
           setIsPasswordShort(true);
         }
-        if (result.msg === "Update successful") {
+        if (result.msg && result.msg === "Update successful") {
           setIsUpdateSuccessful(true);
         }
       })
@@ -165,8 +168,6 @@ function UpdateProfileCard() {
         setIsUpdateFail(true);
         console.log("error", error);
       });
-
-    console.log("isUpdateSuccessful :>> ", isUpdateSuccessful);
   };
 
   return (

@@ -18,7 +18,6 @@ function SignUpCard() {
   const [isUploadSuccessful, setIsUploadSuccessful] = useState(false);
   const [isUploadFail, setIsUploadFail] = useState(false);
   const [isFetchFail, setIsFetchFail] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);

@@ -182,7 +182,10 @@ const updateProfile = async (req, res) => {
     const updatedUser = await userModel.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
-    res.status(200).json({ msg: "Update successful", user: updatedUser });
+
+    return res
+      .status(200)
+      .json({ msg: "Update successful", user: updatedUser });
   } catch (error) {
     console.log("error", error);
     res.status(500).json({ msg: "Error updating info", error: error });

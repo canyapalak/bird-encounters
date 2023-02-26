@@ -8,6 +8,10 @@ const encounterSchema = new Schema(
       required: true,
     },
 
+    userPicture: {
+      type: String,
+    },
+
     latitude: {
       type: String,
       required: true,

@@ -5,7 +5,6 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Card from "react-bootstrap/Card";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
-import AvatarPlaceholder from "../../assets/avatar-placeholder.png";
 import MapIcon from "../../assets/map-icon.png";
 import DeleteIcon from "../../assets/trash-icon.png";
 import EditIcon from "../../assets/pencil-icon.png";
@@ -152,7 +151,7 @@ function EncounterDetails(props) {
         <div className="avatar-username-and-post-time">
           <div className="avatar-and-username">
             <span className="avatar">
-              <img src={AvatarPlaceholder} alt="Avatar" />
+              <img src={oneEncounter.userPicture} alt="Avatar" />
             </span>
             <span className="details-username">
               <p>{oneEncounter.userName}</p>
