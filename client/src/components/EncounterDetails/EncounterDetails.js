@@ -59,10 +59,10 @@ function EncounterDetails(props) {
 
   console.log("oneEncounter :>> ", oneEncounter);
 
-  function handleDeleteAndCloseModal() {
-    handleDeleteEncounter();
-    handleCloseDelete();
-  }
+  // function handleDeleteAndCloseModal() {
+  //   handleDeleteEncounter();
+  //   handleCloseDelete();
+  // }
 
   function handleDeleteEncounter() {
     setIsDeleteFail(false);

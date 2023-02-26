@@ -5,7 +5,8 @@ import Card from "react-bootstrap/Card";
 import useConvertTime from "../../hooks/useConvertTime";
 import PencilIcon from "../../assets/pencil-icon.png";
 
-function ProfileCard() {
+function ProfileCard(props) {
+  const { setIsEditing, isEditing } = props;
   const { userProfile, getProfile } = useContext(AuthContext);
   const convertTime = useConvertTime();
 
@@ -13,13 +14,21 @@ function ProfileCard() {
     getProfile();
   }, []);
 
+  function handleOpenUpdateProfileCard() {
+    setIsEditing(true);
+  }
+
   return (
     <>
       {userProfile && (
         <div className="profile-container">
           <Card className="profile-card">
             <span className="edit-icon">
-              <img src={PencilIcon} alt="Edit" />
+              <img
+                src={PencilIcon}
+                alt="Edit"
+                onClick={handleOpenUpdateProfileCard}
+              />
             </span>
             <span className="user-picture">
               <img src={userProfile.userPicture} alt="Avatar"></img>

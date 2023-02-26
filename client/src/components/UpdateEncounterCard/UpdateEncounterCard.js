@@ -38,12 +38,6 @@ function UpdateEncounterCard(props) {
   const handleCloseNewEncounterMap = () => setShowNewEncounterMap(false);
   const [encounterPosition, setEncounterPosition] = useState(null);
   const [updateEncounterPosition, setUpdateEncounterPosition] = useState(null);
-  // const lat = encounterToUpdate && encounterToUpdate.lat;
-  // const lng = encounterToUpdate && encounterToUpdate.lng;
-  // const updatedLat =
-  //   updateEncounterPosition && updateEncounterPosition.lat.toFixed(6);
-  // const updatedLng =
-  //   updateEncounterPosition && updateEncounterPosition.lng.toFixed(6);
 
   function cropAndString(e) {
     return parseFloat(e).toFixed(6).toString();
