@@ -12,6 +12,7 @@ import useConvertTime from "../../hooks/useConvertTime";
 import MapModal from "../MapModal/MapModal";
 import { getToken } from "../../utils/getToken";
 import { AuthContext } from "../../store/AuthContext";
+import Comments from "../Comments/Comments";
 
 function EncounterDetails(props) {
   const { setIsEditing, isEditing } = props;
@@ -215,6 +216,8 @@ function EncounterDetails(props) {
             <p>{oneEncounter.experience}</p>
           </span>
         </div>
+        <hr />
+        <Comments oneEncounter={oneEncounter} />
       </Card>
     </div>
   );

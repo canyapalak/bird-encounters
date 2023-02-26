@@ -222,7 +222,6 @@ const updateEncounter = async (req, res) => {
           error: error,
         });
       }
-      // }
     }
   } catch (error) {
     console.log("something went wrong");
@@ -233,10 +232,38 @@ const updateEncounter = async (req, res) => {
   }
 };
 
+//add comment
+const addComment = async (req, res) => {
+  const encounterID = req.params._id;
+
+  try {
+    const commentToSubmit = {
+      ...req.body,
+      author: String(req.user.userName),
+      authorPicture: String(req.user.userPicture),
+      commentTime: new Date(Date.now()),
+    };
+    const encounter = await encounterModel.findOneAndUpdate(
+      { _id: encounterID },
+      {
+        $push: { comments: commentToSubmit },
+      },
+      { new: true }
+    );
+    if (!encounter) {
+      return res.status(404).json({ error: "ID not found." });
+    }
+    return res.status(200).json({ msg: "comment submitted" });
+  } catch (error) {
+    return res.status(500).json({ error: error });
+  }
+};
+
 export {
   getAllEncounters,
   getEncountersById,
   postEncounter,
   deleteEncounter,
   updateEncounter,
+  addComment,
 };

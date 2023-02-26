@@ -1,6 +1,28 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+const commentSchema = new Schema({
+  author: {
+    type: String,
+    required: true,
+  },
+
+  authorPicture: {
+    type: String,
+    required: true,
+  },
+
+  text: {
+    type: String,
+    required: true,
+  },
+
+  commentTime: {
+    type: Date,
+    required: true,
+  },
+});
+
 const encounterSchema = new Schema(
   {
     userName: {
@@ -70,6 +92,8 @@ const encounterSchema = new Schema(
       type: String,
       default: null,
     },
+
+    comments: [commentSchema],
   },
   {
     versionKey: false,
