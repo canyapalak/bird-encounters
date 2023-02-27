@@ -7,6 +7,7 @@ import {
   updateEncounter,
   addComment,
   deleteComment,
+  getEncountersByUserName,
 } from "../controllers/encounterController.js";
 import {
   uploadEncounterPicture,
@@ -19,6 +20,7 @@ const router = express.Router();
 
 router.get("/all", getAllEncounters);
 router.get("/:_id", getEncountersById);
+router.get("/by/:userName/", getEncountersByUserName);
 router.post("/postEncounter", jwt, postEncounter);
 router.delete("/deleteEncounter", jwt, deleteEncounter);
 router.put("/updateEncounter/:_id", jwt, updateEncounter);

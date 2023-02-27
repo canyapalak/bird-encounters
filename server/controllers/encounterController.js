@@ -293,6 +293,26 @@ const deleteComment = async (req, res) => {
   }
 };
 
+//get encounters by username
+const getEncountersByUserName = async (req, res) => {
+  const { userName } = req.params;
+
+  try {
+    const requestedEncounters = await encounterModel.find({
+      userName: userName,
+    });
+    res.status(200).json({
+      msg: "fetch is successfull",
+      number: requestedEncounters.length,
+      requestedEncounters,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "something went wrong",
+    });
+  }
+};
+
 export {
   getAllEncounters,
   getEncountersById,
@@ -301,4 +321,5 @@ export {
   updateEncounter,
   addComment,
   deleteComment,
+  getEncountersByUserName,
 };
