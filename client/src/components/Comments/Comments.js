@@ -3,8 +3,10 @@ import useConvertTime from "../../hooks/useConvertTime";
 import Modal from "react-bootstrap/Modal";
 import { useParams } from "react-router-dom";
 import { getToken } from "../../utils/getToken";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
+import DeleteIcon from "../../assets/trash-icon.png";
+import { AuthContext } from "../../store/AuthContext";
 
 function Comments({ oneEncounter }) {
   const convertedTime = useConvertTime();
@@ -19,6 +21,13 @@ function Comments({ oneEncounter }) {
   const [showCommentModal, setShowCommentModal] = useState(false);
   const handleCloseCommentModal = () => setShowCommentModal(false);
   const handleShowCommentModal = () => setShowCommentModal(true);
+  const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(false);
+  const handleCloseDeleteCommentModal = () => setShowDeleteCommentModal(false);
+  const handleShowDeleteCommentModal = () => setShowDeleteCommentModal(true);
+  const { userProfile } = useContext(AuthContext);
+  const [isCommentDelete, setIsCommentDelete] = useState(false);
+  const [isCommentDeleteFail, setIsCommentDeleteFail] = useState(false);
+  console.log("userProfile :>> ", userProfile);
 
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
@@ -87,11 +96,56 @@ function Comments({ oneEncounter }) {
       setIsNoToken(true);
       console.log("no token");
     }
-
-    console.log("isCommentSuccessfull :>> ", isCommentSuccessfull);
-    // console.log("updatedComments", updatedComments);
   };
 
+  //delete comment
+  const handleDeleteComment = async (comment) => {
+    setIsCommentDelete(false);
+    console.log("isCommentDelete3", isCommentDelete);
+    try {
+      const token = getToken();
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+      myHeaders.append("Content-Type", "application/json");
+
+      console.log("comment._id :>> ", comment._id);
+
+      const raw = JSON.stringify({
+        commentId: comment._id,
+      });
+
+      if (!comment._id) {
+        console.log("comment._id is undefined");
+        return;
+      }
+
+      const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(
+        `http://localhost:5000/api/encounters/${_id}/comments`,
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log("result :>> ", result);
+          setIsCommentDelete(true);
+          setUpdatedComments(result.encounter.comments);
+        })
+        .catch((error) => console.log("error", error));
+      setIsCommentDeleteFail(true);
+
+      console.log("comment", comment._id);
+    } catch (error) {
+      console.log("error", error);
+      setIsCommentDeleteFail(true);
+    }
+    console.log("isCommentDelete2", isCommentDelete);
+  };
   return (
     <>
       <div className="comments-container">
@@ -112,6 +166,14 @@ function Comments({ oneEncounter }) {
                   <span className="comment-test">
                     <p>{comment.text}</p>
                   </span>
+                  {userProfile && userProfile.userName === comment.author && (
+                    <img
+                      src={DeleteIcon}
+                      alt="Delete"
+                      id="delete-icon"
+                      onClick={() => handleDeleteComment(comment)}
+                    />
+                  )}
                 </div>
               );
             }

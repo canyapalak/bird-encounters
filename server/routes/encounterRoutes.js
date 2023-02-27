@@ -6,6 +6,7 @@ import {
   deleteEncounter,
   updateEncounter,
   addComment,
+  deleteComment,
 } from "../controllers/encounterController.js";
 import {
   uploadEncounterPicture,
@@ -22,6 +23,7 @@ router.post("/postEncounter", jwt, postEncounter);
 router.delete("/deleteEncounter", jwt, deleteEncounter);
 router.put("/updateEncounter/:_id", jwt, updateEncounter);
 router.post("/:_id/comments", jwt, addComment);
+router.delete("/:_id/comments", jwt, deleteComment);
 
 router.post(
   "/imageUploadEncounter",

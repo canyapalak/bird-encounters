@@ -66,6 +66,18 @@
             text-align: center;
 }
 
+#delete-icon {
+        width: 1.3rem;
+        margin-right: -1rem;
+        margin-top: -1.5rem;
+        float: right;
+        cursor: pointer;
+}
+
+#delete-icon:hover {
+    filter: invert(26%) sepia(39%) saturate(1583%) hue-rotate(75deg) brightness(96%) contrast(116%);
+}
+
 @media (max-width: 510px) {
     .avatar-username-date {
         display: flex;

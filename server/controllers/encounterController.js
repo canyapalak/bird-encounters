@@ -259,6 +259,40 @@ const addComment = async (req, res) => {
   }
 };
 
+//delete comment
+const deleteComment = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const { commentId } = req.body;
+    const encounter = await encounterModel.findByIdAndUpdate(
+      _id,
+      { $pull: { comments: { _id: commentId } } },
+      { returnOriginal: false }
+    );
+
+    console.log("commentId :>> ", commentId);
+    console.log("_id", _id);
+
+    console.log(req.body);
+
+    if (!encounter) {
+      return res.status(404).json({
+        msg: "Comment not found",
+      });
+    }
+
+    res.status(200).json({
+      msg: "Comment deleted successfully",
+      encounter,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Something went wrong",
+      error: error,
+    });
+  }
+};
+
 export {
   getAllEncounters,
   getEncountersById,
@@ -266,4 +300,5 @@ export {
   deleteEncounter,
   updateEncounter,
   addComment,
+  deleteComment,
 };
