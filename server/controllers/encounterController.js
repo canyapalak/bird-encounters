@@ -253,7 +253,7 @@ const addComment = async (req, res) => {
     if (!encounter) {
       return res.status(404).json({ error: "ID not found." });
     }
-    return res.status(200).json({ msg: "comment submitted" });
+    return res.status(200).json({ msg: "comment submitted", encounter });
   } catch (error) {
     return res.status(500).json({ error: error });
   }

@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import { getToken } from "../../utils/getToken";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-// import BackToTop from "../BackToTop/BackToTop";
 
 function Comments({ oneEncounter }) {
   const convertedTime = useConvertTime();
   const { _id } = useParams();
   const [newComment, setNewComment] = useState(null);
+  const [textInputValue, setTextInputValue] = useState("");
+  const [updatedComments, setUpdatedComments] = useState();
   const [isNoToken, setIsNoToken] = useState(null);
   const [isCommentSuccessfull, setIsCommentSuccessfull] = useState(null);
   const [isCommentFail, setIsCommentFail] = useState(null);
@@ -21,6 +22,7 @@ function Comments({ oneEncounter }) {
 
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
+    setTextInputValue(e.target.value);
     setNewComment({
       ...newComment,
       [e.target.name]: e.target.value,
@@ -38,11 +40,10 @@ function Comments({ oneEncounter }) {
     setIsCommentFail(false);
     setIsCommentSuccessfull(false);
     setIsNoText(false);
-    setIsNoText(false);
     setIsNoToken(false);
     const token = getToken();
     if (token) {
-      if (newComment === null || newComment.text === "") {
+      if (textInputValue === null || textInputValue === "") {
         setIsNoText(true);
         return;
       }
@@ -69,8 +70,12 @@ function Comments({ oneEncounter }) {
           console.log("result :>> ", result);
           if (result.msg === "comment submitted") {
             setIsCommentSuccessfull(true);
-            console.log("result", result);
+            setUpdatedComments(result.encounter.comments);
+            setTextInputValue("");
+            console.log("newComment", newComment);
+            console.log("result", result.encounter.comments);
             console.log("result.msg", result.msg);
+            console.log("updatedComments :>> ", updatedComments);
           }
         })
 
@@ -84,30 +89,33 @@ function Comments({ oneEncounter }) {
     }
 
     console.log("isCommentSuccessfull :>> ", isCommentSuccessfull);
+    // console.log("updatedComments", updatedComments);
   };
 
   return (
     <>
       <div className="comments-container">
-        {oneEncounter.comments &&
-          oneEncounter.comments.map((comment, index) => {
-            return (
-              <div className="one-comment" key={index}>
-                <span className="avatar-username-date">
-                  <span className="avatar-username">
-                    <img src={comment.authorPicture} alt="Avatar" />
-                    <p>{comment.author}</p>
+        {(updatedComments ? updatedComments : oneEncounter.comments) &&
+          (updatedComments ? updatedComments : oneEncounter.comments).map(
+            (comment, index) => {
+              return (
+                <div className="one-comment" key={index}>
+                  <span className="avatar-username-date">
+                    <span className="avatar-username">
+                      <img src={comment.authorPicture} alt="Avatar" />
+                      <p>{comment.author}</p>
+                    </span>
+                    <span className="comment-date">
+                      <p>{convertedTime(comment.commentTime)}</p>
+                    </span>
                   </span>
-                  <span className="comment-date">
-                    <p>{convertedTime(comment.commentTime)}</p>
+                  <span className="comment-test">
+                    <p>{comment.text}</p>
                   </span>
-                </span>
-                <span className="comment-test">
-                  <p>{comment.text}</p>
-                </span>
-              </div>
-            );
-          })}
+                </div>
+              );
+            }
+          )}
 
         {oneEncounter.comments && !oneEncounter.comments.length > 0 && (
           <p id="no-comment">No one has commented yet.</p>
@@ -119,6 +127,7 @@ function Comments({ oneEncounter }) {
             name="text"
             placeholder="Post a comment..."
             className="signup-input"
+            value={textInputValue}
             onChange={handleInputChange}
           />
         </span>
@@ -151,9 +160,6 @@ function Comments({ oneEncounter }) {
           </Modal.Footer>
         </Modal>
       </div>
-      {/* {oneEncounter.comments && oneEncounter.comments.length >= 3 && (
-        <BackToTop /> */}
-      {/* )} */}
     </>
   );
 }

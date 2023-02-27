@@ -204,6 +204,8 @@ function UpdateEncounterCard(props) {
         console.log(result);
         if (result.msg === "Encounter updated successfully") {
           setIsUpdateSuccessful(true);
+          // setEncounterToUpdate(result.encounter);
+          // console.log("result.encounter :>> ", result.encounter);
         }
         if (result.msg === "missing fields") {
           setIsMissingFields(true);
@@ -427,7 +429,6 @@ function UpdateEncounterCard(props) {
                 <Button
                   variant="primary"
                   className="signup-modal-button"
-                  // onClick={() => redirectTo("/encounters")}
                   onClick={() => redirectTo("/encounters")}
                 >
                   Close
