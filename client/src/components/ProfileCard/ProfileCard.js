@@ -106,7 +106,17 @@ function ProfileCard(props) {
                               src={userEncounter.image}
                               alt="Encounter Image"
                             />
-                            <p>{userEncounter.title}</p>
+                            <span className="one-user-encounter-text">
+                              <p id="one-user-encounter-title">
+                                {userEncounter.title}
+                              </p>
+                              <p id="one-user-encounter-species">
+                                {userEncounter.species}
+                              </p>
+                              <p id="one-user-encounter-country">
+                                {userEncounter.country}
+                              </p>
+                            </span>
                           </Card>
                         </Link>
                       );
