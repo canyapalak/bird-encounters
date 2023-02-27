@@ -4,6 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import { useParams } from "react-router-dom";
 import { getToken } from "../../utils/getToken";
 import { useState } from "react";
+import Button from "react-bootstrap/esm/Button";
+// import BackToTop from "../BackToTop/BackToTop";
 
 function Comments({ oneEncounter }) {
   const convertedTime = useConvertTime();
@@ -13,6 +15,9 @@ function Comments({ oneEncounter }) {
   const [isCommentSuccessfull, setIsCommentSuccessfull] = useState(null);
   const [isCommentFail, setIsCommentFail] = useState(null);
   const [isNoText, setIsNoText] = useState(null);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const handleCloseCommentModal = () => setShowCommentModal(false);
+  const handleShowCommentModal = () => setShowCommentModal(true);
 
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
@@ -22,9 +27,14 @@ function Comments({ oneEncounter }) {
     });
   };
 
+  function handleCommentAndModal() {
+    handlePostComment();
+    handleShowCommentModal();
+  }
+
   console.log("newComment", newComment);
 
-  function postComment() {
+  const handlePostComment = async () => {
     setIsCommentFail(false);
     setIsCommentSuccessfull(false);
     setIsNoText(false);
@@ -32,12 +42,16 @@ function Comments({ oneEncounter }) {
     setIsNoToken(false);
     const token = getToken();
     if (token) {
+      if (newComment === null || newComment.text === "") {
+        setIsNoText(true);
+        return;
+      }
       const myHeaders = new Headers();
       myHeaders.append("Authorization", `Bearer ${token}`);
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
       const urlencoded = new URLSearchParams();
-      urlencoded.append("text", newComment.text);
+      urlencoded.append("text", newComment.text && newComment.text);
 
       const requestOptions = {
         method: "POST",
@@ -50,26 +64,27 @@ function Comments({ oneEncounter }) {
         `http://localhost:5000/api/encounters/${_id}/comments`,
         requestOptions
       )
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((result) => {
           console.log("result :>> ", result);
           if (result.msg === "comment submitted") {
             setIsCommentSuccessfull(true);
-          }
-          if (
-            newComment.text === null ||
-            newComment.text === undefined ||
-            newComment.text === ""
-          ) {
-            setIsNoText(true);
+            console.log("result", result);
+            console.log("result.msg", result.msg);
           }
         })
-        .catch((error) => console.log("error", error), setIsCommentFail(true));
+
+        .catch((error) => {
+          console.log("error", error);
+          setIsCommentFail(true);
+        });
     } else {
       setIsNoToken(true);
       console.log("no token");
     }
-  }
+
+    console.log("isCommentSuccessfull :>> ", isCommentSuccessfull);
+  };
 
   return (
     <>
@@ -107,10 +122,38 @@ function Comments({ oneEncounter }) {
             onChange={handleInputChange}
           />
         </span>
-        <button id="signup-button" onClick={postComment} disabled={newComment}>
+        <button id="signup-button" onClick={handleCommentAndModal}>
           Post
         </button>
+        <Modal show={showCommentModal} className="signup-modal">
+          <Modal.Body>
+            {isCommentSuccessfull && (
+              <p>You have successfully posted a message.</p>
+            )}
+            {isNoToken && (
+              <p id="error-message">Please sign up or log in first.</p>
+            )}
+            {isNoText && (
+              <p id="error-message">You can not post an empty comment.</p>
+            )}
+            {isCommentFail && (
+              <p id="error-message">Something went wrong. Please try again.</p>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              className="signup-modal-button"
+              onClick={handleCloseCommentModal}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
+      {/* {oneEncounter.comments && oneEncounter.comments.length >= 3 && (
+        <BackToTop /> */}
+      {/* )} */}
     </>
   );
 }

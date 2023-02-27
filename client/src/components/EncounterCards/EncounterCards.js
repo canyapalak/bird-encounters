@@ -54,6 +54,8 @@ function EncounterCards() {
         return a.species.localeCompare(b.species);
       } else if (sortingMethod === "country") {
         return a.country.localeCompare(b.country);
+      } else if (sortingMethod === "comments") {
+        return b.comments.length - a.comments.length;
       }
     });
 
@@ -88,22 +90,28 @@ function EncounterCards() {
                   Oldest
                 </Dropdown.Item>
                 <Dropdown.Item
-                  value="species"
-                  onClick={() => handleSort("species")}
+                  value="comments"
+                  onClick={() => handleSort("comments")}
                 >
-                  Species
-                </Dropdown.Item>
-                <Dropdown.Item
-                  value="country"
-                  onClick={() => handleSort("country")}
-                >
-                  Country
+                  Most Commented
                 </Dropdown.Item>
                 <Dropdown.Item
                   value="favorites"
                   onClick={() => handleSort("favorites")}
                 >
-                  Favourites
+                  Most Favourited
+                </Dropdown.Item>
+                <Dropdown.Item
+                  value="species"
+                  onClick={() => handleSort("species")}
+                >
+                  Species Name
+                </Dropdown.Item>
+                <Dropdown.Item
+                  value="country"
+                  onClick={() => handleSort("country")}
+                >
+                  Country Name
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
