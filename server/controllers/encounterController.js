@@ -301,11 +301,18 @@ const getEncountersByUserName = async (req, res) => {
     const requestedEncounters = await encounterModel.find({
       userName: userName,
     });
-    res.status(200).json({
-      msg: "fetch is successfull",
-      number: requestedEncounters.length,
-      requestedEncounters,
-    });
+
+    if (requestedEncounters.length === 0) {
+      res.status(200).json({
+        msg: "no encounter found",
+      });
+    } else {
+      res.status(200).json({
+        msg: "fetch is successfull",
+        number: requestedEncounters.length,
+        requestedEncounters,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       msg: "something went wrong",

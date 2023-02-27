@@ -8,7 +8,6 @@
     margin-bottom: 1rem;
 }
 
-
 .profile-card {
     width: 40rem;
     margin: 1rem;
@@ -19,11 +18,11 @@
 }
 
 .user-picture img {
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
     display: block;
-width: 12rem;
+    width: 10rem;
     object-fit: fill;
     border-radius: 90%;
 }
@@ -45,27 +44,27 @@ width: 12rem;
 
 #profile-title {
     text-decoration: wavy;
-        font-style: italic;
-        color: rgb(91, 90, 90);
+    font-style: italic;
+    color: rgb(91, 90, 90);
 }
 
 #profile-detail {
-        color: rgb(25, 125, 150);
-            margin-left: 0.5rem;
+    color: rgb(25, 125, 150);
+    margin-left: 0.5rem;
 }
 
 .user-encounters p,
 .user-bookmarks p {
     text-align: center;
     text-decoration: wavy;
-        font-style: italic;
-        color: rgb(91, 90, 90);
+    font-style: italic;
+    color: rgb(91, 90, 90);
 }
 
 #part-title {
-        font-size: 110%;
-            color: rgb(31, 147, 49);
-            text-align: center;
+    font-size: 110%;
+    color: rgb(31, 147, 49);
+    text-align: center;
 
 
 }
@@ -84,4 +83,29 @@ width: 12rem;
 
 .edit-icon img:hover {
     filter: invert(26%) sepia(39%) saturate(1583%) hue-rotate(75deg) brightness(96%) contrast(116%);
+}
+
+.encounter-part-card {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.one-user-encounter {
+    width: 13rem;
+    margin: 0.5rem;
+    border: 1px solid rgb(153, 154, 153);
+    border-radius: 5px;
+    background-color: rgba(109, 120, 75, 0.127);
+    padding: 0.5rem;
+}
+
+.one-user-encounter img {
+    border-radius: 5px;
+}
+.one-user-encounter p {
+    margin-top: 0.5rem;
+    margin-bottom: -0.2rem;
+    font-size: 90%;
+    color: rgb(31, 147, 49);
 }

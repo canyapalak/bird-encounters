@@ -1,22 +1,46 @@
 import "./ProfileCard.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../store/AuthContext";
 import Card from "react-bootstrap/Card";
 import useConvertTime from "../../hooks/useConvertTime";
 import PencilIcon from "../../assets/pencil-icon.png";
+import { Link } from "react-router-dom";
 
 function ProfileCard(props) {
   const { setIsEditing, isEditing } = props;
   const { userProfile, getProfile } = useContext(AuthContext);
   const convertTime = useConvertTime();
+  const [encountersByUserName, setEncountersByUserName] = useState(null);
 
   useEffect(() => {
     getProfile();
+    fetchEncounterByUserName();
   }, []);
 
   function handleOpenUpdateProfileCard() {
     setIsEditing(true);
   }
+
+  //fetch user encounters
+  const fetchEncounterByUserName = async () => {
+    const userNameToUse = userProfile.userName;
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      `http://localhost:5000/api/encounters/by/${userNameToUse}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setEncountersByUserName(result.requestedEncounters);
+      })
+
+      .catch((error) => console.log("error", error));
+  };
 
   return (
     <>
@@ -59,7 +83,35 @@ function ProfileCard(props) {
             <div className="user-encounters">
               <p id="part-title">encounters</p>
               <span className="encounters-part">
-                <p>You have currently no encounters.</p>
+                <span className="encounters-text">
+                  {!encountersByUserName ? (
+                    <p>You have currently no encounters.</p>
+                  ) : (
+                    <p>
+                      You have {encountersByUserName.length} encounter(s) so
+                      far.
+                    </p>
+                  )}
+                </span>
+                <span className="encounter-part-card">
+                  {encountersByUserName &&
+                    encountersByUserName.map((userEncounter) => {
+                      return (
+                        <Link
+                          to={`/${userEncounter._id}`}
+                          key={userEncounter._id}
+                        >
+                          <Card className="one-user-encounter">
+                            <img
+                              src={userEncounter.image}
+                              alt="Encounter Image"
+                            />
+                            <p>{userEncounter.title}</p>
+                          </Card>
+                        </Link>
+                      );
+                    })}
+                </span>
               </span>
             </div>
             <hr />
