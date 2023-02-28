@@ -1,0 +1,64 @@
+.encounter-part-card {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.one-user-encounter {
+    width: 25rem;
+    margin: 0.5rem;
+    border: 1px solid rgb(153, 154, 153);
+    border-radius: 5px;
+    background-color: rgba(109, 120, 75, 0.127);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.one-user-encounter img {
+    border-radius: 5px;
+    width: 8rem;
+}
+
+.one-user-encounter-text {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 2px rgba(46, 43, 41, 0.434) dashed;
+    height: 5.5rem;
+}
+
+.one-user-encounter-title {
+    font-size: 90%;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+}
+
+.one-user-encounter-title p {
+    color: rgb(31, 147, 49);
+}
+
+.by-and-username {
+    display: flex;
+    flex-direction: row;
+    font-size: 90%;
+    float: left;
+    margin-right: auto;
+    margin-left: 0px;
+    margin-top: -0.5rem;
+}
+
+#blue-text {
+    color: rgb(25, 125, 150);
+
+}
+
+@media (max-width: 490px) {
+    .one-user-encounter {
+        width: 20rem;
+    }
+}

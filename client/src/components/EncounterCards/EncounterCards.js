@@ -3,18 +3,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
 import { AuthContext } from "../../store/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import useConvertDateOnly from "../../hooks/useConvertDateOnly";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import BookmarkEmpty from "../../assets/bookmark-empty.png";
 import BookmarkFilled from "../../assets/bookmark-filled.png";
-import useConvertTime from "../../hooks/useConvertTime";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import BackToTop from "../BackToTop/BackToTop";
 
 function EncounterCards() {
   const redirectTo = useNavigate();
-  const convertTime = useConvertTime();
+  const convertDate = useConvertDateOnly();
   const { encounters } = useContext(EncounterContext);
   const { isToken, currentUser } = useContext(AuthContext);
   const [isToggled, setIsToggled] = useState(false);
@@ -183,7 +183,7 @@ function EncounterCards() {
                     <span className="post-time">
                       <p id="posted-by">on&nbsp;</p>
                       <p id="post-time-text">
-                        {convertTime(encounter.posttime)}
+                        {convertDate(encounter.posttime)}
                       </p>
                     </span>
                   </div>
