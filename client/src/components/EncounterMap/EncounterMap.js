@@ -24,7 +24,7 @@ function EncounterMap({ oneEncounter }) {
             new Icon({
               iconUrl: LocationMarker,
               iconSize: [30, 35],
-              iconAnchor: [12, 41],
+              iconAnchor: [13, 31],
             })
           }
         >

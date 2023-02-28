@@ -101,7 +101,6 @@ function Comments({ oneEncounter }) {
   //delete comment
   const handleDeleteComment = async (comment) => {
     setIsCommentDelete(false);
-    console.log("isCommentDelete3", isCommentDelete);
     try {
       const token = getToken();
       const myHeaders = new Headers();
@@ -144,7 +143,6 @@ function Comments({ oneEncounter }) {
       console.log("error", error);
       setIsCommentDeleteFail(true);
     }
-    console.log("isCommentDelete2", isCommentDelete);
   };
   return (
     <>
@@ -166,14 +164,16 @@ function Comments({ oneEncounter }) {
                   <span className="comment-test">
                     <p>{comment.text}</p>
                   </span>
-                  {userProfile && userProfile.userName === comment.author && (
-                    <img
-                      src={DeleteIcon}
-                      alt="Delete"
-                      id="delete-icon"
-                      onClick={() => handleDeleteComment(comment)}
-                    />
-                  )}
+                  {userProfile &&
+                    (userProfile.isAdmin ||
+                      userProfile.userName === comment.author) && (
+                      <img
+                        src={DeleteIcon}
+                        alt="Delete"
+                        id="delete-icon"
+                        onClick={() => handleDeleteComment(comment)}
+                      />
+                    )}
                 </div>
               );
             }

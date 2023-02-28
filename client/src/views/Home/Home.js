@@ -13,7 +13,7 @@ function Home() {
         <span>
           <p>
             Welcome to Bird Encounters, a social platform where bird enthusiasts
-            share their encounters with rare endemic European birds and record
+            share their encounters with rare endemic birds and record
             information about these marvellous experiences...
           </p>
         </span>

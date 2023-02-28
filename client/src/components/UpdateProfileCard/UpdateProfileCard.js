@@ -11,6 +11,7 @@ function UpdateProfileCard() {
   const { userProfile, getProfile } = useContext(AuthContext);
   const redirectTo = useNavigate();
   const [profileToUpdate, setProfileToUpdate] = useState();
+  const [updatedProfilePicture, setUpdatedProfilePicture] = useState(null);
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
   const [isMailInUse, setIsMailInUse] = useState(false);
   const [isUserNameInUse, setIsUserNameInUse] = useState(false);
@@ -80,6 +81,7 @@ function UpdateProfileCard() {
         ...profileToUpdate,
         userPicture: result.imageUrl,
       });
+      setUpdatedProfilePicture(result.imageUrl);
       if (result.msg === "image upload ok") {
         setIsImageUploadSuccessful(true);
       }
@@ -175,7 +177,11 @@ function UpdateProfileCard() {
       <div className="signup-container">
         <Card className="signup-card">
           <span className="user-picture">
-            <img src={userProfile.userPicture} alt="Avatar"></img>
+            {updatedProfilePicture ? (
+              <img src={updatedProfilePicture} alt="Avatar"></img>
+            ) : (
+              <img src={userProfile.userPicture} alt="Avatar"></img>
+            )}
           </span>
           <span className="upload-profile-picture">
             <form>

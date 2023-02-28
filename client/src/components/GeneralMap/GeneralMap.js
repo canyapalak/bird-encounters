@@ -15,14 +15,14 @@ function EncounterMap() {
         {encounters && encounters.length ? (
           <p>
             {" "}
-            There are currently {encounters.length} encounters across Europe.
+            There are currently {encounters.length} encounters across the world.
           </p>
         ) : (
           <p></p>
         )}
         <MapContainer
-          center={[52, 10]}
-          zoom={3}
+          center={[25, 10]}
+          zoom={2}
           scrollWheelZoom={false}
           //   style={{ height: "61vh" }}
           id="map-container"

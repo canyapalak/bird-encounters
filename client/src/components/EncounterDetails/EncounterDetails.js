@@ -59,11 +59,6 @@ function EncounterDetails(props) {
 
   console.log("oneEncounter :>> ", oneEncounter);
 
-  // function handleDeleteAndCloseModal() {
-  //   handleDeleteEncounter();
-  //   handleCloseDelete();
-  // }
-
   function handleDeleteEncounter() {
     setIsDeleteFail(false);
     setIsDeleteSuccessful(false);
@@ -112,43 +107,45 @@ function EncounterDetails(props) {
         <span className="card-img">
           <img src={oneEncounter.image} alt="Encounter Image" />
         </span>
-        {userProfile && oneEncounter.userName === userProfile.userName && (
-          <span className="edit-and-delete-icons">
-            <img src={DeleteIcon} alt="Delete" onClick={handleShowDelete} />
-            <Modal
-              show={showDelete}
-              onHide={handleCloseDelete}
-              className="signup-modal"
-            >
-              <Modal.Body>
-                {!isDeleteSuccessful && !isDeleteFail && (
-                  <p>Are you sure you want to delete this encounter?</p>
-                )}
-                {isDeleteSuccessful && (
-                  <p>You have successfully deleted the encounter.</p>
-                )}
-                {isDeleteFail && (
-                  <p id="error-message">
-                    Something went wrong. Please try again.
-                  </p>
-                )}
-              </Modal.Body>
-              <Modal.Footer>
-                {isDeleteSuccessful ? null : (
-                  <Button
-                    variant="primary"
-                    className="signup-modal-button"
-                    onClick={handleDeleteEncounter}
-                  >
-                    Delete
-                  </Button>
-                )}
-              </Modal.Footer>
-            </Modal>
+        {userProfile &&
+          (userProfile.isAdmin ||
+            oneEncounter.userName === userProfile.userName) && (
+            <span className="edit-and-delete-icons">
+              <img src={DeleteIcon} alt="Delete" onClick={handleShowDelete} />
+              <Modal
+                show={showDelete}
+                onHide={handleCloseDelete}
+                className="signup-modal"
+              >
+                <Modal.Body>
+                  {!isDeleteSuccessful && !isDeleteFail && (
+                    <p>Are you sure you want to delete this encounter?</p>
+                  )}
+                  {isDeleteSuccessful && (
+                    <p>You have successfully deleted the encounter.</p>
+                  )}
+                  {isDeleteFail && (
+                    <p id="error-message">
+                      Something went wrong. Please try again.
+                    </p>
+                  )}
+                </Modal.Body>
+                <Modal.Footer>
+                  {isDeleteSuccessful ? null : (
+                    <Button
+                      variant="primary"
+                      className="signup-modal-button"
+                      onClick={handleDeleteEncounter}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </Modal.Footer>
+              </Modal>
 
-            <img src={EditIcon} alt="Edit" onClick={handleOpenUpdateCard} />
-          </span>
-        )}
+              <img src={EditIcon} alt="Edit" onClick={handleOpenUpdateCard} />
+            </span>
+          )}
         <div className="avatar-username-and-post-time">
           <div className="avatar-and-username">
             <span className="avatar">

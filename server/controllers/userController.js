@@ -192,4 +192,27 @@ const updateProfile = async (req, res) => {
   }
 };
 
-export { signup, login, getProfile, updateProfile };
+//add favourites
+const addFavourite = async (req, res) => {
+  try {
+    const { encounterId } = req.body;
+    const user = await userModel.findOneAndUpdate(
+      { _id: req.user._id },
+      { $push: { favs: encounterId } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ msg: "Encounter added to favs" });
+  } catch (error) {
+    console.log("error", error);
+    res
+      .status(500)
+      .json({ msg: "Error adding encounter to favs", error: error });
+  }
+};
+
+export { signup, login, getProfile, updateProfile, addFavourite };
