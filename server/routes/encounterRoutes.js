@@ -8,6 +8,9 @@ import {
   addComment,
   deleteComment,
   getEncountersByUserName,
+  addFavourite,
+  removeFavourite,
+  checkFavourite,
 } from "../controllers/encounterController.js";
 import {
   uploadEncounterPicture,
@@ -26,6 +29,9 @@ router.delete("/deleteEncounter", jwt, deleteEncounter);
 router.put("/updateEncounter/:_id", jwt, updateEncounter);
 router.post("/:_id/comments", jwt, addComment);
 router.delete("/:_id/comments", jwt, deleteComment);
+router.put("/addFavourites", jwt, addFavourite);
+router.put("/removeFavourites", jwt, removeFavourite);
+router.get("/:encounterId/favourites/:userId", jwt, checkFavourite);
 
 router.post(
   "/imageUploadEncounter",

@@ -59,6 +59,7 @@ function EncounterDetails(props) {
 
   console.log("oneEncounter :>> ", oneEncounter);
 
+  //delete encounter
   function handleDeleteEncounter() {
     setIsDeleteFail(false);
     setIsDeleteSuccessful(false);

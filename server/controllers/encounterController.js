@@ -320,6 +320,79 @@ const getEncountersByUserName = async (req, res) => {
   }
 };
 
+//add favourites
+const addFavourite = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const encounter = await encounterModel.findOne({
+      _id: req.body.encounterId,
+    });
+
+    if (encounter.favs.includes(userId)) {
+      return res
+        .status(400)
+        .json({ message: "This encounter already in favs" });
+    }
+
+    const updatedUser = await encounterModel.findOneAndUpdate(
+      { _id: req.body.encounterId },
+      { $push: { favs: userId } },
+      { new: true }
+    );
+
+    return res.status(200).json({ msg: "Encounter added to favs" });
+  } catch (error) {
+    console.log("error", error);
+    res
+      .status(500)
+      .json({ msg: "Error adding encounter to favs", error: error });
+  }
+};
+
+//remove favourites
+const removeFavourite = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const encounter = await encounterModel.findOne({
+      _id: req.body.encounterId,
+    });
+
+    const index = encounter.favs.indexOf(userId);
+    if (index === -1) {
+      return res.status(400).json({ message: "This encounter is not in favs" });
+    }
+
+    await encounterModel.updateOne(
+      { _id: req.body.encounterId },
+      { $pull: { favs: userId } }
+    );
+
+    return res.status(200).json({ msg: "Encounter removed from favs" });
+  } catch (error) {
+    console.log("error", error);
+    res
+      .status(500)
+      .json({ msg: "Error removing encounter from favs", error: error });
+  }
+};
+
+//check favourites
+const checkFavourite = async (req, res) => {
+  try {
+    const { encounterId, userId } = req.params;
+    const encounter = await encounterModel.findById(encounterId);
+
+    console.log("req.body.encounterId", req.body.encounterId);
+    console.log("req.user._id :>> ", req.user._id);
+
+    const isFav = encounter.favs.includes(userId);
+    return res.status(200).json(isFav);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error checking fav status", error });
+  }
+};
+
 export {
   getAllEncounters,
   getEncountersById,
@@ -329,4 +402,7 @@ export {
   addComment,
   deleteComment,
   getEncountersByUserName,
+  addFavourite,
+  removeFavourite,
+  checkFavourite,
 };

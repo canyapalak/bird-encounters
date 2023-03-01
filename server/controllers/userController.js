@@ -127,6 +127,7 @@ const getProfile = async (req, res) => {
       favs: req.user.favs,
       isAdmin: req.user.isAdmin,
       signupTime: req.user.signupTime,
+      _id: req.user._id,
     },
   });
 };
@@ -192,70 +193,4 @@ const updateProfile = async (req, res) => {
   }
 };
 
-//add favourites
-const addFavourite = async (req, res) => {
-  try {
-    const { encounterId } = req.body;
-    const user = await userModel.findOne({ _id: req.user._id });
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (user.favs.includes(encounterId)) {
-      return res
-        .status(400)
-        .json({ message: "This encounter already in favs" });
-    }
-
-    const updatedUser = await userModel.findOneAndUpdate(
-      { _id: req.user._id },
-      { $push: { favs: encounterId } },
-      { new: true }
-    );
-
-    return res.status(200).json({ msg: "Encounter added to favs" });
-  } catch (error) {
-    console.log("error", error);
-    res
-      .status(500)
-      .json({ msg: "Error adding encounter to favs", error: error });
-  }
-};
-
-//remove favourites
-const removeFavourite = async (req, res) => {
-  try {
-    const { encounterId } = req.body;
-    const user = await userModel.findOne({ _id: req.user._id });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const index = user.favs.indexOf(encounterId);
-    if (index === -1) {
-      return res.status(400).json({ message: "This encounter is not in favs" });
-    }
-
-    await userModel.updateOne(
-      { _id: req.user._id },
-      { $pull: { favs: encounterId } }
-    );
-
-    return res.status(200).json({ msg: "Encounter removed from favs" });
-  } catch (error) {
-    console.log("error", error);
-    res
-      .status(500)
-      .json({ msg: "Error removing encounter from favs", error: error });
-  }
-};
-
-export {
-  signup,
-  login,
-  getProfile,
-  updateProfile,
-  addFavourite,
-  removeFavourite,
-};
+export { signup, login, getProfile, updateProfile };

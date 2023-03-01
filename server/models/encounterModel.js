@@ -83,10 +83,11 @@ const encounterSchema = new Schema(
       type: Date,
     },
 
-    favs: {
-      type: Number,
-      default: 0,
-    },
+    favs: [
+      {
+        type: String,
+      },
+    ],
 
     record: {
       type: String,

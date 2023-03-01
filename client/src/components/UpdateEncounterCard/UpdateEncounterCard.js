@@ -100,6 +100,7 @@ function UpdateEncounterCard(props) {
     handleShowUpdateModal();
   }
 
+  //add image for encounter
   const handleSubmitPicture = async (e) => {
     setIsImageUploadSuccessful(false);
     setIsImageUploadFail(false);
@@ -129,6 +130,7 @@ function UpdateEncounterCard(props) {
     }
   };
 
+  //add record for encounter
   const handleSubmitAudio = async (e) => {
     setIsAudioUploadSuccessful(false);
     setIsAudioUploadFail(false);
@@ -160,6 +162,7 @@ function UpdateEncounterCard(props) {
     }
   };
 
+  //update encounter
   const handleSubmitEncounter = async () => {
     setIsMissingFields(false);
     setIsUpdateSuccessful(false);

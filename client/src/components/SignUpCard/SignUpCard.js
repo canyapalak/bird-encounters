@@ -52,6 +52,7 @@ function SignUpCard() {
     });
   };
 
+  //add image for account
   const handleSubmitPicture = async (e) => {
     setIsUploadSuccessful(false);
     setIsUploadFail(false);
@@ -82,6 +83,7 @@ function SignUpCard() {
     }
   };
 
+  //create new account
   const handleSignUp = async () => {
     setIsSignUpSuccessful(false);
     setIsUserNameInUse(false);

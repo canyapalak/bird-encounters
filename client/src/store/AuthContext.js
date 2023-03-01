@@ -38,6 +38,7 @@ export const AuthContextProvider = (props) => {
             signupTime: result.user.signupTime,
             isAdmin: result.user.isAdmin,
             favs: result.user.favs,
+            _id: result.user._id,
           });
           setGetProfileError(null);
         })

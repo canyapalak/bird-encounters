@@ -45,6 +45,7 @@ function Comments({ oneEncounter }) {
 
   console.log("newComment", newComment);
 
+  //post comment
   const handlePostComment = async () => {
     setIsCommentFail(false);
     setIsCommentSuccessfull(false);

@@ -17,8 +17,8 @@ function EncounterCards() {
   const redirectTo = useNavigate();
   const convertDate = useConvertDateOnly();
   const { encounters } = useContext(EncounterContext);
-  const { isToken, currentUser } = useContext(AuthContext);
-  const [isToggled, setIsToggled] = useState(false);
+  const { isToken, currentUser, userProfile } = useContext(AuthContext);
+  const [isToggled, setIsToggled] = useState(null);
   const [sortingMethod, setSortingMethod] = useState("newest");
   const [showNewEncounterModal, setShowNewEncounterModal] = useState(false);
   const handleCloseNewEncounterModal = () => setShowNewEncounterModal(false);
@@ -26,7 +26,9 @@ function EncounterCards() {
   const [searchQuery, setSearchQuery] = useState(null);
   const [searchedEncounters, setSearchedEncounters] = useState("");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    handleCheckFav();
+  }, []);
 
   const handleSearchQuery = (event) => {
     const searchTerm = event.target.value;
@@ -42,6 +44,7 @@ function EncounterCards() {
     setSortingMethod(value);
   }
 
+  //sorting woth dropdown
   const sortedEncounters =
     encounters &&
     encounters.slice().sort((a, b) => {
@@ -50,7 +53,7 @@ function EncounterCards() {
       } else if (sortingMethod === "oldest") {
         return new Date(a.posttime) - new Date(b.posttime);
       } else if (sortingMethod === "favorites") {
-        return b.favs - a.favs;
+        return b.favs.length - a.favs.length;
       } else if (sortingMethod === "species") {
         return a.species.localeCompare(b.species);
       } else if (sortingMethod === "country") {
@@ -64,10 +67,50 @@ function EncounterCards() {
     ? searchedEncounters
     : sortedEncounters;
 
+  //check if encounter is added to favorite or not
+  const handleCheckFav = async (encounter) => {
+    const encounterId = encounter._id;
+    const userId = userProfile._id;
+    const token = getToken();
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      fetch(
+        `http://localhost:5000/api/encounters/${encounterId}/favourites/${userId}`,
+        requestOptions
+      )
+        .then((result) => {
+          console.log("result :>> ", result);
+          if ((result = true)) {
+            setIsToggled(true);
+          } else {
+            setIsToggled(false);
+          }
+        })
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  //add an encounter to favorites
   const handleFavClick = async (event, encounter) => {
     event.stopPropagation();
 
     const encounterId = encounter._id;
+    const userId = userProfile._id;
     const token = getToken();
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -84,7 +127,47 @@ function EncounterCards() {
     };
 
     try {
-      fetch("http://localhost:5000/api/users/addFavourites", requestOptions)
+      fetch(
+        "http://localhost:5000/api/encounters/addFavourites",
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) => {
+          console.log("result :>> ", result);
+          setIsToggled(!isToggled);
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //remove an encounter from favorites
+  const handleFavUnclick = async (event, encounter) => {
+    event.stopPropagation();
+
+    const encounterId = encounter._id;
+    const userId = userProfile._id;
+    const token = getToken();
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("encounterId", encounterId);
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      fetch(
+        "http://localhost:5000/api/encounters/removeFavourites",
+        requestOptions
+      )
         .then((response) => response.text())
         .then((result) => {
           console.log("result :>> ", result);
@@ -228,7 +311,7 @@ function EncounterCards() {
                       )}
                     </div>
                     <span className="fav-number">
-                      <p>{encounter.favs}</p>
+                      <p>{encounter.favs.length}</p>
                     </span>
                   </div>
                 </div>

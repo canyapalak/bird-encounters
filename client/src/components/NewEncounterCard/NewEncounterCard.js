@@ -69,6 +69,7 @@ function NewEncounterCard() {
     handleShowPostModal();
   }
 
+  //upload image for encounter
   const handleSubmitPicture = async (e) => {
     setIsImageUploadSuccessful(false);
     setIsImageUploadFail(false);
@@ -98,6 +99,7 @@ function NewEncounterCard() {
     }
   };
 
+  //add record for encounter
   const handleSubmitAudio = async (e) => {
     setIsAudioUploadSuccessful(false);
     setIsAudioUploadFail(false);
@@ -137,6 +139,7 @@ function NewEncounterCard() {
     });
   };
 
+  //create new encounter
   const handleSubmitEncounter = async () => {
     setIsMissingFields(false);
     setIsPostFail(false);

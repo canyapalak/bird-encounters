@@ -58,6 +58,7 @@ function UpdateProfileCard() {
     handleShowUpdateModal();
   }
 
+  //upload image for account
   const handleSubmitPicture = async (e) => {
     setIsImageUploadSuccessful(false);
     setIsImageUploadFail(false);
@@ -93,6 +94,7 @@ function UpdateProfileCard() {
 
   console.log("profileToUpdate :>> ", profileToUpdate);
 
+  //update account
   const handleUpdateProfile = async () => {
     setIsImageUploadFail(false);
     setIsImageUploadSuccessful(false);

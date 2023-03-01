@@ -29,12 +29,6 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
   },
-
-  favs: [
-    {
-      type: String,
-    },
-  ],
 });
 
 const userModel = mongoose.model("user", userSchema);
