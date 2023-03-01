@@ -11,6 +11,7 @@ import BookmarkFilled from "../../assets/bookmark-filled.png";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import BackToTop from "../BackToTop/BackToTop";
+import { getToken } from "../../utils/getToken";
 
 function EncounterCards() {
   const redirectTo = useNavigate();
@@ -59,13 +60,41 @@ function EncounterCards() {
       }
     });
 
-  function handleFavClick() {
-    setIsToggled(!isToggled);
-  }
-
   const encountersToRender = searchQuery
     ? searchedEncounters
     : sortedEncounters;
+
+  const handleFavClick = async (event, encounter) => {
+    event.stopPropagation();
+
+    const encounterId = encounter._id;
+    const token = getToken();
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("encounterId", encounterId);
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    try {
+      fetch("http://localhost:5000/api/users/addFavourites", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          console.log("result :>> ", result);
+          setIsToggled(!isToggled);
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="panel-and-container">
@@ -188,7 +217,10 @@ function EncounterCards() {
                     </span>
                   </div>
                   <div className="fav-icon-and-number">
-                    <div onClick={handleFavClick} className="fav-icon">
+                    <div
+                      onClick={(event) => handleFavClick(event, encounter)}
+                      className="fav-icon"
+                    >
                       {!isToggled ? (
                         <img src={BookmarkEmpty} alt="Not Fav" />
                       ) : (
