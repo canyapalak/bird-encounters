@@ -8,6 +8,7 @@ import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
 import { getToken } from "../../utils/getToken.js";
 import { AuthContext } from "../../store/AuthContext";
 import { EncounterContext } from "../../store/EncounterContext";
+import ModalInformation from "../ModalInformation/ModalInformation";
 
 function UpdateEncounterCard(props) {
   const { setIsEditing, isEditing } = props;

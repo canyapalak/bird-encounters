@@ -19,6 +19,7 @@ function SignUpCard() {
   const [isUploadFail, setIsUploadFail] = useState(false);
   const [isFetchFail, setIsFetchFail] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [loadingUpdatingPicture, setLoadingUpdatingPicture] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
   const [showPictureModal, setShowPictureModal] = useState(false);
@@ -67,6 +68,7 @@ function SignUpCard() {
     };
 
     try {
+      setLoadingUpdatingPicture(true);
       const response = await fetch(
         "http://localhost:5000/api/users/imageUpload",
         requestOptions
@@ -81,6 +83,7 @@ function SignUpCard() {
       console.log("error :>> ", error);
       setIsUploadFail(true);
     }
+    setLoadingUpdatingPicture(false);
   };
 
   //create new account
