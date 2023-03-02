@@ -27,6 +27,18 @@ padding-bottom: 0.4rem;
     height: 61vh;
 }
 
+.general-map-popup p {
+    text-align: center;
+}
+
+#popup-image {
+    border: 1px solid rgb(91, 90, 90);
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
 @media (max-width: 700px) {
 .general-map-card {
         width: 85%;

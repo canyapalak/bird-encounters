@@ -43,7 +43,9 @@ function ProfileEncounters() {
           {!encountersByUserName ? (
             <p>You have currently no encounters.</p>
           ) : (
-            <p>You have {encountersByUserName.length} encounter(s) so far.</p>
+            <p>
+              You have currently {encountersByUserName.length} encounter(s).
+            </p>
           )}
         </span>
         <span className="encounter-part-card">
@@ -51,25 +53,14 @@ function ProfileEncounters() {
             encountersByUserName.map((userEncounter) => {
               return (
                 <Link to={`/${userEncounter._id}`} key={userEncounter._id}>
-                  <Card className="one-user-encounter">
-                    <img src={userEncounter.image} alt="Encounter Image" />
-                    <span className="one-user-encounter-text">
-                      <span className="one-user-encounter-title">
-                        <p>{userEncounter.title.substr(0, 18)}</p>
-                        {userEncounter.title.length >= 18 && <p>...</p>}
-                      </span>
-                      <span className="by-and-username">
-                        <p id="one-user-encounter-grey">by&nbsp;</p>
-                        <p id="blue-text">{userEncounter.userName}</p>
-                      </span>
-                      <span className="by-and-username">
-                        <p id="one-user-encounter-grey">on&nbsp;</p>
-                        <p id="blue-text">
-                          {convertDate(userEncounter.posttime)}
-                        </p>
-                      </span>
-                    </span>
-                  </Card>
+                  <div className="round-card-and-text">
+                    <img
+                      src={userEncounter.image}
+                      alt={userEncounter.species}
+                    />
+
+                    <p>{userEncounter.species}</p>
+                  </div>
                 </Link>
               );
             })}

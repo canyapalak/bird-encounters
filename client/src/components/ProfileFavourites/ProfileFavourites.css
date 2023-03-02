@@ -1,0 +1,39 @@
+
+.round-card-and-text {
+    position: relative;
+    text-align: center;
+}
+
+.round-card-and-text:hover p {
+   visibility: visible;
+   opacity: 1;
+   transition: opacity 0.3s ease-in;
+   
+}
+
+.round-card-and-text img {
+    width: 9.5rem;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 7px solid rgba(121, 139, 122, 0.237);
+    margin: 0.5rem;
+}
+
+.round-card-and-text img:hover {
+
+    filter: brightness(50%);
+    transition: filter 0.3s ease-in;
+}
+
+.round-card-and-text p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: rgba(225, 235, 237, 0.906);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  font-size: 110%;
+  line-height: 1.8rem;
+}

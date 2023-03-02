@@ -376,20 +376,32 @@ const removeFavourite = async (req, res) => {
   }
 };
 
-//check favourites
-const checkFavourite = async (req, res) => {
+//get favs by user id
+const getFavsByUserId = async (req, res) => {
+  const { userId } = req.params;
+
   try {
-    const { encounterId, userId } = req.params;
-    const encounter = await encounterModel.findById(encounterId);
+    const requestedFavs = await encounterModel.find({
+      favs: {
+        $elemMatch: { $eq: userId },
+      },
+    });
 
-    console.log("req.body.encounterId", req.body.encounterId);
-    console.log("req.user._id :>> ", req.user._id);
-
-    const isFav = encounter.favs.includes(userId);
-    return res.status(200).json(isFav);
+    if (requestedFavs.length === 0) {
+      res.status(200).json({
+        msg: "no favs found",
+      });
+    } else {
+      res.status(200).json({
+        msg: "fetch is successfull",
+        number: requestedFavs.length,
+        requestedFavs,
+      });
+    }
   } catch (error) {
-    console.log("error", error);
-    res.status(500).json({ message: "Error checking fav status", error });
+    res.status(500).json({
+      msg: "something went wrong",
+    });
   }
 };
 
@@ -404,5 +416,5 @@ export {
   getEncountersByUserName,
   addFavourite,
   removeFavourite,
-  checkFavourite,
+  getFavsByUserId,
 };

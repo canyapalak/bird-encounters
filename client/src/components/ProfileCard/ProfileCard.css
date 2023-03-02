@@ -22,9 +22,10 @@
     margin-right: auto;
     margin-bottom: 2rem;
     display: block;
-    width: 10rem;
+    width: 11rem;
     object-fit: fill;
     border-radius: 90%;
+    border: 7px solid rgba(121, 139, 122, 0.237);
 }
 
 .user-details {

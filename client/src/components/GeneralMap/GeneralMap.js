@@ -44,7 +44,7 @@ function EncounterMap() {
                   })
                 }
               >
-                <Popup>
+                <Popup className="general-map-popup">
                   <Link to={"/" + encounter._id}>
                     <p id="popup-text">{encounter.species}</p>
                   </Link>

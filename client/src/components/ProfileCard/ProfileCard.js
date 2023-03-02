@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import useConvertTime from "../../hooks/useConvertTime";
 import PencilIcon from "../../assets/pencil-icon.png";
 import ProfileEncounters from "../ProfileEncounters/ProfileEncounters";
-// import ProfileFavourites from "../ProfileFavourites/ProfileFavourites";
+import ProfileFavourites from "../ProfileFavourites/ProfileFavourites";
 
 function ProfileCard(props) {
   const { setIsEditing, isEditing } = props;
@@ -60,7 +60,7 @@ function ProfileCard(props) {
             <hr />
             <ProfileEncounters />
             <hr />
-            {/* <ProfileFavourites /> */}
+            <ProfileFavourites />
           </Card>
         </div>
       )}

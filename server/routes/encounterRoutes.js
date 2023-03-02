@@ -10,7 +10,7 @@ import {
   getEncountersByUserName,
   addFavourite,
   removeFavourite,
-  checkFavourite,
+  getFavsByUserId,
 } from "../controllers/encounterController.js";
 import {
   uploadEncounterPicture,
@@ -31,7 +31,7 @@ router.post("/:_id/comments", jwt, addComment);
 router.delete("/:_id/comments", jwt, deleteComment);
 router.put("/addFavourites", jwt, addFavourite);
 router.put("/removeFavourites", jwt, removeFavourite);
-router.get("/:encounterId/favourites/:userId", jwt, checkFavourite);
+router.get("/favs/:userId/", getFavsByUserId);
 
 router.post(
   "/imageUploadEncounter",

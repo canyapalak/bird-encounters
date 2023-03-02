@@ -2,7 +2,7 @@ import "./EncounterCards.css";
 import React, { useContext, useEffect, useState } from "react";
 import { EncounterContext } from "../../store/EncounterContext";
 import { AuthContext } from "../../store/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useConvertDateOnly from "../../hooks/useConvertDateOnly";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -14,11 +14,9 @@ import BackToTop from "../BackToTop/BackToTop";
 import { getToken } from "../../utils/getToken";
 
 function EncounterCards() {
-  const redirectTo = useNavigate();
   const convertDate = useConvertDateOnly();
-  const { encounters } = useContext(EncounterContext);
-  const { isToken, currentUser, userProfile } = useContext(AuthContext);
-  const [isToggled, setIsToggled] = useState(null);
+  const { encounters, isToggled, setIsToggled } = useContext(EncounterContext);
+  const { isToken, userProfile, getProfile } = useContext(AuthContext);
   const [sortingMethod, setSortingMethod] = useState("newest");
   const [showNewEncounterModal, setShowNewEncounterModal] = useState(false);
   const handleCloseNewEncounterModal = () => setShowNewEncounterModal(false);
@@ -27,8 +25,8 @@ function EncounterCards() {
   const [searchedEncounters, setSearchedEncounters] = useState("");
 
   useEffect(() => {
-    handleCheckFav();
-  }, []);
+    getProfile();
+  }, [encounters, isToggled]);
 
   const handleSearchQuery = (event) => {
     const searchTerm = event.target.value;
@@ -44,7 +42,7 @@ function EncounterCards() {
     setSortingMethod(value);
   }
 
-  //sorting woth dropdown
+  //sorting with dropdown
   const sortedEncounters =
     encounters &&
     encounters.slice().sort((a, b) => {
@@ -67,43 +65,9 @@ function EncounterCards() {
     ? searchedEncounters
     : sortedEncounters;
 
-  //check if encounter is added to favorite or not
-  const handleCheckFav = async (encounter) => {
-    const encounterId = encounter._id;
-    const userId = userProfile._id;
-    const token = getToken();
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    const urlencoded = new URLSearchParams();
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: "follow",
-    };
-
-    try {
-      fetch(
-        `http://localhost:5000/api/encounters/${encounterId}/favourites/${userId}`,
-        requestOptions
-      )
-        .then((result) => {
-          console.log("result :>> ", result);
-          if ((result = true)) {
-            setIsToggled(true);
-          } else {
-            setIsToggled(false);
-          }
-        })
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const isFav = (cardFavArray, userId) => {
+  //   return cardFavArray.includes(userId) ? true : false;
+  // };
 
   //add an encounter to favorites
   const handleFavClick = async (event, encounter) => {
@@ -300,16 +264,21 @@ function EncounterCards() {
                     </span>
                   </div>
                   <div className="fav-icon-and-number">
-                    <div
-                      onClick={(event) => handleFavClick(event, encounter)}
-                      className="fav-icon"
-                    >
-                      {!isToggled ? (
+                    {!encounter.favs.includes(userProfile._id) ? (
+                      <div
+                        onClick={(event) => handleFavClick(event, encounter)}
+                        className="fav-icon"
+                      >
                         <img src={BookmarkEmpty} alt="Not Fav" />
-                      ) : (
-                        <img src={BookmarkFilled} alt="Fav" />
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={(event) => handleFavUnclick(event, encounter)}
+                        className="fav-icon"
+                      >
+                        <img src={BookmarkFilled} alt="Not Fav" />
+                      </div>
+                    )}
                     <span className="fav-number">
                       <p>{encounter.favs.length}</p>
                     </span>
