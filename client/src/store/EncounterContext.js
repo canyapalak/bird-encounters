@@ -14,19 +14,17 @@ export const EncounterContextProvider = (props) => {
   useEffect(() => {
     const fetchAllEncounters = async () => {
       setLoading(true);
-      setTimeout(async () => {
-        try {
-          const urlAllEncounters = "http://localhost:5000/api/encounters/all";
-          const response = await fetch(urlAllEncounters);
-          const results = await response.json();
-          setEncounters(results.allEncounters);
-          setLoading(false);
-        } catch (err) {
-          console.log("error", err);
-          setError(err);
-          setLoading(false);
-        }
-      }, 1000);
+      try {
+        const urlAllEncounters = "http://localhost:5000/api/encounters/all";
+        const response = await fetch(urlAllEncounters);
+        const results = await response.json();
+        setEncounters(results.allEncounters);
+        setLoading(false);
+      } catch (err) {
+        console.log("error", err);
+        setError(err);
+        setLoading(false);
+      }
     };
     fetchAllEncounters();
   }, [isToggled, backToEncountersWithUpdate]);

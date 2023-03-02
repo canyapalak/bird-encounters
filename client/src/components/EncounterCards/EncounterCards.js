@@ -12,7 +12,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import BackToTop from "../BackToTop/BackToTop";
 import { getToken } from "../../utils/getToken";
-import Spinner from "../../assets/spinner.gif";
 
 function EncounterCards() {
   const convertDate = useConvertDateOnly();
@@ -234,72 +233,62 @@ function EncounterCards() {
       </div>
       <hr id="line"></hr>
       <div className="cards-container">
-        {loading ? (
-          <img src={Spinner} alt="Loading" id="spinner" />
-        ) : (
-          <>
-            {encountersToRender && encountersToRender.length === 0 && (
-              <p>No encounters found.</p>
-            )}
-            {encountersToRender &&
-              encountersToRender.map((encounter, index) => {
-                return (
-                  <Card className="one-card" key={index}>
-                    <span className="post-image">
-                      <img src={encounter.image} alt="Encounter Image" />
-                    </span>
-                    <span className="title">
-                      <p>{encounter.title}</p>
-                    </span>
-                    <hr />
-                    <div className="username-and-favs">
-                      <div className="username-and-time">
-                        <span className="username">
-                          <p id="posted-by">posted by&nbsp;</p>
-                          <p id="username-text">{encounter.userName}</p>
-                        </span>
-                        <span className="post-time">
-                          <p id="posted-by">on&nbsp;</p>
-                          <p id="post-time-text">
-                            {convertDate(encounter.posttime)}
-                          </p>
-                        </span>
-                      </div>
-                      <div className="fav-icon-and-number">
-                        {!encounter.favs.includes(userProfile._id) ? (
-                          <div
-                            onClick={(event) =>
-                              handleFavClick(event, encounter)
-                            }
-                            className="fav-icon"
-                          >
-                            <img src={BookmarkEmpty} alt="Not Fav" />
-                          </div>
-                        ) : (
-                          <div
-                            onClick={(event) =>
-                              handleFavUnclick(event, encounter)
-                            }
-                            className="fav-icon"
-                          >
-                            <img src={BookmarkFilled} alt="Not Fav" />
-                          </div>
-                        )}
-                        <span className="fav-number">
-                          <p>{encounter.favs.length}</p>
-                        </span>
-                      </div>
-                    </div>
-                    <hr />
-
-                    <Link to={"/" + encounter._id}>
-                      <button id="card-button">Details</button>{" "}
-                    </Link>
-                  </Card>
-                );
-              })}
-          </>
+        {encountersToRender && encountersToRender.length === 0 && (
+          <p>No encounters found.</p>
         )}
+        {encountersToRender &&
+          encountersToRender.map((encounter, index) => {
+            return (
+              <Card className="one-card" key={index}>
+                <span className="post-image">
+                  <img src={encounter.image} alt="Encounter Image" />
+                </span>
+                <span className="title">
+                  <p>{encounter.title}</p>
+                </span>
+                <hr />
+                <div className="username-and-favs">
+                  <div className="username-and-time">
+                    <span className="username">
+                      <p id="posted-by">posted by&nbsp;</p>
+                      <p id="username-text">{encounter.userName}</p>
+                    </span>
+                    <span className="post-time">
+                      <p id="posted-by">on&nbsp;</p>
+                      <p id="post-time-text">
+                        {convertDate(encounter.posttime)}
+                      </p>
+                    </span>
+                  </div>
+                  <div className="fav-icon-and-number">
+                    {!encounter.favs.includes(userProfile._id) ? (
+                      <div
+                        onClick={(event) => handleFavClick(event, encounter)}
+                        className="fav-icon"
+                      >
+                        <img src={BookmarkEmpty} alt="Not Fav" />
+                      </div>
+                    ) : (
+                      <div
+                        onClick={(event) => handleFavUnclick(event, encounter)}
+                        className="fav-icon"
+                      >
+                        <img src={BookmarkFilled} alt="Not Fav" />
+                      </div>
+                    )}
+                    <span className="fav-number">
+                      <p>{encounter.favs.length}</p>
+                    </span>
+                  </div>
+                </div>
+                <hr />
+
+                <Link to={"/" + encounter._id}>
+                  <button id="card-button">Details</button>{" "}
+                </Link>
+              </Card>
+            );
+          })}
       </div>{" "}
       {encountersToRender && encountersToRender.length >= 6 && <BackToTop />}
     </div>

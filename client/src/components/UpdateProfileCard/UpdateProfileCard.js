@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 import { getToken } from "../../utils/getToken";
 import { useNavigate } from "react-router-dom";
 
-function UpdateProfileCard() {
+function UpdateProfileCard({ setIsEditing }) {
   const { userProfile, getProfile } = useContext(AuthContext);
   const redirectTo = useNavigate();
   const [profileToUpdate, setProfileToUpdate] = useState();
@@ -32,7 +32,7 @@ function UpdateProfileCard() {
 
   useEffect(() => {
     getProfile();
-  }, [isImageUploadSuccessful]);
+  }, [isImageUploadSuccessful, isUpdateSuccessful]);
 
   const handleInputChange = (e) => {
     console.log("e.target.name, e.target.value", e.target.name, e.target.value);
@@ -41,6 +41,12 @@ function UpdateProfileCard() {
       [e.target.name]: e.target.value,
     });
   };
+
+  function handleCloseModalandUpdateProfile() {
+    redirectTo("/profile");
+    handleCloseUpdateModal();
+    setIsEditing(false);
+  }
 
   const handleAttachPicture = (e) => {
     e.preventDefault();
@@ -301,7 +307,7 @@ function UpdateProfileCard() {
                   <Button
                     variant="primary"
                     className="signup-modal-button"
-                    onClick={() => redirectTo(-1)}
+                    onClick={handleCloseModalandUpdateProfile}
                   >
                     Close
                   </Button>

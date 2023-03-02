@@ -12,7 +12,7 @@ function Details() {
   const navigate = useNavigate();
 
   function handleBackIconOnUpdate() {
-    navigate("/encounters");
+    navigate(-1);
     setIsEditing(false);
   }
 

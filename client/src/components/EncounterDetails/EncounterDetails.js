@@ -60,13 +60,10 @@ function EncounterDetails(props) {
         } finally {
           setIsLoading(false);
         }
-      }, 500);
+      }, 700);
     };
 
-    setTimeout(() => {
-      setIsLoading(false);
-      fetchEncounterById();
-    }, 500);
+    fetchEncounterById();
   }, []);
 
   console.log("oneEncounter :>> ", oneEncounter);

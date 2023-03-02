@@ -36,7 +36,10 @@ function Profile() {
       {!isEditing ? (
         <ProfileCard setIsEditing={setIsEditing} isEditing={isEditing} />
       ) : (
-        <UpdateProfileCard setIsEditing={setIsEditing} isEditing={isEditing} />
+        <UpdateProfileCard
+          setIsEditing={setIsEditing}
+          isEditing={(isEditing, setIsEditing)}
+        />
       )}
     </>
   );
