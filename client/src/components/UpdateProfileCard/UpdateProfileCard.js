@@ -6,10 +6,12 @@ import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/Card";
 import { getToken } from "../../utils/getToken";
 import { useNavigate } from "react-router-dom";
+import ModalInformation from "../ModalInformation/ModalInformation";
 
 function UpdateProfileCard({ setIsEditing }) {
   const { userProfile, getProfile } = useContext(AuthContext);
   const redirectTo = useNavigate();
+  const [isPictureLoading, setIsPictureLoading] = useState(false);
   const [profileToUpdate, setProfileToUpdate] = useState();
   const [updatedProfilePicture, setUpdatedProfilePicture] = useState(null);
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
@@ -76,7 +78,7 @@ function UpdateProfileCard({ setIsEditing }) {
       method: "POST",
       body: formdata,
     };
-
+    setIsPictureLoading(true);
     try {
       const response = await fetch(
         "http://localhost:5000/api/users/imageUpload",
@@ -96,6 +98,7 @@ function UpdateProfileCard({ setIsEditing }) {
       console.log("error :>> ", error);
       setIsImageUploadFail(true);
     }
+    setIsPictureLoading(false);
   };
 
   console.log("profileToUpdate :>> ", profileToUpdate);
@@ -212,25 +215,15 @@ function UpdateProfileCard({ setIsEditing }) {
               Upload
             </button>
           </span>
-          <Modal show={showPictureModal} className="signup-modal">
-            <Modal.Body>
-              {isImageUploadSuccessful && (
-                <p>You have successfully uploaded your picture.</p>
-              )}
-              {isImageUploadFail && (
-                <p id="error-message">Please upload a jpg, jpeg or png file.</p>
-              )}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                variant="primary"
-                className="signup-modal-button"
-                onClick={handleClosePictureModal}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          <ModalInformation
+            isSuccess={isImageUploadSuccessful}
+            isFailure={isImageUploadFail}
+            successMsg="You have successfully uploaded your picture."
+            errorMsg="Please upload a jpg, jpeg or png file"
+            show={showPictureModal}
+            closeModal={handleClosePictureModal}
+            isLoading={isPictureLoading}
+          />
           <span className="signup-username">
             <p>Username: &nbsp;</p>
             <input

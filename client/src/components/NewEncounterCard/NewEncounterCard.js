@@ -325,7 +325,7 @@ function NewEncounterCard() {
             <ModalInformation
               isSuccess={isImageUploadSuccessful}
               isFailure={isImageUploadFail}
-              successMsg="You have successfully uploaded your pictfure."
+              successMsg="You have successfully uploaded your picture."
               errorMsg="Please upload a jpg, jpeg or png file"
               show={showPictureModal}
               closeModal={handleClosePictureModal}

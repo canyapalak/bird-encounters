@@ -13,7 +13,7 @@
 
 .round-card-and-text img {
     width: 9.5rem;
-    border-radius: 50%;
+    border-radius: 25%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border: 7px solid rgba(121, 139, 122, 0.237);

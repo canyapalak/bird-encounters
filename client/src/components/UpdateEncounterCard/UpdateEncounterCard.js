@@ -16,6 +16,8 @@ function UpdateEncounterCard(props) {
   const { setBackToEncountersWithUpdate } = useContext(EncounterContext);
   const redirectTo = useNavigate();
   const { _id } = useParams();
+  const [isPictureLoading, setIsPictureLoading] = useState(false);
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [encounterToUpdate, setEncounterToUpdate] = useState();
   const [encounterToUpdateError, setEncounterToUpdateError] = useState();
   const [selectedImageFile, setSelectedImageFile] = useState(null);
@@ -122,6 +124,7 @@ function UpdateEncounterCard(props) {
     };
 
     try {
+      setIsPictureLoading(true);
       const response = await fetch(
         "http://localhost:5000/api/encounters/imageUploadEncounter",
         requestOptions
@@ -136,6 +139,7 @@ function UpdateEncounterCard(props) {
       console.log("error :>> ", error);
       setIsImageUploadFail(true);
     }
+    setIsPictureLoading(false);
   };
 
   //add record for encounter
@@ -154,6 +158,7 @@ function UpdateEncounterCard(props) {
     };
 
     try {
+      setIsAudioLoading(true);
       const response = await fetch(
         "http://localhost:5000/api/encounters/audioUpload",
         requestOptions
@@ -168,6 +173,7 @@ function UpdateEncounterCard(props) {
       console.log("error :>> ", error);
       setIsAudioUploadFail(true);
     }
+    setIsAudioLoading(false);
   };
 
   //update encounter
@@ -343,27 +349,15 @@ function UpdateEncounterCard(props) {
             Upload
           </button>
           <span className="signup-button">
-            <Modal show={showPictureModal} className="signup-modal">
-              <Modal.Body>
-                {isImageUploadSuccessful && (
-                  <p>You have successfully uploaded your picture.</p>
-                )}
-                {isImageUploadFail && (
-                  <p id="error-message">
-                    Please upload a jpg, jpeg or png file.
-                  </p>
-                )}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  variant="primary"
-                  className="signup-modal-button"
-                  onClick={handleClosePictureModal}
-                >
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
+            <ModalInformation
+              isSuccess={isImageUploadSuccessful}
+              isFailure={isImageUploadFail}
+              successMsg="You have successfully uploaded your picture."
+              errorMsg="Please upload a jpg, jpeg or png file"
+              show={showPictureModal}
+              closeModal={handleClosePictureModal}
+              isLoading={isPictureLoading}
+            />
           </span>
         </span>
         <span className="newencounter-upload-file">
@@ -387,27 +381,15 @@ function UpdateEncounterCard(props) {
             Upload
           </button>
           <span className="signup-button">
-            <Modal show={showAudioModal} className="signup-modal">
-              <Modal.Body>
-                {isAudioUploadSuccessful && (
-                  <p>You have successfully uploaded your record.</p>
-                )}
-                {isAudioUploadFail && (
-                  <p id="error-message">
-                    Please upload a wav, mp3 or m4a file.
-                  </p>
-                )}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  variant="primary"
-                  className="signup-modal-button"
-                  onClick={handleCloseAudioModal}
-                >
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
+            <ModalInformation
+              show={showAudioModal}
+              isSuccess={isAudioUploadSuccessful}
+              isFailure={isAudioUploadFail}
+              successMsg="You have successfully uploaded your record."
+              errorMsg="Please upload a wav, mp3 or m4a file"
+              isLoading={isAudioLoading}
+              closeModal={handleCloseAudioModal}
+            />
           </span>
         </span>
 
