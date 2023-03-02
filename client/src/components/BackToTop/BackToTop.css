@@ -7,3 +7,7 @@
     height: 45px;
     cursor: pointer;
 }
+
+#up-icon:hover {
+        filter: invert(26%) sepia(39%) saturate(1583%) hue-rotate(75deg) brightness(96%) contrast(116%);
+}

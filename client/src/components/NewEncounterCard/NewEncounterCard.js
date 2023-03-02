@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
 import { getToken } from "../../utils/getToken";
 import { AuthContext } from "../../store/AuthContext";
+import { EncounterContext } from "../../store/EncounterContext";
 
 function NewEncounterCard() {
   const { currentUser } = useContext(AuthContext);
+  const { setBackToEncountersWithUpdate } = useContext(EncounterContext);
   const redirectTo = useNavigate();
   const [newEncounter, setNewEncounter] = useState(new Map());
   const [selectedImageFile, setSelectedImageFile] = useState(null);
@@ -38,6 +40,11 @@ function NewEncounterCard() {
   const now = new Date();
   const lat = encounterPosition && encounterPosition.lat.toFixed(6);
   const lng = encounterPosition && encounterPosition.lng.toFixed(6);
+
+  function backToEncountersWhenSuccessful() {
+    redirectTo("/encounters");
+    setBackToEncountersWithUpdate(true);
+  }
 
   const EncounterPlaceholder =
     "https://res.cloudinary.com/djlyhp6vr/image/upload/v1676672744/bird-encounters/encounter-placeholder_pjoc9a.png";
@@ -141,6 +148,7 @@ function NewEncounterCard() {
 
   //create new encounter
   const handleSubmitEncounter = async () => {
+    setBackToEncountersWithUpdate(false);
     setIsMissingFields(false);
     setIsPostFail(false);
     setIsPostSuccessful(false);
@@ -404,8 +412,7 @@ function NewEncounterCard() {
                 <Button
                   variant="primary"
                   className="signup-modal-button"
-                  // onClick={() => redirectTo("/encounters")}
-                  onClick={() => redirectTo("/encounters")}
+                  onClick={backToEncountersWhenSuccessful}
                 >
                   Close
                 </Button>

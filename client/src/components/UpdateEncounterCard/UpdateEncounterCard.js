@@ -7,10 +7,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import NewEncounterMapModal from "../NewEncounterMapModal/NewEncounterMapModal";
 import { getToken } from "../../utils/getToken.js";
 import { AuthContext } from "../../store/AuthContext";
+import { EncounterContext } from "../../store/EncounterContext";
 
 function UpdateEncounterCard(props) {
   const { setIsEditing, isEditing } = props;
   const { currentUser } = useContext(AuthContext);
+  const { setBackToEncountersWithUpdate } = useContext(EncounterContext);
   const redirectTo = useNavigate();
   const { _id } = useParams();
   const [encounterToUpdate, setEncounterToUpdate] = useState();
@@ -38,6 +40,11 @@ function UpdateEncounterCard(props) {
   const handleCloseNewEncounterMap = () => setShowNewEncounterMap(false);
   const [encounterPosition, setEncounterPosition] = useState(null);
   const [updateEncounterPosition, setUpdateEncounterPosition] = useState(null);
+
+  function backToEncountersWhenSuccessful() {
+    redirectTo("/encounters");
+    setBackToEncountersWithUpdate(true);
+  }
 
   function cropAndString(e) {
     return parseFloat(e).toFixed(6).toString();
@@ -164,6 +171,7 @@ function UpdateEncounterCard(props) {
 
   //update encounter
   const handleSubmitEncounter = async () => {
+    setBackToEncountersWithUpdate(false);
     setIsMissingFields(false);
     setIsUpdateSuccessful(false);
     setIsUpdateFail(false);
@@ -207,8 +215,6 @@ function UpdateEncounterCard(props) {
         console.log(result);
         if (result.msg === "Encounter updated successfully") {
           setIsUpdateSuccessful(true);
-          // setEncounterToUpdate(result.encounter);
-          // console.log("result.encounter :>> ", result.encounter);
         }
         if (result.msg === "missing fields") {
           setIsMissingFields(true);
@@ -432,7 +438,7 @@ function UpdateEncounterCard(props) {
                 <Button
                   variant="primary"
                   className="signup-modal-button"
-                  onClick={() => redirectTo("/encounters")}
+                  onClick={backToEncountersWhenSuccessful}
                 >
                   Close
                 </Button>
