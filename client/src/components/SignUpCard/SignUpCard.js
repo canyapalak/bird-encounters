@@ -204,7 +204,6 @@ function SignUpCard() {
         <span className="signup-button">
           <Modal show={showPictureModal} className="signup-modal">
             <Modal.Body>
-              {loadingUpdatingPicture && "Uploading photo..."}
               {isUploadSuccessful && (
                 <p>You have successfully uploaded your picture.</p>
               )}
