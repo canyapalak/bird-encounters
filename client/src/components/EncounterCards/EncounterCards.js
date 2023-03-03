@@ -15,8 +15,7 @@ import { getToken } from "../../utils/getToken";
 
 function EncounterCards() {
   const convertDate = useConvertDateOnly();
-  const { encounters, isToggled, setIsToggled, loading } =
-    useContext(EncounterContext);
+  const { encounters, isToggled, setIsToggled } = useContext(EncounterContext);
   const { isToken, userProfile, getProfile } = useContext(AuthContext);
   const [sortingMethod, setSortingMethod] = useState("newest");
   const [showNewEncounterModal, setShowNewEncounterModal] = useState(false);
@@ -71,7 +70,6 @@ function EncounterCards() {
     event.stopPropagation();
 
     const encounterId = encounter._id;
-    const userId = userProfile._id;
     const token = getToken();
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -108,7 +106,6 @@ function EncounterCards() {
     event.stopPropagation();
 
     const encounterId = encounter._id;
-    const userId = userProfile._id;
     const token = getToken();
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -241,7 +238,7 @@ function EncounterCards() {
             return (
               <Card className="one-card" key={index}>
                 <span className="post-image">
-                  <img src={encounter.image} alt="Encounter Image" />
+                  <img src={encounter.image} alt="Encounter Moment" />
                 </span>
                 <span className="title">
                   <p>{encounter.title}</p>

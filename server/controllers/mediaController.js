@@ -2,7 +2,6 @@ import { v2 as cloudinary } from "cloudinary";
 
 //upload avatar
 const uploadUserPicture = async (req, res) => {
-  console.log("test");
   console.log("req", req.file);
 
   try {
@@ -10,7 +9,6 @@ const uploadUserPicture = async (req, res) => {
       folder: "bird-encounters",
       transformation: [{ width: 400, height: 400, crop: "fill" }],
     });
-    console.log("test");
     console.log("upload", upload);
     res.status(200).json({
       msg: "image upload ok",
