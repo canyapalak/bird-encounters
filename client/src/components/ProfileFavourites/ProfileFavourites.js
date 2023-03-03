@@ -54,9 +54,9 @@ function ProfileFavourites() {
       <span className="encounters-part">
         <span className="encounters-text">
           {userFavs.length === 0 ? (
-            <p>You have currently no favourites.</p>
+            <p>You have no favourites.</p>
           ) : (
-            <p>You have currently {userFavs.length} favourite(s).</p>
+            <p>You have {userFavs.length} favourite(s).</p>
           )}
         </span>
         <span className="encounter-part-card">

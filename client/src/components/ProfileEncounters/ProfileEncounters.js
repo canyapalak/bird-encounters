@@ -41,11 +41,9 @@ function ProfileEncounters() {
       <span className="encounters-part">
         <span className="encounters-text">
           {!encountersByUserName ? (
-            <p>You have currently no encounters.</p>
+            <p>You have no encounters.</p>
           ) : (
-            <p>
-              You have currently {encountersByUserName.length} encounter(s).
-            </p>
+            <p>You have {encountersByUserName.length} encounter(s).</p>
           )}
         </span>
         <span className="encounter-part-card">
