@@ -18,7 +18,7 @@ const getAllEncounters = async (req, res) => {
 
 //get one encounter by id
 const getEncountersById = async (req, res) => {
-  console.log("req :>> ", req._id);
+  // console.log("req :>> ", req._id);
   const { encounterID } = req.params;
 
   try {
@@ -38,8 +38,8 @@ const getEncountersById = async (req, res) => {
 
 //create new encounter
 const postEncounter = async (req, res) => {
-  console.log("req.body :>> ", req.body);
-  console.log("req.user :>> ", req.user.userName);
+  // console.log("req.body :>> ", req.body);
+  // console.log("req.user :>> ", req.user.userName);
 
   try {
     const {
@@ -53,7 +53,7 @@ const postEncounter = async (req, res) => {
       time,
     } = req.body;
 
-    console.log("req.body :>> ", req.body);
+    // console.log("req.body :>> ", req.body);
 
     function isNullUndefinedOrEmpty(value) {
       return (
@@ -96,7 +96,7 @@ const postEncounter = async (req, res) => {
         favs: req.body.favs,
         record: req.body.record,
       });
-      console.log("newEncounter :>> ", newEncounter);
+      // console.log("newEncounter :>> ", newEncounter);
 
       try {
         const savedEncounter = await newEncounter.save();
@@ -120,7 +120,7 @@ const postEncounter = async (req, res) => {
           },
         });
       } catch (error) {
-        console.log("error during posting");
+        // console.log("error during posting");
         res.status(500).json({
           msg: "error during posting",
           error: error,
@@ -129,7 +129,7 @@ const postEncounter = async (req, res) => {
       // }
     }
   } catch (error) {
-    console.log("something went wrong");
+    // console.log("something went wrong");
     res.status(500).json({
       msg: "something went wrong",
       error: error,
@@ -144,8 +144,8 @@ const deleteEncounter = async (req, res) => {
       _id: req.body._id,
     });
 
-    console.log("req.body-test", req.body);
-    console.log("req.user :>> ", req.user);
+    // console.log("req.body-test", req.body);
+    // console.log("req.user :>> ", req.user);
 
     if (!encounterToDelete) {
       return res.status(404).json({
@@ -157,7 +157,7 @@ const deleteEncounter = async (req, res) => {
       msg: "Encounter deleted successfully",
     });
   } catch (error) {
-    console.log("something went wrong");
+    // console.log("something went wrong");
     res.status(500).json({
       msg: "something went wrong",
       error: error,
@@ -216,7 +216,7 @@ const updateEncounter = async (req, res) => {
           encounter: encounterToUpdate,
         });
       } catch (error) {
-        console.log("error during posting");
+        // console.log("error during posting");
         res.status(500).json({
           msg: "error during posting",
           error: error,
@@ -224,7 +224,7 @@ const updateEncounter = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log("something went wrong");
+    // console.log("something went wrong");
     res.status(500).json({
       msg: "something went wrong",
       error: error,
@@ -270,10 +270,10 @@ const deleteComment = async (req, res) => {
       { returnOriginal: false }
     );
 
-    console.log("commentId :>> ", commentId);
-    console.log("_id", _id);
+    // console.log("commentId :>> ", commentId);
+    // console.log("_id", _id);
 
-    console.log(req.body);
+    // console.log(req.body);
 
     if (!encounter) {
       return res.status(404).json({
@@ -342,7 +342,7 @@ const addFavourite = async (req, res) => {
 
     return res.status(200).json({ msg: "Encounter added to favs" });
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
     res
       .status(500)
       .json({ msg: "Error adding encounter to favs", error: error });
@@ -369,7 +369,7 @@ const removeFavourite = async (req, res) => {
 
     return res.status(200).json({ msg: "Encounter removed from favs" });
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
     res
       .status(500)
       .json({ msg: "Error removing encounter from favs", error: error });

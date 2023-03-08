@@ -27,10 +27,10 @@ function Comments({ oneEncounter }) {
   const { userProfile } = useContext(AuthContext);
   const [isCommentDelete, setIsCommentDelete] = useState(false);
   const [isCommentDeleteFail, setIsCommentDeleteFail] = useState(false);
-  console.log("userProfile :>> ", userProfile);
+  // console.log("userProfile :>> ", userProfile);
 
   const handleInputChange = (e) => {
-    console.log("e.target.name, e.target.value", e.target.name, e.target.value);
+    // console.log("e.target.name, e.target.value", e.target.name, e.target.value);
     setTextInputValue(e.target.value);
     setNewComment({
       ...newComment,
@@ -43,7 +43,7 @@ function Comments({ oneEncounter }) {
     handleShowCommentModal();
   }
 
-  console.log("newComment", newComment);
+  // console.log("newComment", newComment);
 
   //post comment
   const handlePostComment = async () => {
@@ -82,10 +82,10 @@ function Comments({ oneEncounter }) {
             setIsCommentSuccessfull(true);
             setUpdatedComments(result.encounter.comments);
             setTextInputValue("");
-            console.log("newComment", newComment);
-            console.log("result", result.encounter.comments);
-            console.log("result.msg", result.msg);
-            console.log("updatedComments :>> ", updatedComments);
+            // console.log("newComment", newComment);
+            // console.log("result", result.encounter.comments);
+            // console.log("result.msg", result.msg);
+            // console.log("updatedComments :>> ", updatedComments);
           }
         })
 
@@ -95,7 +95,7 @@ function Comments({ oneEncounter }) {
         });
     } else {
       setIsNoToken(true);
-      console.log("no token");
+      // console.log("no token");
     }
   };
 
@@ -108,14 +108,14 @@ function Comments({ oneEncounter }) {
       myHeaders.append("Authorization", `Bearer ${token}`);
       myHeaders.append("Content-Type", "application/json");
 
-      console.log("comment._id :>> ", comment._id);
+      // console.log("comment._id :>> ", comment._id);
 
       const raw = JSON.stringify({
         commentId: comment._id,
       });
 
       if (!comment._id) {
-        console.log("comment._id is undefined");
+        // console.log("comment._id is undefined");
         return;
       }
 
@@ -132,16 +132,16 @@ function Comments({ oneEncounter }) {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log("result :>> ", result);
+          // console.log("result :>> ", result);
           setIsCommentDelete(true);
           setUpdatedComments(result.encounter.comments);
         })
         .catch((error) => console.log("error", error));
       setIsCommentDeleteFail(true);
 
-      console.log("comment", comment._id);
+      // console.log("comment", comment._id);
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       setIsCommentDeleteFail(true);
     }
   };

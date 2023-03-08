@@ -44,7 +44,7 @@ export const AuthContextProvider = (props) => {
         })
         .catch((error) => console.log("error", error));
     } else {
-      console.log("you need to Login first");
+      // console.log("you need to Login first");
       setGetProfileError("you need to Login first");
       setUserProfile(null);
     }
@@ -63,7 +63,7 @@ export const AuthContextProvider = (props) => {
     setIsEmailWrong(false);
     setIsPasswordWrong(false);
 
-    console.log("loginuser :>> ", logInUser);
+    // console.log("loginuser :>> ", logInUser);
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -82,7 +82,7 @@ export const AuthContextProvider = (props) => {
     fetch("http://localhost:5000/api/users/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.token) {
           localStorage.setItem("token", result.token);
           setCurrentUser(result.user);

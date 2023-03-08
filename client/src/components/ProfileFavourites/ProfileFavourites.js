@@ -1,7 +1,6 @@
 import "./ProfileFavourites.css";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../store/AuthContext";
-import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import useConvertDateOnly from "../../hooks/useConvertDateOnly";
 import { getToken } from "../../utils/getToken";
@@ -37,26 +36,26 @@ function ProfileFavourites() {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log("result :>> ", result);
+          // console.log("result :>> ", result);
           setUserFavs(result.requestedFavs);
         })
         .catch((error) => console.log("error", error));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
-  console.log("userFavs :>> ", userFavs);
+  // console.log("userFavs :>> ", userFavs);
 
   return (
     <div className="user-encounters">
       <p id="part-title">favourites</p>
       <span className="encounters-part">
         <span className="encounters-text">
-          {userFavs.length === 0 ? (
+          {userFavs?.length === 0 ? (
             <p>You have no favourites.</p>
           ) : (
-            <p>You have {userFavs.length} favourite(s).</p>
+            <p>You have {userFavs?.length} favourite(s).</p>
           )}
         </span>
         <span className="encounter-part-card">

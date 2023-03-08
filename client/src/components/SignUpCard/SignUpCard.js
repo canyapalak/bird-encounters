@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
+import ModalInformation from "../ModalInformation/ModalInformation";
 
 function SignUpCard() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -19,7 +20,7 @@ function SignUpCard() {
   const [isUploadFail, setIsUploadFail] = useState(false);
   const [isFetchFail, setIsFetchFail] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [loadingUpdatingPicture, setLoadingUpdatingPicture] = useState(false);
+  const [isPictureLoading, setIsPictureLoading] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
   const [showPictureModal, setShowPictureModal] = useState(false);
@@ -41,12 +42,12 @@ function SignUpCard() {
 
   const handleAttachPicture = (e) => {
     e.preventDefault();
-    console.log("e.target :>> ", e.target.files[0]);
+    // console.log("e.target :>> ", e.target.files[0]);
     setSelectedFile(e.target.files[0]);
   };
 
   const handleInputChange = (e) => {
-    console.log("e.target.name, e.target.value", e.target.name, e.target.value);
+    // console.log("e.target.name, e.target.value", e.target.name, e.target.value);
     setNewUser({
       ...newUser,
       [e.target.name]: e.target.value,
@@ -60,7 +61,7 @@ function SignUpCard() {
     const formdata = new FormData();
     formdata.append("image", selectedFile);
 
-    console.log("formData :>> ", formdata);
+    // console.log("formData :>> ", formdata);
 
     const requestOptions = {
       method: "POST",
@@ -68,22 +69,22 @@ function SignUpCard() {
     };
 
     try {
-      setLoadingUpdatingPicture(true);
+      setIsPictureLoading(true);
       const response = await fetch(
         "http://localhost:5000/api/users/imageUpload",
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setNewUser({ ...newUser, userPicture: result.imageUrl });
       if (result.msg === "image upload ok") {
         setIsUploadSuccessful(true);
       }
     } catch (error) {
-      console.log("error :>> ", error);
+      // console.log("error :>> ", error);
       setIsUploadFail(true);
     }
-    setLoadingUpdatingPicture(false);
+    setIsPictureLoading(false);
   };
 
   //create new account
@@ -95,7 +96,7 @@ function SignUpCard() {
     setIsPasswordShort(false);
     setIsFetchFail(false);
 
-    console.log("newUser :>> ", newUser);
+    // console.log("newUser :>> ", newUser);
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -119,7 +120,7 @@ function SignUpCard() {
     fetch("http://localhost:5000/api/users/signup", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.msg === "signup successful") {
           setIsSignUpSuccessful(true);
         }
@@ -202,25 +203,15 @@ function SignUpCard() {
           Upload
         </button>
         <span className="signup-button">
-          <Modal show={showPictureModal} className="signup-modal">
-            <Modal.Body>
-              {isUploadSuccessful && (
-                <p>You have successfully uploaded your picture.</p>
-              )}
-              {isUploadFail && (
-                <p id="error-message">Please upload a jpg, jpeg or png file.</p>
-              )}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                variant="primary"
-                className="signup-modal-button"
-                onClick={handleClosePictureModal}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          <ModalInformation
+            isSuccess={isUploadSuccessful}
+            isFailure={isUploadFail}
+            successMsg="You have successfully uploaded your picture."
+            errorMsg="Please upload a jpg, jpeg or png file"
+            show={showPictureModal}
+            closeModal={handleClosePictureModal}
+            isLoading={isPictureLoading}
+          />
         </span>
 
         <hr />

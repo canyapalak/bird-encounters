@@ -30,7 +30,7 @@ function EncounterCards() {
 
   const handleSearchQuery = (event) => {
     const searchTerm = event.target.value;
-    console.log("searchTerm", searchTerm);
+    // console.log("searchTerm", searchTerm);
     setSearchQuery(searchTerm);
     const searchedEncounters = encounters.filter((encounter) =>
       encounter.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -97,7 +97,7 @@ function EncounterCards() {
         })
         .catch((error) => console.log("error", error));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -133,7 +133,7 @@ function EncounterCards() {
         })
         .catch((error) => console.log("error", error));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -258,7 +258,7 @@ function EncounterCards() {
                     </span>
                   </div>
                   <div className="fav-icon-and-number">
-                    {!encounter.favs.includes(userProfile._id) ? (
+                    {!encounter?.favs.includes(userProfile?._id) ? (
                       <div
                         onClick={(event) => handleFavClick(event, encounter)}
                         className="fav-icon"

@@ -1,7 +1,6 @@
 import "./ProfileEncounters.css";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../store/AuthContext";
-import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import useConvertDateOnly from "../../hooks/useConvertDateOnly";
 
@@ -28,7 +27,7 @@ function ProfileEncounters() {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         setEncountersByUserName(result.requestedEncounters);
       })
 
@@ -43,7 +42,7 @@ function ProfileEncounters() {
           {!encountersByUserName ? (
             <p>You have no encounters.</p>
           ) : (
-            <p>You have {encountersByUserName.length} encounter(s).</p>
+            <p>You have {encountersByUserName?.length} encounter(s).</p>
           )}
         </span>
         <span className="encounter-part-card">
