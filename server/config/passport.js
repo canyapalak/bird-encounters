@@ -11,14 +11,14 @@ const options = {
 const jwtStrategy = new JwtStrategy(options, function (jwt_payload, done) {
   userModel.findOne({ _id: jwt_payload.sub }, function (err, user) {
     if (err) {
-      console.log("error", err);
+      // console.log("error", err);
       return done(err, false);
     }
     if (user) {
-      console.log("user found");
+      // console.log("user found");
       return done(null, user);
     } else {
-      console.log("something went wrong");
+      // console.log("something went wrong");
       return done(null, false);
     }
   });

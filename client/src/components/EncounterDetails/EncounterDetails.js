@@ -40,7 +40,7 @@ function EncounterDetails(props) {
     setIsEditing(true);
   }
 
-  console.log("userProfile", userProfile);
+  // console.log("userProfile", userProfile);
 
   useEffect(() => {
     setIsEditing(false);
@@ -55,7 +55,7 @@ function EncounterDetails(props) {
 
           setOneEncounter(results.requestedId[0]);
         } catch (error) {
-          console.log("error", error);
+          // console.log("error", error);
           setError(error);
         } finally {
           setIsLoading(false);
@@ -66,7 +66,7 @@ function EncounterDetails(props) {
     fetchEncounterById();
   }, []);
 
-  console.log("oneEncounter :>> ", oneEncounter);
+  // console.log("oneEncounter :>> ", oneEncounter);
 
   //delete encounter
   function handleDeleteEncounter() {
@@ -95,20 +95,20 @@ function EncounterDetails(props) {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.msg === "Encounter deleted successfully") {
           setIsDeleteSuccessful(true);
           setTimeout(() => redirectTo("/encounters"), 2000);
-          console.log("isDeleteSuccessful", isDeleteSuccessful);
+          // console.log("isDeleteSuccessful", isDeleteSuccessful);
           setBackToEncountersWithUpdate(true);
         }
         if (result.msg === "Encounter not found") {
           setIsDeleteSuccessful(true);
-          console.log("isDeleteFail :>> ", isDeleteFail);
+          // console.log("isDeleteFail :>> ", isDeleteFail);
         }
       })
       .catch((error) => {
-        console.log("error :>> ", error);
+        // console.log("error :>> ", error);
         setIsDeleteFail(true);
       });
   }

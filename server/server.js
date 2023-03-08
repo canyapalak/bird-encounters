@@ -17,9 +17,9 @@ const mongoDBConnection = async () => {
   mongoose.set("strictQuery", false);
   try {
     await mongoose.connect(process.env.DB);
-    console.log("Connection to Mongo DB established on port: " + port);
+    // console.log("Connection to Mongo DB established on port: " + port);
   } catch (error) {
-    console.log("Error connecting to MongoDB", error);
+    // console.log("Error connecting to MongoDB", error);
   }
 };
 
@@ -31,7 +31,7 @@ const loadRoutes = () => {
 
 const startServer = () => {
   app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+    // console.log(`Server is running on port: ${port}`);
   });
 };
 

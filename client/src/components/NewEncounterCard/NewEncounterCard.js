@@ -53,13 +53,13 @@ function NewEncounterCard() {
 
   const handleAttachPicture = (e) => {
     e.preventDefault();
-    console.log("e.target :>> ", e.target.files[0]);
+    // console.log("e.target :>> ", e.target.files[0]);
     setSelectedImageFile(e.target.files[0]);
   };
 
   const handleAttachAudio = (e) => {
     e.preventDefault();
-    console.log("e.target :>> ", e.target.files[0]);
+    // console.log("e.target :>> ", e.target.files[0]);
     setSelectedAudioFile(e.target.files[0]);
   };
 
@@ -84,7 +84,7 @@ function NewEncounterCard() {
     setIsImageUploadFail(false);
     const formdata = new FormData();
     formdata.append("image", selectedImageFile);
-    console.log("formData :>> ", formdata);
+    // console.log("formData :>> ", formdata);
 
     const requestOptions = {
       method: "POST",
@@ -98,13 +98,13 @@ function NewEncounterCard() {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setNewEncounter({ ...newEncounter, image: result.imageUrl });
       if (result.msg === "image upload ok") {
         setIsImageUploadSuccessful(true);
       }
     } catch (error) {
-      console.log("error :>> ", error);
+      // console.log("error :>> ", error);
       setIsImageUploadFail(true);
     }
     setIsPictureLoading(false);
@@ -118,7 +118,7 @@ function NewEncounterCard() {
     const formdata = new FormData();
     formdata.append("record", selectedAudioFile);
 
-    console.log("formData :>> ", formdata);
+    // console.log("formData :>> ", formdata);
 
     const requestOptions = {
       method: "POST",
@@ -132,20 +132,20 @@ function NewEncounterCard() {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setNewEncounter({ ...newEncounter, record: result.recordUrl });
       if (result.msg === "audio upload ok") {
         setIsAudioUploadSuccessful(true);
       }
     } catch (error) {
-      console.log("error :>> ", error);
+      // console.log("error :>> ", error);
       setIsAudioUploadFail(true);
     }
     setIsAudioLoading(false);
   };
 
   const handleInputChange = (e) => {
-    console.log("e.target.name, e.target.value", e.target.name, e.target.value);
+    // console.log("e.target.name, e.target.value", e.target.name, e.target.value);
     setNewEncounter({
       ...newEncounter,
       [e.target.name]: e.target.value,
@@ -160,8 +160,8 @@ function NewEncounterCard() {
     setIsPostSuccessful(false);
     const token = getToken();
     if (token) {
-      console.log("newEncounter :>> ", newEncounter);
-      console.log("currentUser :>> ", currentUser);
+      // console.log("newEncounter :>> ", newEncounter);
+      // console.log("currentUser :>> ", currentUser);
       const myHeaders = new Headers();
       myHeaders.append("Authorization", `Bearer ${token}`);
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -193,8 +193,8 @@ function NewEncounterCard() {
         redirect: "follow",
       };
 
-      console.log("lat", lat);
-      console.log("latitude", newEncounter.lat);
+      // console.log("lat", lat);
+      // console.log("latitude", newEncounter.lat);
 
       fetch(
         "http://localhost:5000/api/encounters/postEncounter",
@@ -202,7 +202,7 @@ function NewEncounterCard() {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           if (result.msg === "posting successful") {
             setIsPostSuccessful(true);
           }
@@ -212,10 +212,10 @@ function NewEncounterCard() {
         })
         .catch((error) => {
           setIsPostFail(true);
-          console.log("error", error);
+          // console.log("error", error);
         });
     } else {
-      console.log("no token");
+      // console.log("no token");
     }
   };
 

@@ -67,7 +67,7 @@ function UpdateEncounterCard(props) {
 
         setEncounterToUpdate(results.requestedId[0]);
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
         setEncounterToUpdateError(error);
       }
     };
@@ -76,7 +76,7 @@ function UpdateEncounterCard(props) {
   }, []);
 
   const handleInputChange = (e) => {
-    console.log("e.target.name, e.target.value", e.target.name, e.target.value);
+    // console.log("e.target.name, e.target.value", e.target.name, e.target.value);
     setEncounterToUpdate({
       ...encounterToUpdate,
       [e.target.name]: e.target.value,
@@ -85,13 +85,13 @@ function UpdateEncounterCard(props) {
 
   const handleAttachPicture = (e) => {
     e.preventDefault();
-    console.log("e.target :>> ", e.target.files[0]);
+    // console.log("e.target :>> ", e.target.files[0]);
     setSelectedImageFile(e.target.files[0]);
   };
 
   const handleAttachAudio = (e) => {
     e.preventDefault();
-    console.log("e.target :>> ", e.target.files[0]);
+    // console.log("e.target :>> ", e.target.files[0]);
     setSelectedAudioFile(e.target.files[0]);
   };
 
@@ -116,7 +116,7 @@ function UpdateEncounterCard(props) {
     setIsImageUploadFail(false);
     const formdata = new FormData();
     formdata.append("image", selectedImageFile);
-    console.log("formData :>> ", formdata);
+    // console.log("formData :>> ", formdata);
 
     const requestOptions = {
       method: "POST",
@@ -130,13 +130,13 @@ function UpdateEncounterCard(props) {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setEncounterToUpdate({ ...encounterToUpdate, image: result.imageUrl });
       if (result.msg === "image upload ok") {
         setIsImageUploadSuccessful(true);
       }
     } catch (error) {
-      console.log("error :>> ", error);
+      // console.log("error :>> ", error);
       setIsImageUploadFail(true);
     }
     setIsPictureLoading(false);
@@ -150,7 +150,7 @@ function UpdateEncounterCard(props) {
     const formdata = new FormData();
     formdata.append("record", selectedAudioFile);
 
-    console.log("formData :>> ", formdata);
+    // console.log("formData :>> ", formdata);
 
     const requestOptions = {
       method: "POST",
@@ -164,13 +164,13 @@ function UpdateEncounterCard(props) {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setEncounterToUpdate({ ...encounterToUpdate, record: result.recordUrl });
       if (result.msg === "audio upload ok") {
         setIsAudioUploadSuccessful(true);
       }
     } catch (error) {
-      console.log("error :>> ", error);
+      // console.log("error :>> ", error);
       setIsAudioUploadFail(true);
     }
     setIsAudioLoading(false);
@@ -219,7 +219,7 @@ function UpdateEncounterCard(props) {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.msg === "Encounter updated successfully") {
           setIsUpdateSuccessful(true);
         }
@@ -232,7 +232,7 @@ function UpdateEncounterCard(props) {
       })
       .catch((error) => {
         setIsUpdateFail(true);
-        console.log("error", error);
+        // console.log("error", error);
       });
   };
 

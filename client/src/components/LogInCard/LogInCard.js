@@ -20,7 +20,7 @@ function LogInCard() {
   const handleShowLogInModal = () => setShowLogInModal(true);
   const redirectTo = useNavigate();
 
-  console.log("currentUser :>> ", currentUser);
+  // console.log("currentUser :>> ", currentUser);
 
   function handleLogInAndModal() {
     handleLogIn();

@@ -4,7 +4,7 @@ import generateToken from "../utils/jwt.js";
 
 //new user signup
 const signup = async (req, res) => {
-  console.log("req.body :>> ", req.body);
+  // console.log("req.body :>> ", req.body);
   try {
     const existingUser = await userModel.findOne({ email: req.body.email });
     const existingUserName = await userModel.findOne({
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
       });
     } else {
       const hashedPassword = await passwordEncryption(req.body.password);
-      console.log("hashedPassword", hashedPassword);
+      // console.log("hashedPassword", hashedPassword);
 
       const newUser = new userModel({
         userName: req.body.userName,
@@ -71,13 +71,13 @@ const signup = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log("error registering user :>>");
+    // console.log("error registering user :>>");
   }
 };
 
 //existing user login
 const login = async (req, res) => {
-  console.log("req.body :>> ", req.body);
+  // console.log("req.body :>> ", req.body);
 
   try {
     const existingUser = await userModel.findOne({ email: req.body.email });
@@ -93,7 +93,7 @@ const login = async (req, res) => {
       } else {
         const token = generateToken(existingUser._id);
 
-        console.log("token", token);
+        // console.log("token", token);
 
         res.status(200).json({
           msg: "you are logged in",
@@ -117,7 +117,7 @@ const login = async (req, res) => {
 
 //get profile
 const getProfile = async (req, res) => {
-  console.log("req.user>>>", req.user);
+  // console.log("req.user>>>", req.user);
 
   res.status(200).json({
     user: {
@@ -134,8 +134,8 @@ const getProfile = async (req, res) => {
 
 //update profile
 const updateProfile = async (req, res) => {
-  console.log("req.user :>> ", req.user);
-  console.log("req.body :>> ", req.body);
+  // console.log("req.user :>> ", req.user);
+  // console.log("req.body :>> ", req.body);
 
   const { userName, email, userPicture, password } = req.body;
   const id = req.user._id;
@@ -188,7 +188,7 @@ const updateProfile = async (req, res) => {
       .status(200)
       .json({ msg: "Update successful", user: updatedUser });
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
     res.status(500).json({ msg: "Error updating info", error: error });
   }
 };

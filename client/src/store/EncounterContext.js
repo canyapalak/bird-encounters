@@ -21,7 +21,7 @@ export const EncounterContextProvider = (props) => {
         setEncounters(results.allEncounters);
         setLoading(false);
       } catch (err) {
-        console.log("error", err);
+        // console.log("error", err);
         setError(err);
         setLoading(false);
       }

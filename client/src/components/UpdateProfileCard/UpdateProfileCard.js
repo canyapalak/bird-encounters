@@ -30,14 +30,14 @@ function UpdateProfileCard({ setIsEditing }) {
   const handleCloseUpdateModal = () => setShowUpdateModal(false);
   const handleShowUpdateModal = () => setShowUpdateModal(true);
 
-  console.log("userProfile", userProfile);
+  // console.log("userProfile", userProfile);
 
   useEffect(() => {
     getProfile();
   }, [isImageUploadSuccessful, isUpdateSuccessful]);
 
   const handleInputChange = (e) => {
-    console.log("e.target.name, e.target.value", e.target.name, e.target.value);
+    // console.log("e.target.name, e.target.value", e.target.name, e.target.value);
     setProfileToUpdate({
       ...profileToUpdate,
       [e.target.name]: e.target.value,
@@ -52,7 +52,7 @@ function UpdateProfileCard({ setIsEditing }) {
 
   const handleAttachPicture = (e) => {
     e.preventDefault();
-    console.log("e.target :>> ", e.target.files[0]);
+    // console.log("e.target :>> ", e.target.files[0]);
     setSelectedImageFile(e.target.files[0]);
   };
 
@@ -72,7 +72,7 @@ function UpdateProfileCard({ setIsEditing }) {
     setIsImageUploadFail(false);
     const formdata = new FormData();
     formdata.append("image", selectedImageFile);
-    console.log("formData :>> ", formdata);
+    // console.log("formData :>> ", formdata);
 
     const requestOptions = {
       method: "POST",
@@ -85,7 +85,7 @@ function UpdateProfileCard({ setIsEditing }) {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setProfileToUpdate({
         ...profileToUpdate,
         userPicture: result.imageUrl,
@@ -95,13 +95,13 @@ function UpdateProfileCard({ setIsEditing }) {
         setIsImageUploadSuccessful(true);
       }
     } catch (error) {
-      console.log("error :>> ", error);
+      // console.log("error :>> ", error);
       setIsImageUploadFail(true);
     }
     setIsPictureLoading(false);
   };
 
-  console.log("profileToUpdate :>> ", profileToUpdate);
+  // console.log("profileToUpdate :>> ", profileToUpdate);
 
   //update account
   const handleUpdateProfile = async () => {
@@ -130,7 +130,7 @@ function UpdateProfileCard({ setIsEditing }) {
     }
 
     const urlencoded = new URLSearchParams();
-    console.log("userName", profileToUpdate.userName);
+    // console.log("userName", profileToUpdate.userName);
     if (!isNullUndefinedOrEmpty(profileToUpdate.userName)) {
       urlencoded.append("userName", profileToUpdate.userName);
     }
@@ -144,7 +144,7 @@ function UpdateProfileCard({ setIsEditing }) {
       urlencoded.append("userPicture", profileToUpdate.userPicture);
     }
 
-    console.log("profileToUpdate", profileToUpdate);
+    // console.log("profileToUpdate", profileToUpdate);
 
     const requestOptions = {
       method: "PUT",
@@ -156,7 +156,7 @@ function UpdateProfileCard({ setIsEditing }) {
     fetch("http://localhost:5000/api/users/updateProfile", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log("UPDATE RESULT", result);
+        // console.log("UPDATE RESULT", result);
         if (result.errors && result.errors.msg === "Username already in use") {
           setIsUserNameInUse(true);
         }
@@ -179,7 +179,7 @@ function UpdateProfileCard({ setIsEditing }) {
 
       .catch((error) => {
         setIsUpdateFail(true);
-        console.log("error", error);
+        // console.log("error", error);
       });
   };
 

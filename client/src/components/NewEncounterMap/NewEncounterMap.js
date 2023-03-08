@@ -23,7 +23,7 @@ function NewEncounterMap({ encounterPosition, setEncounterPosition }) {
       },
       click(e) {
         setEncounterPosition(e.latlng);
-        console.log("encounterPosition", encounterPosition);
+        // console.log("encounterPosition", encounterPosition);
       },
     });
 
@@ -31,8 +31,8 @@ function NewEncounterMap({ encounterPosition, setEncounterPosition }) {
       map.locate();
     }, [map]);
 
-    console.log("position :>> ", position);
-    console.log("encounterPosition", encounterPosition);
+    // console.log("position :>> ", position);
+    // console.log("encounterPosition", encounterPosition);
 
     return position === null ? null : (
       <>
