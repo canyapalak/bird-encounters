@@ -22,5 +22,5 @@ React
 <br>
 Node.js
 <br>
-Middlewares (i.e. Multer, Jwt, Passport, Cloudinary
+Middlewares (i.e. Multer, Jwt, Passport, Cloudinary)
 <br>
