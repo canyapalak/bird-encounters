@@ -23,7 +23,7 @@ function ProfileEncounters() {
     };
 
     fetch(`${serverURL}/api/encounters/by/${userNameToUse}`, requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
         // console.log(result);
         setEncountersByUserName(result.requestedEncounters);
