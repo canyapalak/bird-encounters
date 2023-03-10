@@ -17,7 +17,7 @@ export const EncounterContextProvider = (props) => {
       setLoading(true);
       try {
         const urlAllEncounters = `${serverURL}/api/encounters/all`;
-        const response = await fetch(urlAllEncounters);
+        const response = await fetch(urlAllEncounters, { mode: "no-cors" });
         const results = await response.json();
         setEncounters(results.allEncounters);
         setLoading(false);
