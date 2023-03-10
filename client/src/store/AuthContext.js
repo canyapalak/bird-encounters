@@ -27,7 +27,6 @@ export const AuthContextProvider = (props) => {
       const requestOptions = {
         method: "GET",
         headers: myHeaders,
-        mode: "no-cors",
       };
 
       fetch(`${serverURL}/api/users/profile`, requestOptions)
