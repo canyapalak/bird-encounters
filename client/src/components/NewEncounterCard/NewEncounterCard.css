@@ -70,7 +70,7 @@
 
 .newencounter-encounter-time input {
     margin-left: 0.9rem;
-    height: 1rem;
+    min-height: 1rem !important;
 }
 
 .newencounter-experience textarea {
