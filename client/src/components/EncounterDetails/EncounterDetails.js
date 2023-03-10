@@ -15,6 +15,7 @@ import { AuthContext } from "../../store/AuthContext";
 import Comments from "../Comments/Comments";
 import { EncounterContext } from "../../store/EncounterContext";
 import Spinner from "../../assets/spinner.gif";
+import { serverURL } from "../../utils/serverURL.js";
 
 function EncounterDetails(props) {
   const { setIsEditing, isEditing } = props;
@@ -49,7 +50,7 @@ function EncounterDetails(props) {
       setIsLoading(true);
       setTimeout(async () => {
         try {
-          const urlFetchEncounterById = `http://localhost:5000/api/encounters/${_id}`;
+          const urlFetchEncounterById = `${serverURL}/api/encounters/${_id}`;
           const response = await fetch(urlFetchEncounterById);
           const results = await response.json();
 
@@ -89,10 +90,7 @@ function EncounterDetails(props) {
       redirect: "follow",
     };
 
-    fetch(
-      "http://localhost:5000/api/encounters/deleteEncounter",
-      requestOptions
-    )
+    fetch(`${serverURL}/api/encounters/deleteEncounter`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

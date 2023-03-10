@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import BackToTop from "../BackToTop/BackToTop";
 import { getToken } from "../../utils/getToken";
+import { serverURL } from "../../utils/serverURL.js";
 
 function EncounterCards() {
   const convertDate = useConvertDateOnly();
@@ -86,10 +87,7 @@ function EncounterCards() {
     };
 
     try {
-      fetch(
-        "http://localhost:5000/api/encounters/addFavourites",
-        requestOptions
-      )
+      fetch(`${serverURL}/api/encounters/addFavourites`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           console.log("result :>> ", result);
@@ -122,10 +120,7 @@ function EncounterCards() {
     };
 
     try {
-      fetch(
-        "http://localhost:5000/api/encounters/removeFavourites",
-        requestOptions
-      )
+      fetch(`${serverURL}/api/encounters/removeFavourites`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
           console.log("result :>> ", result);

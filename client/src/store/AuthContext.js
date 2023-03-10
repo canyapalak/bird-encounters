@@ -81,7 +81,7 @@ export const AuthContextProvider = (props) => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/api/users/login", requestOptions)
+    fetch(`${serverURL}/api/users/login`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

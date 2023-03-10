@@ -9,6 +9,8 @@ import { getToken } from "../../utils/getToken";
 import { AuthContext } from "../../store/AuthContext";
 import { EncounterContext } from "../../store/EncounterContext";
 import ModalInformation from "../ModalInformation/ModalInformation";
+import { serverURL } from "../../utils/serverURL.js";
+
 function NewEncounterCard() {
   const { currentUser } = useContext(AuthContext);
   const { setBackToEncountersWithUpdate } = useContext(EncounterContext);
@@ -94,7 +96,7 @@ function NewEncounterCard() {
     try {
       setIsPictureLoading(true);
       const response = await fetch(
-        "http://localhost:5000/api/encounters/imageUploadEncounter",
+        `${serverURL}/api/encounters/imageUploadEncounter`,
         requestOptions
       );
       const result = await response.json();
@@ -128,7 +130,7 @@ function NewEncounterCard() {
     try {
       setIsAudioLoading(true);
       const response = await fetch(
-        "http://localhost:5000/api/encounters/audioUpload",
+        `${serverURL}/api/encounters/audioUpload`,
         requestOptions
       );
       const result = await response.json();
@@ -196,10 +198,7 @@ function NewEncounterCard() {
       // console.log("lat", lat);
       // console.log("latitude", newEncounter.lat);
 
-      fetch(
-        "http://localhost:5000/api/encounters/postEncounter",
-        requestOptions
-      )
+      fetch(`${serverURL}/api/encounters/postEncounter`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           // console.log(result);

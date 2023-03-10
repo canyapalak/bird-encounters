@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import { getToken } from "../../utils/getToken";
 import { useNavigate } from "react-router-dom";
 import ModalInformation from "../ModalInformation/ModalInformation";
+import { serverURL } from "../../utils/serverURL";
 
 function UpdateProfileCard({ setIsEditing }) {
   const { userProfile, getProfile } = useContext(AuthContext);
@@ -81,7 +82,7 @@ function UpdateProfileCard({ setIsEditing }) {
     setIsPictureLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/users/imageUpload",
+        `${serverURL}/api/users/imageUpload`,
         requestOptions
       );
       const result = await response.json();
@@ -153,7 +154,7 @@ function UpdateProfileCard({ setIsEditing }) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/api/users/updateProfile", requestOptions)
+    fetch(`${serverURL}/api/users/updateProfile`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log("UPDATE RESULT", result);

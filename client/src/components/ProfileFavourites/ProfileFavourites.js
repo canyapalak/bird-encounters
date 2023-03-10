@@ -4,6 +4,7 @@ import { AuthContext } from "../../store/AuthContext";
 import { Link } from "react-router-dom";
 import useConvertDateOnly from "../../hooks/useConvertDateOnly";
 import { getToken } from "../../utils/getToken";
+import { serverURL } from "../../utils/serverURL";
 
 function ProfileFavourites() {
   const { userProfile } = useContext(AuthContext);
@@ -30,10 +31,7 @@ function ProfileFavourites() {
     };
 
     try {
-      fetch(
-        `http://localhost:5000/api/encounters/favs/${userIdToUse}`,
-        requestOptions
-      )
+      fetch(`${serverURL}/api/encounters/favs/${userIdToUse}`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           // console.log("result :>> ", result);

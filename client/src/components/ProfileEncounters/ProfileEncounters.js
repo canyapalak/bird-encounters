@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../store/AuthContext";
 import { Link } from "react-router-dom";
 import useConvertDateOnly from "../../hooks/useConvertDateOnly";
+import { serverURL } from "../../utils/serverURL.js";
 
 function ProfileEncounters() {
   const { userProfile } = useContext(AuthContext);
@@ -21,10 +22,7 @@ function ProfileEncounters() {
       redirect: "follow",
     };
 
-    fetch(
-      `http://localhost:5000/api/encounters/by/${userNameToUse}`,
-      requestOptions
-    )
+    fetch(`${serverURL}/encounters/by/${userNameToUse}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

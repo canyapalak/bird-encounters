@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import DeleteIcon from "../../assets/trash-icon.png";
 import { AuthContext } from "../../store/AuthContext";
+import { serverURL } from "../../utils/serverURL.js";
 
 function Comments({ oneEncounter }) {
   const convertedTime = useConvertTime();
@@ -71,10 +72,7 @@ function Comments({ oneEncounter }) {
         redirect: "follow",
       };
 
-      fetch(
-        `http://localhost:5000/api/encounters/${_id}/comments`,
-        requestOptions
-      )
+      fetch(`${serverURL}/api/encounters/${_id}/comments`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           console.log("result :>> ", result);
@@ -126,10 +124,7 @@ function Comments({ oneEncounter }) {
         redirect: "follow",
       };
 
-      fetch(
-        `http://localhost:5000/api/encounters/${_id}/comments`,
-        requestOptions
-      )
+      fetch(`${serverURL}/api/encounters/${_id}/comments`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           // console.log("result :>> ", result);

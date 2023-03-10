@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 import ModalInformation from "../ModalInformation/ModalInformation";
+import { serverURL } from "../../utils/serverURL.js";
 
 function SignUpCard() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -71,7 +72,7 @@ function SignUpCard() {
     try {
       setIsPictureLoading(true);
       const response = await fetch(
-        "http://localhost:5000/api/users/imageUpload",
+        `${serverURL}/api/users/imageUpload`,
         requestOptions
       );
       const result = await response.json();
@@ -117,7 +118,7 @@ function SignUpCard() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/api/users/signup", requestOptions)
+    fetch(`${serverURL}/api/users/signup`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

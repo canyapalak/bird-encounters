@@ -9,6 +9,7 @@ import { getToken } from "../../utils/getToken.js";
 import { AuthContext } from "../../store/AuthContext";
 import { EncounterContext } from "../../store/EncounterContext";
 import ModalInformation from "../ModalInformation/ModalInformation";
+import { serverURL } from "../../utils/serverURL";
 
 function UpdateEncounterCard(props) {
   const { setIsEditing, isEditing } = props;
@@ -61,7 +62,7 @@ function UpdateEncounterCard(props) {
   useEffect(() => {
     const fetchEncounterById = async () => {
       try {
-        const urlFetchEncounterById = `http://localhost:5000/api/encounters/${_id}`;
+        const urlFetchEncounterById = `${serverURL}/api/encounters/${_id}`;
         const response = await fetch(urlFetchEncounterById);
         const results = await response.json();
 
@@ -126,7 +127,7 @@ function UpdateEncounterCard(props) {
     try {
       setIsPictureLoading(true);
       const response = await fetch(
-        "http://localhost:5000/api/encounters/imageUploadEncounter",
+        `${serverURL}/api/encounters/imageUploadEncounter`,
         requestOptions
       );
       const result = await response.json();
@@ -160,7 +161,7 @@ function UpdateEncounterCard(props) {
     try {
       setIsAudioLoading(true);
       const response = await fetch(
-        "http://localhost:5000/api/encounters/audioUpload",
+        `${serverURL}/api/encounters/audioUpload`,
         requestOptions
       );
       const result = await response.json();
@@ -213,10 +214,7 @@ function UpdateEncounterCard(props) {
       redirect: "follow",
     };
 
-    fetch(
-      `http://localhost:5000/api/encounters/updateEncounter/${_id}`,
-      requestOptions
-    )
+    fetch(`${serverURL}/api/encounters/updateEncounter/${_id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);
