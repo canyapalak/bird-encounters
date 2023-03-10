@@ -5,6 +5,7 @@ const getAllEncounters = async (req, res) => {
   try {
     const allEncounters = await encounterModel.find({});
     res.status(201).json({
+      mode: "no-cors",
       number: allEncounters.length,
       allEncounters,
     });
