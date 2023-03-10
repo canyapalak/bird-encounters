@@ -159,6 +159,7 @@
 }
 
 #new-post-button {
+    padding: 0px;
     margin-left: 0.5rem;
     background-color: rgb(244, 255, 148);
     font-size: large;

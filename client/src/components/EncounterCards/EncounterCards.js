@@ -185,7 +185,7 @@ function EncounterCards() {
             {" "}
             {isToken ? (
               <Link to={"/newencounter"}>
-                <button id="new-post-button">+ New Encounter </button>
+                <button id="new-post-button">+ New Encounter</button>
               </Link>
             ) : (
               <>

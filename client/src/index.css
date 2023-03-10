@@ -19,6 +19,6 @@ body {
     text-decoration: none;
 }
 
-* button p {
-  padding: 0px;
+* button {
+  padding: 0px !important;
 }
