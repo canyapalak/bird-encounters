@@ -25,6 +25,6 @@ Node.js
 Middlewares (i.e. Multer, Jwt, Passport, Cloudinary)
 <br>
 
-<h2>Deployed on Netlify:</h2>
+<h2>Deployed on Vercel:</h2>
  https://bird-encounters.vercel.app
  
