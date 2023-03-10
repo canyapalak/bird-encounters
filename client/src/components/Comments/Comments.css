@@ -61,18 +61,18 @@
 }
 
 #no-comment {
-        text-decoration: wavy;
-            font-style: italic;
-            color: rgb(91, 90, 90);
-            text-align: center;
+    text-decoration: wavy;
+    font-style: italic;
+    color: rgb(91, 90, 90);
+    text-align: center;
 }
 
 #delete-icon {
-        width: 1.3rem;
-        margin-right: -1rem;
-        margin-top: -1.5rem;
-        float: right;
-        cursor: pointer;
+    width: 1.3rem;
+    margin-right: -1rem;
+    margin-top: -1.5rem;
+    float: right;
+    cursor: pointer;
 }
 
 #delete-icon:hover {

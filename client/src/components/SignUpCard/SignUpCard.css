@@ -44,7 +44,7 @@
 }
 
 .signup-username input {
-margin-left: 3rem;
+    margin-left: 3rem;
 }
 
 .signup-email {
@@ -114,7 +114,7 @@ margin-left: 3rem;
 }
 
 #upload-button:disabled {
-        background-color: rgb(167, 169, 166);
+    background-color: rgb(167, 169, 166);
 }
 
 #required-fields-text {
