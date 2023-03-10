@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 html {
-  min-height: 100% !important;
-  min-width: 100% !important;
+    min-height: 100% !important;
+    min-width: 100% !important;
 }
 
 body {
-background: radial-gradient(rgba(255, 243, 184, 1) 0%, rgba(196, 231, 183, 1) 100%);
-font-family: 'Josefin Sans';
-font-size: 120%;
-color:rgb(46, 43, 41);
-min-height: 100% !important;
-min-width: 100% !important;
-margin: 0px !important;
+    background: radial-gradient(rgba(255, 243, 184, 1) 0%, rgba(196, 231, 183, 1) 100%);
+    font-family: 'Josefin Sans';
+    font-size: 120%;
+    color:rgb(46, 43, 41);
+    min-height: 100% !important;
+    min-width: 100% !important;
+    margin: 0px !important;
 }
 
 * a {
-  text-decoration: none;
+    text-decoration: none;
 }

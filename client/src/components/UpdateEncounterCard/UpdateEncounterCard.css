@@ -5,8 +5,8 @@
 }
 
 .old-coordinates p {
-margin: 0px;
-font-size: 14px;
+    margin: 0px;
+    font-size: 14px;
 }
 
 @media (max-width: 440px) {
