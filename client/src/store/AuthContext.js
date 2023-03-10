@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { getToken } from "../utils/getToken";
+import { serverURL } from "../utils/serverURL.js";
 
 // create context
 export const AuthContext = createContext();
@@ -26,9 +27,10 @@ export const AuthContextProvider = (props) => {
       const requestOptions = {
         method: "GET",
         headers: myHeaders,
+        mode: "no-cors",
       };
 
-      fetch("http://localhost:5000/api/users/profile", requestOptions)
+      fetch(`${serverURL}/api/users/profile`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           setUserProfile({
