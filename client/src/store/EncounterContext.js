@@ -15,7 +15,8 @@ export const EncounterContextProvider = (props) => {
     const fetchAllEncounters = async () => {
       setLoading(true);
       try {
-        const urlAllEncounters = "http://localhost:5000/api/encounters/all";
+        const urlAllEncounters =
+          "https://bird-encounters-backend.vercel.app/api/encounters/all";
         const response = await fetch(urlAllEncounters);
         const results = await response.json();
         setEncounters(results.allEncounters);
