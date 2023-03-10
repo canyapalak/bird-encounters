@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import Spinner from "../../src/assets/spinner.gif";
+import { serverURL } from "../utils/serverURL.js";
 
 export const EncounterContext = createContext();
 
@@ -15,8 +16,7 @@ export const EncounterContextProvider = (props) => {
     const fetchAllEncounters = async () => {
       setLoading(true);
       try {
-        const urlAllEncounters =
-          "https://bird-encounters-backend.vercel.app/api/encounters/all";
+        const urlAllEncounters = `${serverURL}/api/encounters/all`;
         const response = await fetch(urlAllEncounters);
         const results = await response.json();
         setEncounters(results.allEncounters);
