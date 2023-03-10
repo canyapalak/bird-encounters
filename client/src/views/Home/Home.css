@@ -14,6 +14,12 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .home-container p {
+    background-size:20%;
+  }
+}
+
 .home-container {
   position:absolute;
   min-height: 100%;
