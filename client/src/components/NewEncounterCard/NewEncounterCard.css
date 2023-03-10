@@ -70,6 +70,7 @@
 
 .newencounter-encounter-time input {
     margin-left: 0.9rem;
+    height: 1rem;
 }
 
 .newencounter-experience textarea {
@@ -173,11 +174,11 @@
     margin-bottom: 0.5rem;
 }
 
-input[type="date"],
+/* input[type="date"],
 input[type="time"] {
     padding: 5px;
-    height: 2rem;
+    height: 5rem;
     margin-right: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
-}
+} */
