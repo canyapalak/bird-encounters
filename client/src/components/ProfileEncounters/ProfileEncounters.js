@@ -22,7 +22,7 @@ function ProfileEncounters() {
       redirect: "follow",
     };
 
-    fetch(`${serverURL}/encounters/by/${userNameToUse}`, requestOptions)
+    fetch(`${serverURL}/api/encounters/by/${userNameToUse}`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         // console.log(result);
