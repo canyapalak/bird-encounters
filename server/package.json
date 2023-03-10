@@ -1,12 +1,12 @@
 {
-  "name": "server",
+  "name": "index",
   "version": "1.0.0",
   "description": "bird-encounters app",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
-    "bothServers": "concurrently \"nodemon server.js\" \"cd ../client && npm start\""
+    "server": "nodemon index.js",
+    "bothServers": "concurrently \"nodemon index.js\" \"cd ../client && npm start\""
   },
   "type": "module",
   "author": "",
