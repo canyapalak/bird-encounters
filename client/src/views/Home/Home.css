@@ -14,16 +14,11 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .home-container p {
-    background-image:20% 20%;
-  }
-}
-
 .home-container {
   position:absolute;
   min-height: 100%;
   background-image: url("../../assets/landing.png");
+  background-size: 40vh;
   background-repeat: no-repeat;
   background-position: center bottom;
   background-attachment: fixed;
