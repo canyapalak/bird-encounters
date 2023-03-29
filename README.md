@@ -4,7 +4,7 @@
 
 <h2>Functionality and purpose of the application</h2>
 <p>
-Bird Encounters is a social platform designed for bird observers. With this app, users can create posts about rare and endemic birds they encounter around the world. They can share information, including images and sound recordings, and mark the coordinates on a third-party map API so that others can see it on the map.
+Bird Encounters is a social platform designed for bird observers. With this app, users can create posts about rare and endemic birds they encounter around the world. They can share information, including images and sound recordings, and mark the coordinates on a map API so that others can see thr location of the encounter on the map.
 
 The app has a general map page where all encounters are visible as markers on the world map. By clicking on a marker, users can access specific encounters. Users can register, login, and logout, as well as edit or remove the posts they created. They can also post comments under encounters and delete them, as well as update their own encounters.
 
@@ -25,6 +25,6 @@ Node.js
 Middlewares (i.e. Multer, Jwt, Passport, Cloudinary)
 <br>
 
-<h2>Deployed on Netlify:</h2>
+<h2>Deployed on Vercel:</h2>
  https://bird-encounters.vercel.app
  
