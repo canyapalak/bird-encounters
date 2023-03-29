@@ -16,6 +16,8 @@ export const EncounterContextProvider = (props) => {
     const fetchAllEncounters = async () => {
       setLoading(true);
       try {
+        console.log("serverURL :>> ", serverURL);
+        console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
         const urlAllEncounters = `${serverURL}/api/encounters/all`;
         const response = await fetch(urlAllEncounters);
         const results = await response.json();
