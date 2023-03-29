@@ -64,3 +64,4 @@ const addMiddlewares = () => {
   loadRoutes();
   startServer();
 })();
+export default app;
