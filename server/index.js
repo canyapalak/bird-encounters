@@ -50,8 +50,8 @@ const addMiddlewares = () => {
     origin: "*",
     credentials: true,
   };
-  app.use(cors(corsOptions));
-  // app.use(cors());
+  // app.use(cors(corsOptions));
+  app.use(cors());
   cloudinaryConfig();
   app.use(passport.initialize());
   passport.use(jwtStrategy);
@@ -59,8 +59,20 @@ const addMiddlewares = () => {
 
 //IIFE
 (async function controller() {
-  await mongoDBConnection();
   addMiddlewares();
   loadRoutes();
-  startServer();
+  try {
+    const mongoConnection = await mongoDBConnection();
+  if (mongoConnection) {
+
+    startServer();
+  } else {
+    console.log("mongo db connection went wrong");
+  }
+    
+  } catch (error) {
+    console.log('error :>> ', error);
+  }
+  
 })();
+export default app
