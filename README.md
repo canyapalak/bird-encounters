@@ -8,7 +8,7 @@ Bird Encounters is a social platform designed for bird observers. With this app,
 
 The app has a general map page where all encounters are visible as markers on the world map. By clicking on a marker, users can access specific encounters. Users can register, login, and logout, as well as edit or remove the posts they created. They can also post comments under encounters and delete them, as well as update their own encounters.
 
-Bird Encounters is a full-stack project made with MERN stack, which includes Mongo DB, Express, React, and Node.js. The app was designed to get familiar with back-end development and create a full-package project from scratch. In adition to MERN stack, several middlewares like Multer, JWT, Passport, and Cloudinary were used as well.
+Bird Encounters is a full-stack project made with MERN stack, which includes Mongo DB, Express, React, and Node.js. The app was designed to get familiar with back-end development and create a full-package project from scratch. In addition to MERN stack, several middlewares like Multer, JWT, Passport, and Cloudinary were used as well.
 
 </p>
   
